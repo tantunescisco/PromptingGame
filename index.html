@@ -7,8 +7,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- MUSIC TOGGLE (always visible) -->
-  <button id="music-toggle" onclick="MusicEngine.toggle()" title="Toggle Music">🔊</button>
+  <!-- AUDIO CONTROLS (always visible) -->
+  <div id="audio-controls">
+    <button id="music-toggle" onclick="MusicEngine.toggle()" title="Toggle Music">🎵</button>
+    <button id="sfx-toggle" onclick="SoundEngine.toggle()" title="Toggle Sound Effects">🔔</button>
+  </div>
 
   <!-- SCREENS -->
   <div id="screen-welcome" class="screen active">

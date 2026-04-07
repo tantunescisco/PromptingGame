@@ -796,11 +796,15 @@ body.level-5 #final-title {
 }
 body.level-5 .sb-live-dot { color: #00ff88; }
 
-#music-toggle {
+#audio-controls {
   position: fixed;
   top: 14px;
   right: 16px;
   z-index: 10000;
+  display: flex;
+  gap: 6px;
+}
+#music-toggle, #sfx-toggle {
   background: rgba(0,0,0,0.18);
   border: 2px solid rgba(255,255,255,0.3);
   border-radius: 50%;
@@ -814,8 +818,9 @@ body.level-5 .sb-live-dot { color: #00ff88; }
   backdrop-filter: blur(4px);
   transition: background 0.2s, transform 0.15s;
 }
-#music-toggle:hover { background: rgba(0,0,0,0.35); transform: scale(1.1); }
-body.level-5 #music-toggle { border-color: #00ff88; color: #00ff88; background: rgba(0,255,136,0.08); }
+#music-toggle:hover, #sfx-toggle:hover { background: rgba(0,0,0,0.35); transform: scale(1.1); }
+#music-toggle.muted, #sfx-toggle.muted { opacity: 0.45; }
+body.level-5 #music-toggle, body.level-5 #sfx-toggle { border-color: #00ff88; color: #00ff88; background: rgba(0,255,136,0.08); }
 
 /* ============================================
    NAME ENTRY
