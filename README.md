@@ -29,7 +29,9 @@ Prompt Quest is a workshop tool for teaching participants how to communicate eff
 - **4 exercise types:** Multiple choice, free-text prompts, drag-to-order, and matching
 - **Shared live scoreboard** — all participants see the same leaderboard in real time (Firebase)
 - **Per-level and overall leaderboards** with score + time tie-breaking
+- **Top-5 weekly leaderboard on the start screen** — visible before the game begins
 - **Weekly auto-reset** — scores clear every Monday at 00:00 UTC automatically
+- **Quit button** — exit to the start screen at any point during the game
 - **Themed music** per level using the Web Audio API (procedural, no audio files)
 - **Themed sound effects** for correct/wrong answers, independent of music
 - **Separate mute controls** for music 🎵 and sound effects 🔔
