@@ -935,7 +935,6 @@ body.level-5 .scoreboard-title {
   font-size: 0.9rem;
 }
 .scoreboard-table th {
-  text-align: left;
   padding: 7px 10px;
   font-size: 0.78rem;
   text-transform: uppercase;
@@ -943,6 +942,12 @@ body.level-5 .scoreboard-title {
   color: var(--text-light);
   border-bottom: 2px solid var(--card-border);
 }
+/* Per-column header alignment mirrors the data cell alignment below */
+.scoreboard-table th:nth-child(1) { text-align: center; }
+.scoreboard-table th:nth-child(2) { text-align: left; }
+.scoreboard-table th:nth-child(3) { text-align: right; }
+.scoreboard-table th:nth-child(4) { text-align: right; }
+
 .scoreboard-table td {
   padding: 9px 10px;
   border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -956,11 +961,11 @@ body.level-5 .scoreboard-table td { border-bottom-color: rgba(255,255,255,0.06);
 .scoreboard-table tbody tr:hover td { background: rgba(0,0,0,0.03); }
 body.level-5 .scoreboard-table tbody tr:hover td { background: rgba(0,255,136,0.04); }
 
-/* Rank medal badges */
-.scoreboard-table td.rank { font-size: 1.2rem; width: 36px; }
-.scoreboard-table td.player-name { font-weight: 700; }
-.scoreboard-table td.score-val { font-weight: 800; color: var(--primary); }
-.scoreboard-table td.time-val { color: var(--text-light); font-variant-numeric: tabular-nums; }
+/* Per-column data cell alignment */
+.scoreboard-table td.rank       { font-size: 1.2rem; width: 36px; text-align: center; }
+.scoreboard-table td.player-name { font-weight: 700; text-align: left; }
+.scoreboard-table td.score-val  { font-weight: 800; color: var(--primary); text-align: right; }
+.scoreboard-table td.time-val   { color: var(--text-light); font-variant-numeric: tabular-nums; text-align: right; }
 
 /* Highlight current player row */
 .scoreboard-table tr.current-player td {
