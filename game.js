@@ -1757,31 +1757,104 @@ const GameState = {
 };
 
 // ============================================================
+// FIREBASE CONFIG  (Tier-1 shared storage — works on GitHub Pages)
+// ─────────────────────────────────────────────────────────────
+// Set up a FREE Firebase Realtime Database in ~3 minutes:
+//   1. Go to https://console.firebase.google.com
+//   2. Create a project → Realtime Database → Create database
+//   3. Choose "Start in test mode" (public read/write)
+//   4. Copy the database URL (e.g. https://my-app-default-rtdb.firebaseio.com)
+//   5. Paste it below (no trailing slash)
+//
+// When set, ALL participants — even on GitHub Pages — share the same
+// live scoreboard in real time. Leave empty to use server.py or localStorage.
+// ─────────────────────────────────────────────────────────────
+const FIREBASE_URL = ''; // ← paste your Firebase Realtime Database URL here
+
+// ============================================================
 // SCOREBOARD STORAGE
-// — Primary:  REST API via server.js (multi-user, shared)
-// — Fallback: localStorage (single-device / file:// mode)
+// — Tier 1: Firebase Realtime Database (if FIREBASE_URL is set)
+//           Works on GitHub Pages. All devices share scores.
+// — Tier 2: REST API via server.py (if running on local network)
+// — Tier 3: localStorage (per-device fallback / file:// mode)
 // ============================================================
 const Scoreboard = {
-  _lsKey: 'pq_scores',
-  _online: null,          // null = unknown
+  _lsKey:      'pq_scores',
+  _apiOnline:  null,              // null = not yet checked
+  _fbEnabled:  !!FIREBASE_URL,   // true when Firebase URL is configured
 
-  // ── API availability check (once per session) ──────────
-  async _isOnline() {
-    if (this._online !== null) return this._online;
-    if (window.location.protocol === 'file:') { this._online = false; return false; }
+  // ── Firebase helpers ─────────────────────────────────────
+  async _fbSave(levelId, name, score, timeMs) {
+    // POST appends a new entry with an auto-generated key (no race condition)
+    await fetch(`${FIREBASE_URL}/scores/${levelId}.json`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name, score, timeMs, date: Date.now() })
+    });
+    return this._fbGet(levelId);
+  },
+
+  async _fbGet(levelId) {
+    const r    = await fetch(`${FIREBASE_URL}/scores/${levelId}.json`);
+    const data = await r.json();
+    if (!data || typeof data !== 'object') return [];
+    return Object.values(data)
+      .filter(e => e && e.name)
+      .sort((a, b) => b.score - a.score || a.timeMs - b.timeMs);
+  },
+
+  async _fbOverall() {
+    const r    = await fetch(`${FIREBASE_URL}/scores.json`);
+    const data = await r.json();
+    if (!data || typeof data !== 'object') return [];
+    // data = { "1": { "-key": {entry}, ... }, "2": { ... }, ... }
+    const best = {};
+    Object.entries(data).forEach(([lid, levelObj]) => {
+      if (!levelObj || typeof levelObj !== 'object') return;
+      const seen = {};
+      Object.values(levelObj).forEach(e => {
+        if (!e || !e.name) return;
+        const k = `${e.name}\x00${lid}`;
+        if (!seen[k] || e.score > seen[k].score ||
+            (e.score === seen[k].score && e.timeMs < seen[k].timeMs)) seen[k] = e;
+      });
+      Object.values(seen).forEach(e => {
+        if (!best[e.name]) best[e.name] = { name: e.name, totalScore: 0, totalTimeMs: 0 };
+        best[e.name].totalScore  += e.score;
+        best[e.name].totalTimeMs += e.timeMs;
+      });
+    });
+    return Object.values(best)
+      .sort((a, b) => b.totalScore - a.totalScore || a.totalTimeMs - b.totalTimeMs);
+  },
+
+  // ── REST API (server.py) availability check ───────────────
+  async _isApiOnline() {
+    if (this._apiOnline !== null) return this._apiOnline;
+    if (window.location.protocol === 'file:') { this._apiOnline = false; return false; }
     try {
       const ctrl = new AbortController();
       const tid  = setTimeout(() => ctrl.abort(), 2500);
       const r    = await fetch('/api/scores/1', { signal: ctrl.signal });
       clearTimeout(tid);
-      this._online = r.ok || r.status === 200;
-    } catch { this._online = false; }
-    return this._online;
+      this._apiOnline = r.ok || r.status === 200;
+    } catch { this._apiOnline = false; }
+    return this._apiOnline;
   },
 
-  // ── Public API (async) ────────────────────────────────
+  // Returns true when ANY shared backend is available (for LIVE badge)
+  async _isOnline() {
+    return this._fbEnabled || (await this._isApiOnline());
+  },
+
+  // ── Public API (3-tier, async) ────────────────────────────
   async saveLevel(levelId, name, score, timeMs) {
-    if (await this._isOnline()) {
+    // Tier 1 — Firebase
+    if (this._fbEnabled) {
+      try { return await this._fbSave(levelId, name, score, timeMs); } catch {}
+    }
+    // Tier 2 — REST API
+    if (await this._isApiOnline()) {
       try {
         const r = await fetch(`/api/scores/${levelId}`, {
           method:  'POST',
@@ -1791,11 +1864,15 @@ const Scoreboard = {
         if (r.ok) return await r.json();
       } catch {}
     }
+    // Tier 3 — localStorage
     return this._lsSave(levelId, name, score, timeMs);
   },
 
   async getLevel(levelId) {
-    if (await this._isOnline()) {
+    if (this._fbEnabled) {
+      try { return await this._fbGet(levelId); } catch {}
+    }
+    if (await this._isApiOnline()) {
       try {
         const r = await fetch(`/api/scores/${levelId}`);
         if (r.ok) return await r.json();
@@ -1805,7 +1882,10 @@ const Scoreboard = {
   },
 
   async getOverall() {
-    if (await this._isOnline()) {
+    if (this._fbEnabled) {
+      try { return await this._fbOverall(); } catch {}
+    }
+    if (await this._isApiOnline()) {
       try {
         const r = await fetch('/api/scores/overall');
         if (r.ok) return await r.json();
@@ -1814,7 +1894,7 @@ const Scoreboard = {
     return this._lsOverall();
   },
 
-  // ── localStorage fallback ────────────────────────────
+  // ── localStorage fallback ─────────────────────────────────
   _lsLoad() {
     try { return JSON.parse(localStorage.getItem(this._lsKey)) || {}; }
     catch { return {}; }

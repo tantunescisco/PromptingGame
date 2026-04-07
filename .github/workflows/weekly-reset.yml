@@ -1,0 +1,33 @@
+name: Weekly Score Reset
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'   # Every Monday at 00:00 UTC
+  workflow_dispatch:        # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  reset-firebase-scores:
+    name: Reset Firebase scores
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Reset Firebase Realtime Database scores
+        env:
+          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
+        run: |
+          if [ -z "$FIREBASE_URL" ]; then
+            echo "FIREBASE_URL secret is not set — skipping Firebase reset."
+            exit 0
+          fi
+          echo "Resetting scores at $FIREBASE_URL ..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X DELETE "${FIREBASE_URL}/scores.json")
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Firebase scores reset successfully (HTTP $STATUS)"
+          else
+            echo "❌ Firebase reset returned HTTP $STATUS"
+            exit 1
+          fi
+
+      - name: Log reset time
+        run: echo "Reset completed at $(date -u '+%Y-%m-%d %H:%M UTC')"

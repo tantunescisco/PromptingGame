@@ -6,7 +6,80 @@ An interactive browser-based game for learning and practicing **prompt engineeri
 
 ---
 
-## Overview
+## Scoreboard Storage Architecture
+
+The app uses a **3-tier storage system** — it automatically picks the best available option:
+
+| Tier | Storage | Shared across devices? | Works on GitHub Pages? | Auto-reset |
+|------|---------|----------------------|----------------------|------------|
+| 1 | **Firebase Realtime Database** | ✅ Yes (real-time) | ✅ Yes | ✅ GitHub Actions cron |
+| 2 | **server.py REST API** | ✅ Yes (5s polling) | ❌ No (needs local server) | ✅ Built-in Monday scheduler |
+| 3 | **localStorage** | ❌ No (per device) | ✅ Yes (fallback) | ❌ Manual |
+
+> **Why scores don't sync by default on GitHub Pages:** The static GitHub Pages hosting has no backend. Every player's browser uses its own `localStorage`. To share scores across all participants you need either Firebase (Tier 1) or a local server (Tier 2).
+
+---
+
+## Setting Up Shared Scores (Required for Workshops)
+
+### Option A — Firebase Realtime Database (recommended for GitHub Pages)
+
+**One-time setup (~3 minutes):**
+
+1. Go to [https://console.firebase.google.com](https://console.firebase.google.com) and create a project
+2. In the left sidebar → **Realtime Database** → **Create database**
+3. Choose **"Start in test mode"** (allows public read/write — fine for a workshop)
+4. Copy the database URL (format: `https://YOUR-PROJECT-default-rtdb.firebaseio.com`)
+5. Open `game.js` and paste the URL into the config at the top:
+   ```js
+   const FIREBASE_URL = 'https://YOUR-PROJECT-default-rtdb.firebaseio.com';
+   ```
+6. Commit and push — all participants on the GitHub Pages URL will now share the same scoreboard in real time
+
+**Enable weekly auto-reset via GitHub Actions:**
+
+7. In your GitHub repo → **Settings → Secrets and variables → Actions** → **New repository secret**
+   - Name: `FIREBASE_URL`
+   - Value: your Firebase database URL
+8. Done — the `.github/workflows/weekly-reset.yml` workflow runs every Monday at 00:00 UTC and deletes all scores
+
+---
+
+### Option B — Local network server (no Firebase account needed)
+
+Run the included Python server on the facilitator's machine. All participants on the same network share scores.
+
+**Requirements:** Python 3.6+ (no pip install — stdlib only)
+
+```bash
+git clone https://github.com/tantunescisco/PromptingGame.git
+cd PromptingGame
+python server.py
+```
+
+The console displays the network URL and the next scheduled auto-reset time:
+
+```
+╔══════════════════════════════════════════╗
+║   🚀  Prompt Quest Server — RUNNING       ║
+╠══════════════════════════════════════════╣
+║   Local:    http://localhost:3000         ║
+║   Network:  http://192.168.x.x:3000      ║
+╠══════════════════════════════════════════╣
+║   📋 Share the Network URL above with    ║
+║      workshop participants.               ║
+║   🔧 Admin panel: /admin                 ║
+║   🔄 Auto-reset: 2026-04-13 00:00 UTC   ║
+╚══════════════════════════════════════════╝
+```
+
+Share the Network URL with participants. The app auto-detects the server and switches from localStorage to the shared API.
+
+**Admin panel:** `http://localhost:3000/admin` — view all scores, manual reset, and next scheduled auto-reset time.
+
+**Auto-reset:** The server automatically clears all scores every **Monday at 00:00 UTC** via a background scheduler thread.
+
+
 
 Prompt Quest is designed as a workshop tool to teach participants how to communicate effectively with AI systems. Each level introduces new prompt engineering concepts through hands-on exercises with immediate feedback.
 

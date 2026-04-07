@@ -8,6 +8,7 @@ Then share the Network URL shown in the console with participants.
 Admin panel: http://<ip>:3000/admin
 """
 
+import datetime
 import http.server
 import json
 import os
@@ -54,6 +55,43 @@ def _persist_scores():
 
 
 _load_scores()
+
+
+def _reset_scores():
+    """Clear all scores from memory and disk."""
+    global scores
+    with _lock:
+        scores = {}
+        _persist_scores()
+
+
+def _seconds_until_next_monday():
+    """Return seconds until the next Monday 00:00:00 UTC."""
+    now = datetime.datetime.utcnow()
+    # weekday(): 0=Mon … 6=Sun  →  days until next Monday:
+    days_ahead = (7 - now.weekday()) % 7
+    if days_ahead == 0:
+        days_ahead = 7   # already Monday → schedule for *next* Monday
+    next_monday = (now + datetime.timedelta(days=days_ahead)).replace(
+        hour=0, minute=0, second=0, microsecond=0
+    )
+    return max(0.0, (next_monday - datetime.datetime.utcnow()).total_seconds())
+
+
+def _schedule_weekly_reset():
+    """Self-rescheduling daemon timer: resets scores every Monday 00:00 UTC."""
+    delay = _seconds_until_next_monday()
+
+    def _run():
+        _reset_scores()
+        ts = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+        print(f"\n[AUTO-RESET] ✅  Scores cleared automatically at {ts} (Monday schedule)")
+        _schedule_weekly_reset()   # reschedule for the following week
+
+    t = threading.Timer(delay, _run)
+    t.daemon = True
+    t.start()
+    return t
 
 
 def _sort_level(entries):
@@ -107,6 +145,7 @@ ADMIN_PAGE = """<!DOCTYPE html>
   <h1>&#127918; Prompt Quest &#8212; Admin Panel</h1>
   <button onclick="resetScores()">&#9888;&#65039; Reset ALL Scores</button>
   <button onclick="loadData()">&#128260; Refresh Data</button>
+  <div id="reset-info" style="margin-top:12px;color:#8f8;font-size:0.9rem"></div>
   <div id="status"></div>
   <pre id="data">Loading...</pre>
   <script>
@@ -117,12 +156,21 @@ ADMIN_PAGE = """<!DOCTYPE html>
       document.getElementById('status').textContent=d.ok?'✅ Scores reset.':'❌ Error';
       loadData();
     }
+    async function loadResetInfo(){
+      try{
+        const r=await fetch('/api/reset-info');
+        const d=await r.json();
+        document.getElementById('reset-info').textContent=
+          '🔄 Next auto-reset: '+d.nextReset+' ('+d.schedule+')';
+      }catch{}
+    }
     async function loadData(){
       const r=await fetch('/api/scores/overall');
       const d=await r.json();
       document.getElementById('data').textContent=JSON.stringify(d,null,2);
     }
     loadData();
+    loadResetInfo();
   </script>
 </body>
 </html>"""
@@ -202,6 +250,15 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self._html(200, ADMIN_PAGE)
             return
 
+        # API — reset schedule info
+        if pathname == "/api/reset-info":
+            delay  = _seconds_until_next_monday()
+            next_t = (datetime.datetime.utcnow() +
+                      datetime.timedelta(seconds=delay)).strftime("%Y-%m-%d %H:%M UTC")
+            self._json(200, {"nextReset": next_t,
+                             "schedule": "Every Monday 00:00 UTC"})
+            return
+
         # API — overall scoreboard
         if pathname == "/api/scores/overall":
             self._json(200, _build_overall())
@@ -267,10 +324,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         pathname = parsed.path
 
         if pathname == "/api/scores":
-            global scores
-            with _lock:
-                scores = {}
-                _persist_scores()
+            _reset_scores()
             self._json(200, {"ok": True})
         else:
             self._json(404, {"error": "Not found"})
@@ -291,7 +345,13 @@ def _get_local_ips():
 
 def main():
     server = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
-    ips = _get_local_ips()
+    ips    = _get_local_ips()
+
+    # Schedule weekly auto-reset (Monday 00:00 UTC)
+    _schedule_weekly_reset()
+    delay     = _seconds_until_next_monday()
+    next_reset = (datetime.datetime.utcnow() +
+                  datetime.timedelta(seconds=delay)).strftime("%Y-%m-%d %H:%M UTC")
 
     print("\n╔══════════════════════════════════════════╗")
     print("║   🚀  Prompt Quest Server — RUNNING       ║")
@@ -304,6 +364,7 @@ def main():
     print("║   📋 Share the Network URL above with    ║")
     print("║      workshop participants.               ║")
     print("║   🔧 Admin panel: /admin                 ║")
+    print(f"║   🔄 Auto-reset: {next_reset.ljust(22)} ║")
     print("╚══════════════════════════════════════════╝\n")
 
     try:
