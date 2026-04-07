@@ -1769,7 +1769,7 @@ const GameState = {
 // When set, ALL participants — even on GitHub Pages — share the same
 // live scoreboard in real time. Leave empty to use server.py or localStorage.
 // ─────────────────────────────────────────────────────────────
-const FIREBASE_URL = ''; // ← paste your Firebase Realtime Database URL here
+const FIREBASE_URL = 'https://promptinggamedb-default-rtdb.europe-west1.firebasedatabase.app'; // Firebase Realtime Database
 
 // ============================================================
 // SCOREBOARD STORAGE
