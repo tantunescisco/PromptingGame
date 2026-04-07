@@ -2480,6 +2480,7 @@ const GameEngine = {
 
   quitGame() {
     this._stopPolling();
+    Timer.stop();
     MusicEngine._stopAll();
     setTheme('');
     document.body.className = '';
@@ -2923,6 +2924,10 @@ const GameEngine = {
 // ============================================================
 window.addEventListener('DOMContentLoaded', () => {
   showScreen('screen-welcome');
+
+  // Quit button
+  const quitBtn = document.getElementById('quit-btn');
+  if (quitBtn) quitBtn.addEventListener('click', () => GameEngine.quitGame());
 
   // Allow Enter key to start game from name field
   const nameInput = document.getElementById('player-name-input');

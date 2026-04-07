@@ -805,25 +805,21 @@ body.level-5 .sb-live-dot { color: #00ff88; }
   gap: 6px;
 }
 #quit-btn {
-  background: rgba(200,50,30,0.12);
-  border: 2px solid rgba(255,100,80,0.45);
-  border-radius: 20px;
-  padding: 0 14px;
+  background: rgba(200,50,30,0.15);
+  border: 2px solid rgba(255,100,80,0.5);
+  border-radius: 50%;
+  width: 42px;
   height: 42px;
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #ff5a45;
+  font-size: 1.1rem;
   cursor: pointer;
   display: none;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   backdrop-filter: blur(4px);
   transition: background 0.2s, transform 0.15s;
-  white-space: nowrap;
-  letter-spacing: 0.5px;
 }
-#quit-btn:hover { background: rgba(200,50,30,0.28); transform: scale(1.05); }
-body.level-5 #quit-btn { border-color: rgba(255,80,60,0.6); }
+#quit-btn:hover { background: rgba(200,50,30,0.35); transform: scale(1.1); }
+body.level-5 #quit-btn { border-color: rgba(255,80,60,0.7); }
 
 #music-toggle, #sfx-toggle {
   background: rgba(0,0,0,0.18);
