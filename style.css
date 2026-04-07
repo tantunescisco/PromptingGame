@@ -842,25 +842,6 @@ body.level-5 #music-toggle, body.level-5 #sfx-toggle { border-color: #00ff88; co
 /* ============================================
    NAME ENTRY
    ============================================ */
-/* Welcome screen leaderboard */
-.welcome-leaderboard {
-  margin-top: 28px;
-  width: 100%;
-  max-width: 420px;
-  background: rgba(255,255,255,0.8);
-  border: 2px solid var(--card-border);
-  border-radius: var(--border-radius);
-  padding: 16px 20px 12px;
-  box-shadow: var(--card-shadow);
-}
-.welcome-lb-title {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  color: var(--primary);
-  text-align: center;
-  margin: 0 0 12px;
-  letter-spacing: 0.5px;
-}
 .lb-loading {
   text-align: center;
   padding: 12px;

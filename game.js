@@ -2881,7 +2881,7 @@ const GameEngine = {
       const entries = await Scoreboard.getOverall();
       const MEDALS = ['🥇', '🥈', '🥉'];
       if (!entries || entries.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" class="lb-loading">No scores yet — be the first!</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="lb-loading">No scores yet — be the first!</td></tr>';
         return;
       }
       tbody.innerHTML = entries.slice(0, 5).map((e, i) => {
@@ -2890,10 +2890,11 @@ const GameEngine = {
           <td class="rank">${rank}</td>
           <td class="player-name">${escHtml(e.name)}</td>
           <td class="score-val">${e.totalScore} pts</td>
+          <td class="time-val">${Timer.format(e.totalTimeMs)}</td>
         </tr>`;
       }).join('');
     } catch {
-      tbody.innerHTML = '<tr><td colspan="3" class="lb-loading">Could not load scores.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" class="lb-loading">Could not load scores.</td></tr>';
     }
   },
 
