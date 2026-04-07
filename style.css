@@ -804,6 +804,27 @@ body.level-5 .sb-live-dot { color: #00ff88; }
   display: flex;
   gap: 6px;
 }
+#quit-btn {
+  background: rgba(200,50,30,0.12);
+  border: 2px solid rgba(255,100,80,0.45);
+  border-radius: 20px;
+  padding: 0 14px;
+  height: 42px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ff5a45;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+#quit-btn:hover { background: rgba(200,50,30,0.28); transform: scale(1.05); }
+body.level-5 #quit-btn { border-color: rgba(255,80,60,0.6); }
+
 #music-toggle, #sfx-toggle {
   background: rgba(0,0,0,0.18);
   border: 2px solid rgba(255,255,255,0.3);
@@ -825,6 +846,32 @@ body.level-5 #music-toggle, body.level-5 #sfx-toggle { border-color: #00ff88; co
 /* ============================================
    NAME ENTRY
    ============================================ */
+/* Welcome screen leaderboard */
+.welcome-leaderboard {
+  margin-top: 28px;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.8);
+  border: 2px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 16px 20px 12px;
+  box-shadow: var(--card-shadow);
+}
+.welcome-lb-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--primary);
+  text-align: center;
+  margin: 0 0 12px;
+  letter-spacing: 0.5px;
+}
+.lb-loading {
+  text-align: center;
+  padding: 12px;
+  color: #999;
+  font-size: 0.9rem;
+}
+
 .name-entry {
   display: flex;
   flex-direction: column;

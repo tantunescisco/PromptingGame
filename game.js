@@ -2374,6 +2374,11 @@ function showScreen(id) {
   el.style.display = 'flex';
   void el.offsetWidth;
   el.classList.add('active');
+
+  const quitBtn = document.getElementById('quit-btn');
+  if (quitBtn) quitBtn.style.display = id === 'screen-welcome' ? 'none' : 'flex';
+
+  if (id === 'screen-welcome') GameEngine._renderWelcomeLeaderboard();
 }
 
 function setTheme(levelClass) {
@@ -2469,8 +2474,16 @@ const GameEngine = {
     this._stopPolling();
     MusicEngine._stopAll();
     setTheme('');
-    showScreen('screen-welcome');
     document.body.className = '';
+    showScreen('screen-welcome');
+  },
+
+  quitGame() {
+    this._stopPolling();
+    MusicEngine._stopAll();
+    setTheme('');
+    document.body.className = '';
+    showScreen('screen-welcome');
   },
 
   showLevelIntro() {
@@ -2860,6 +2873,29 @@ const GameEngine = {
    *  entries: array of { name, score, timeMs } (level) OR { name, totalScore, totalTimeMs } (overall)
    *  isOverall: boolean — uses totalScore/totalTimeMs keys when true
    */
+  async _renderWelcomeLeaderboard() {
+    const tbody = document.getElementById('welcome-leaderboard-body');
+    if (!tbody) return;
+    try {
+      const entries = await Scoreboard.getOverall();
+      const MEDALS = ['🥇', '🥈', '🥉'];
+      if (!entries || entries.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" class="lb-loading">No scores yet — be the first!</td></tr>';
+        return;
+      }
+      tbody.innerHTML = entries.slice(0, 5).map((e, i) => {
+        const rank = MEDALS[i] || `${i + 1}`;
+        return `<tr>
+          <td class="rank">${rank}</td>
+          <td class="player-name">${escHtml(e.name)}</td>
+          <td class="score-val">${e.totalScore} pts</td>
+        </tr>`;
+      }).join('');
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="3" class="lb-loading">Could not load scores.</td></tr>';
+    }
+  },
+
   _renderScoreboardTable(tbodyId, entries, currentPlayer, isOverall) {
     const tbody = document.getElementById(tbodyId);
     if (!tbody) return;
