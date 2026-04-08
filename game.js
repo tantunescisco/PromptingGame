@@ -2180,6 +2180,57 @@ const MusicEngine = {
     this.oscillators.push(osc);
   },
 
+  // ── Welcome screen: upbeat challenge theme (A minor pentatonic, energetic & inviting)
+  playWelcome() {
+    this._stopAll();
+    this.currentLevel = null;
+    if (!this.enabled) return;
+    const ctx = this._ctx();
+    // A minor pentatonic: A C D E G
+    const scale = [220, 261.63, 293.66, 329.63, 392];
+    const melody = [0, 2, 4, 3, 2, 4, 3, 1, 0, null, 2, 3, 4, null, 3, 2];
+    const beatMs = 280;
+    let step = 0;
+
+    const tick = () => {
+      const now = ctx.currentTime;
+      const m = melody[step % melody.length];
+      if (m !== null) {
+        this._note(ctx, scale[m], now, 0.22, 'triangle', 0.18);
+        if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.15, 'sine', 0.06);
+      }
+      step++;
+    };
+    tick();
+    this.schedulers.push(setInterval(tick, beatMs));
+
+    // Punchy bass on beat 1 and 5
+    const bassNotes = [110, 130.81, 110, 146.83];
+    let bi = 0;
+    const bassTick = () => {
+      const now = ctx.currentTime;
+      this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.3, 'square', 0.09);
+      bi++;
+    };
+    bassTick();
+    this.schedulers.push(setInterval(bassTick, beatMs * 4));
+
+    // Light hi-hat shuffle
+    const hatTick = () => {
+      const now = ctx.currentTime;
+      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.03), ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 7000;
+      const g = ctx.createGain(); g.gain.value = 0.04;
+      src.connect(filt); filt.connect(g); g.connect(this.masterGain);
+      src.start(now);
+    };
+    this.schedulers.push(setInterval(hatTick, beatMs * 2));
+  },
+
   // ── Level 1: Gentle lullaby-style melody (C major, slow & soft, with rests)
   _playLevel1(ctx) {
     const scale = [261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
@@ -2706,6 +2757,7 @@ const GameEngine = {
     setTheme('');
     document.body.className = '';
     showScreen('screen-welcome');
+    MusicEngine.playWelcome();
   },
 
   quitGame() {
@@ -2715,6 +2767,7 @@ const GameEngine = {
     setTheme('');
     document.body.className = '';
     showScreen('screen-welcome');
+    MusicEngine.playWelcome();
   },
 
   showLevelIntro() {
@@ -3179,6 +3232,15 @@ const GameEngine = {
 // ============================================================
 window.addEventListener('DOMContentLoaded', () => {
   showScreen('screen-welcome');
+
+  // Start welcome music on first user interaction (browsers require gesture)
+  const startWelcomeMusic = () => {
+    MusicEngine.playWelcome();
+    document.removeEventListener('click', startWelcomeMusic);
+    document.removeEventListener('keydown', startWelcomeMusic);
+  };
+  document.addEventListener('click', startWelcomeMusic, { once: false });
+  document.addEventListener('keydown', startWelcomeMusic, { once: false });
 
   // Quit button
   const quitBtn = document.getElementById('quit-btn');
