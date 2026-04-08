@@ -87,8 +87,10 @@ const GAME_DATA = {
           hint: "What connecting word helps? Try 'to me' or 'clearly' to fill the blank!",
           inputType: "freetext",
           placeholder: "Type your completed prompt here...",
-          keywords: ["simple", "kid", "6 year", "easy", "child", "plain", "explain"],
-          minLength: 20,
+          keywords: ["simple", "6 year", "easy", "child", "explain", "rain", "understand", "plain language"],
+          minLength: 30,
+          keywordsForFull: 4,
+          keywordsForHalf: 2,
           explanation: "Great prompts for simple explanations include audience context ('for a 6 year old'), tone ('simple words'), and a clear task ('explain what rain is'). You nailed the basics!",
           tip: "💡 Pro Tip: Always think about WHO will read the answer. Telling the AI the audience makes answers much more useful!"
         },
@@ -253,8 +255,10 @@ const GAME_DATA = {
           hint: "Think: How many questions? What tone? What age group?",
           inputType: "freetext",
           placeholder: "Complete the prompt...",
-          keywords: ["quiz", "dinosaur", "kid", "question", "fun", "child", "young", "answer"],
-          minLength: 20,
+          keywords: ["quiz", "dinosaur", "question", "fun", "age", "multiple", "answer", "correct"],
+          minLength: 30,
+          keywordsForFull: 4,
+          keywordsForHalf: 2,
           explanation: "A great completion: 'Create a 5-question fun multiple-choice quiz about dinosaurs for kids aged 7-10. Include the correct answer after each question.' — specific, includes all key details!",
           tip: "💡 Pro Tip: When creating quizzes, always specify the number of questions, format, topic, and audience age."
         },
@@ -351,8 +355,10 @@ const GAME_DATA = {
           hint: "Think about audience (grandparent, no computer experience) and tone (simple, friendly, no jargon).",
           inputType: "freetext",
           placeholder: "Write your prompt here...",
-          keywords: ["explain", "simple", "grandparent", "internet", "easy", "friendly", "no", "jargon", "clear"],
-          minLength: 30,
+          keywords: ["explain", "grandparent", "internet", "simple", "friendly", "jargon", "analogy", "comparison", "understand"],
+          minLength: 40,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Explain what the internet is to a grandparent who has never used a computer. Use very simple language, no technical jargon, and include a real-life comparison to help them understand.' — audience + tone + comparison request = excellent prompt!",
           tip: "💡 Pro Tip: Asking for real-life comparisons or analogies makes complex topics much easier to understand!"
         }
@@ -405,8 +411,10 @@ const GAME_DATA = {
           hint: "Pick a specific topic, time period, or person. Add a length or format.",
           inputType: "freetext",
           placeholder: "Write your improved prompt here...",
-          keywords: ["in", "about", "history", "century", "war", "revolution", "years", "summarize", "explain"],
-          minLength: 30,
+          keywords: ["history", "century", "war", "revolution", "summarize", "bullet", "paragraph", "student", "cause", "event"],
+          minLength: 40,
+          keywordsForFull: 4,
+          keywordsForHalf: 2,
           explanation: "A strong rewrite might be: 'Summarize the main causes of World War I in 3 bullet points for a high school student.' It specifies TOPIC, FORMAT, AUDIENCE, and LENGTH.",
           tip: "💡 Pro Tip: Use the 5W formula — Who, What, When, Where, Why — to build strong prompts!"
         },
@@ -435,8 +443,10 @@ const GAME_DATA = {
           hint: "What subject? What level? What format? How long?",
           inputType: "freetext",
           placeholder: "Type your improved prompt...",
-          keywords: ["study", "guide", "bullet", "topic", "exam", "chapter", "subject", "key", "point", "summary", "format"],
-          minLength: 40,
+          keywords: ["study guide", "bullet", "exam", "chapter", "subject", "key concept", "summary", "grade", "topic"],
+          minLength: 50,
+          keywordsForFull: 4,
+          keywordsForHalf: 2,
           explanation: "Example strong prompt: 'Create a study guide for Chapter 3 on the French Revolution for a 10th-grade history exam. Include 5 key events, dates, and why they matter, in bullet point format.' Specific = powerful!",
           tip: "💡 Pro Tip: When writing prompts for study materials, include the subject, grade level, topics, and format."
         },
@@ -533,8 +543,10 @@ const GAME_DATA = {
           hint: "Which platform? What product? What tone? What length? What call-to-action?",
           inputType: "freetext",
           placeholder: "Write your improved prompt here...",
-          keywords: ["post", "instagram", "twitter", "linkedin", "facebook", "tone", "brand", "product", "hashtag", "call", "action", "words"],
-          minLength: 35,
+          keywords: ["instagram", "twitter", "linkedin", "facebook", "tone", "brand", "product", "hashtag", "call-to-action", "engaging", "audience"],
+          minLength: 45,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example strong prompt: 'Write an engaging Instagram post for a coffee brand launching a new seasonal pumpkin spice latte. Keep it under 80 words, use a warm and playful tone, include 3 relevant hashtags, and end with a call-to-action to visit the website.' — Complete brief!",
           tip: "💡 Pro Tip: Every social media prompt needs: platform, brand/product, tone, length, and CTA."
         },
@@ -597,8 +609,10 @@ const GAME_DATA = {
           hint: "What product? What features? What tone? What length? Who is the buyer?",
           inputType: "freetext",
           placeholder: "Write your improved prompt...",
-          keywords: ["product", "description", "feature", "benefit", "tone", "buyer", "customer", "word", "SEO", "persuasive", "audience"],
-          minLength: 40,
+          keywords: ["product", "description", "feature", "benefit", "tone", "customer", "persuasive", "SEO", "audience", "headphone", "wireless"],
+          minLength: 50,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Write a 100-word persuasive product description for a wireless noise-cancelling headphone targeting remote workers. Highlight: 30-hour battery, studio-quality sound, and foldable design. Use an active, professional tone. Include SEO keywords.'",
           tip: "💡 Pro Tip: Product description prompts need: product name, key features, target audience, tone, word count, and optionally SEO keywords."
         },
@@ -644,8 +658,10 @@ const GAME_DATA = {
           hint: "Choose a specific tech topic, add audience, format, and purpose.",
           inputType: "freetext",
           placeholder: "Type your better prompt...",
-          keywords: ["explain", "technology", "audience", "specific", "format", "purpose", "beginner", "expert", "topic", "example"],
-          minLength: 35,
+          keywords: ["explain", "technology", "audience", "beginner", "paragraph", "example", "cloud", "business owner", "background"],
+          minLength: 45,
+          keywordsForFull: 4,
+          keywordsForHalf: 2,
           explanation: "Example: 'Explain how cloud computing works to a small business owner with no IT background. Use 3 brief paragraphs with a real-world business example in each.' Specific topic + audience + format + examples = excellent output!",
           tip: "💡 Pro Tip: When rewriting a vague prompt, identify the missing W's (What specifically? For Whom? In what Format?) and add them."
         },
@@ -691,8 +707,10 @@ const GAME_DATA = {
           hint: "What topic? How many questions? What audience? What format?",
           inputType: "freetext",
           placeholder: "Write your improved prompt...",
-          keywords: ["faq", "question", "answer", "topic", "customer", "format", "audience", "numbered", "include", "about"],
-          minLength: 40,
+          keywords: ["faq", "question", "answer", "audience", "numbered", "simple language", "banking", "first-time", "jargon"],
+          minLength: 50,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Create a FAQ document with 8 questions and answers about using a mobile banking app for first-time users over 60. Use simple language, avoid jargon, and format as numbered Q&A pairs.'",
           tip: "💡 Pro Tip: For FAQ prompts, always specify: topic, number of Q&As, audience, tone, and format (Q: A: pairs, numbered, etc.)."
         }
@@ -751,8 +769,10 @@ const GAME_DATA = {
           hint: "Think: Who should the AI be? What is the situation? What kind of advice is needed?",
           inputType: "freetext",
           placeholder: "Write your context-rich prompt here...",
-          keywords: ["you are", "act as", "context", "background", "as a", "your goal", "I am", "situation"],
-          minLength: 40,
+          keywords: ["you are", "act as", "coach", "graduate", "career", "interview", "tips", "situation", "experience"],
+          minLength: 50,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are a career coach with 10 years of experience. I am a recent graduate looking for my first job in marketing. Give me 5 practical tips to stand out during interviews.' — Role + context = great advice!",
           tip: "💡 Pro Tip: 'You are a [role]. [Situation]. [Request].' is a winning prompt formula!"
         },
@@ -781,8 +801,10 @@ const GAME_DATA = {
           hint: "Who should the AI be? What should it focus on? What format? How critical should it be?",
           inputType: "freetext",
           placeholder: "Type your enhanced prompt...",
-          keywords: ["you are", "act as", "investor", "expert", "mentor", "feedback", "focus", "strengths", "weakness", "improvement", "format"],
-          minLength: 50,
+          keywords: ["you are", "investor", "mentor", "strengths", "weakness", "improvement", "honest", "direct", "business plan", "suggestion"],
+          minLength: 60,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are an experienced startup investor. Review my business plan below and provide: 3 key strengths, 3 major weaknesses, and 3 specific improvement suggestions. Be honest and direct.' — Role + task + format + tone!",
           tip: "💡 Pro Tip: Adding output format to prompts (bullet points, numbered lists, sections) organizes AI responses perfectly."
         },
@@ -868,8 +890,10 @@ const GAME_DATA = {
           hint: "Who should the AI be? What kind of writing? What is its purpose and audience?",
           inputType: "freetext",
           placeholder: "Write your context-rich prompt...",
-          keywords: ["you are", "act as", "writer", "editor", "author", "context", "purpose", "audience", "tone", "help", "writing"],
-          minLength: 40,
+          keywords: ["you are", "technical writer", "documentation", "beginner", "getting started", "step-by-step", "audience", "tone", "purpose"],
+          minLength: 50,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are an experienced technical writer. I am creating documentation for a Python library aimed at beginner developers. Help me write a clear, friendly Getting Started guide with step-by-step setup instructions.'",
           tip: "💡 Pro Tip: Every 'help me with X' prompt becomes 10x more effective when you add role + context + output purpose."
         },
@@ -932,8 +956,10 @@ const GAME_DATA = {
           hint: "What is your current skill level? How much time? What goals? What role should the AI take?",
           inputType: "freetext",
           placeholder: "Write your context-enhanced prompt...",
-          keywords: ["you are", "act as", "tutor", "teacher", "beginner", "intermediate", "week", "month", "goal", "project", "plan", "python", "schedule"],
-          minLength: 50,
+          keywords: ["you are", "tutor", "beginner", "week", "goal", "project", "python", "learning plan", "daily", "schedule"],
+          minLength: 60,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are an experienced Python coding tutor. I am a complete beginner with 1 hour per day for 4 weeks. My goal is to build a simple data analysis script using pandas. Create a week-by-week learning plan with daily tasks and mini-projects.'",
           tip: "💡 Pro Tip: Learning plan prompts need: current skill level, available time, specific goal, and preferred format (day-by-day, week-by-week)."
         },
@@ -1013,8 +1039,10 @@ const GAME_DATA = {
           hint: "Who is the advisor? Who is the client? What is their situation and goal?",
           inputType: "freetext",
           placeholder: "Write your context-rich prompt here...",
-          keywords: ["you are", "act as", "financial", "advisor", "planner", "client", "income", "goal", "budget", "save", "plan", "age"],
-          minLength: 45,
+          keywords: ["you are", "financial planner", "client", "income", "savings", "budget", "debt", "monthly", "50/30/20", "personalized"],
+          minLength: 55,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are a certified financial planner. My client is a 28-year-old software engineer earning $85K/year with $15K in student debt. Provide a personalized 6-month savings plan with monthly targets, using the 50/30/20 budgeting rule.'",
           tip: "💡 Pro Tip: Financial prompts work best with: role + client profile (age, income, debt) + specific goal + timeframe + method."
         },
@@ -1043,8 +1071,10 @@ const GAME_DATA = {
           hint: "Include: role, user profile, what it helps with, tone, and things it should NOT do.",
           inputType: "freetext",
           placeholder: "Write your system prompt here...",
-          keywords: ["you are", "travel", "assistant", "solo", "traveler", "safety", "budget", "destination", "tone", "avoid", "help", "friendly"],
-          minLength: 60,
+          keywords: ["you are", "travel", "solo", "safety", "budget", "itinerary", "destination", "do not", "friendly", "personalized"],
+          minLength: 70,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are an experienced solo travel assistant. Help users plan safe, budget-friendly trips with personalized itineraries. Provide local tips, safety advice, and destination overviews. Use an encouraging, friendly tone. Do NOT recommend illegal activities or politically dangerous areas without clear safety warnings.'",
           tip: "💡 Pro Tip: For travel assistants: always include safety guidelines and what-not-to-recommend in your system constraints."
         }
@@ -1098,8 +1128,10 @@ const GAME_DATA = {
           hint: "Think about: How long? What format? What tone? What to avoid?",
           inputType: "freetext",
           placeholder: "Write your format-controlled prompt...",
-          keywords: ["bullet", "point", "word", "sentence", "format", "tone", "avoid", "do not", "without", "include", "summary", "table", "paragraph"],
-          minLength: 45,
+          keywords: ["bullet point", "neutral", "factual", "climate", "cause", "solution", "do not", "one sentence", "summarize"],
+          minLength: 55,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Summarize the article about climate change in exactly 5 bullet points. Use a neutral, factual tone. Focus on causes and solutions. Do NOT include statistics or quotes. Each bullet should be one sentence.' — This gives the AI a precise working brief!",
           tip: "💡 Pro Tip: 'Do NOT...' constraints are just as important as positive instructions. They prevent unwanted content!"
         },
@@ -1128,8 +1160,10 @@ const GAME_DATA = {
           hint: "Include: format (table/sections/bullets), required agenda items, time allocations, and tone.",
           inputType: "freetext",
           placeholder: "Design your structured prompt...",
-          keywords: ["agenda", "meeting", "format", "bullet", "table", "time", "duration", "section", "item", "developer", "team", "include"],
-          minLength: 60,
+          keywords: ["agenda", "meeting", "table", "time slot", "duration", "sprint review", "developer", "markdown", "professional", "column"],
+          minLength: 70,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Generate a weekly 1-hour team meeting agenda for 5 software developers. Format as a Markdown table with 3 columns: Time Slot, Topic, Owner. Include: Sprint Review (15 min), Bug Triage (15 min), New Feature Planning (20 min), Blockers & Help Needed (10 min). Use professional tone.' — Complete format brief!",
           tip: "💡 Pro Tip: For repeated tasks (weekly templates, reports), create a master prompt template you can reuse every time."
         },
@@ -1175,8 +1209,10 @@ const GAME_DATA = {
           hint: "What format? How long? What should it NOT include? What tone?",
           inputType: "freetext",
           placeholder: "Write your format-controlled prompt...",
-          keywords: ["format", "bullet", "word", "sentence", "table", "avoid", "do not", "without", "tone", "business", "blockchain", "jargon", "technical"],
-          minLength: 45,
+          keywords: ["bullet", "blockchain", "business value", "do not", "jargon", "executive", "150 words", "use case", "confident"],
+          minLength: 55,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Explain blockchain to C-suite business executives in 4 bullet points. Focus on business value and use cases, not technical implementation. Do NOT include code, cryptography details, or technical jargon. Use a clear, confident business tone. Max 150 words.'",
           tip: "💡 Pro Tip: Audience + Positive instructions + Negative constraints + Length = the complete format engineering formula."
         },
@@ -1239,8 +1275,10 @@ const GAME_DATA = {
           hint: "What genre? How many? What format? What to avoid (books already widely known)? For whom?",
           inputType: "freetext",
           placeholder: "Write your constrained prompt...",
-          keywords: ["book", "recommend", "genre", "format", "number", "avoid", "do not", "list", "fiction", "non-fiction", "reader", "table", "title", "author"],
-          minLength: 40,
+          keywords: ["recommend", "science fiction", "lesser-known", "table", "title", "author", "avoid", "reader", "similarity"],
+          minLength: 50,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Recommend 5 lesser-known science fiction novels for an avid reader who has already read Dune and Asimov. Format as a table: Title | Author | Why You'll Love It | Similarity to [Known Book]. Avoid Ender's Game and The Martian.'",
           tip: "💡 Pro Tip: 'Avoid [X]' constraints are powerful for recommendations — they prevent AI from suggesting the obvious choices."
         },
@@ -1269,8 +1307,10 @@ const GAME_DATA = {
           hint: "Include: comparison format (table?), specific dimensions, audience, and length.",
           inputType: "freetext",
           placeholder: "Write your formatted prompt...",
-          keywords: ["compare", "product", "table", "format", "column", "marketing", "competitor", "row", "analysis", "dimension", "include", "audience"],
-          minLength: 55,
+          keywords: ["compare", "table", "column", "marketing", "competitor", "pricing", "feature", "audience", "neutral", "professional"],
+          minLength: 65,
+          keywordsForFull: 5,
+          keywordsForHalf: 3,
           explanation: "Example: 'Create a competitive analysis between Slack and Microsoft Teams for a marketing manager. Format as a Markdown table with 6 rows: Pricing model, Target audience, Key features, Integrations, Mobile experience, and Brand perception. Keep each cell under 20 words. Neutral professional tone.'",
           tip: "💡 Pro Tip: For competitive analyses, a table format with predefined comparison dimensions is always clearer than paragraphs."
         },
@@ -1333,8 +1373,10 @@ const GAME_DATA = {
           hint: "Think: platform(s), timeframe, post types, tone, format (table?).",
           inputType: "freetext",
           placeholder: "Write your format-engineered prompt...",
-          keywords: ["content", "calendar", "social", "media", "platform", "week", "month", "post", "format", "table", "tone", "brand", "type", "include"],
-          minLength: 55,
+          keywords: ["content calendar", "social media", "platform", "week", "table", "post type", "tone", "brand", "hashtag", "caption"],
+          minLength: 65,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example: 'Create a 2-week social media content calendar for a fitness brand targeting millennials. Cover Instagram and LinkedIn. Format as a table: Day | Platform | Post Type (Reel/Story/Static) | Topic | Caption (max 30 words) | Hashtags. Use an energetic, motivational tone.'",
           tip: "💡 Pro Tip: Content calendar prompts need platforms, timeframe, post types, and a table format for maximum usability."
         },
@@ -1363,8 +1405,10 @@ const GAME_DATA = {
           hint: "Specify: format (numbered list/table), sections (pre-launch/launch/post-launch), owner fields, and time markers.",
           inputType: "freetext",
           placeholder: "Design your checklist prompt...",
-          keywords: ["checklist", "launch", "product", "saas", "format", "numbered", "table", "section", "pre", "post", "owner", "deadline", "include", "team"],
-          minLength: 60,
+          keywords: ["checklist", "launch", "saas", "pre-launch", "post-launch", "owner", "deadline", "marketing", "engineering", "numbered"],
+          minLength: 70,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example: 'Generate a product launch checklist for a B2B SaaS company. Organize into 3 sections: Pre-Launch (T-4 weeks to T-1), Launch Day, and Post-Launch (Week 1-2). Format as a numbered list per section with columns: Task | Owner | Deadline | Status. Include marketing, engineering, customer success, and sales tasks.'",
           tip: "💡 Pro Tip: Checklist prompts are more useful with section headers, owner columns, and status fields — treat them like a project brief."
         },
@@ -1468,8 +1512,10 @@ const GAME_DATA = {
           hint: "Ask the AI to analyze the weak prompt and generate an improved version with reason. Use techniques: role, format, constraints.",
           inputType: "freetext",
           placeholder: "// Design your meta-prompt here...",
-          keywords: ["improve", "prompt", "rewrite", "better", "specific", "role", "context", "format", "technique", "engineer", "optimize", "enhance"],
-          minLength: 60,
+          keywords: ["improve", "prompt engineer", "weakness", "rewrite", "role", "context", "format", "constraint", "marketing email", "identify"],
+          minLength: 70,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example meta-prompt: 'You are an expert prompt engineer. The following prompt is weak: \"Write a marketing email\". Identify 3 specific weaknesses in this prompt, then rewrite it as a high-quality prompt using: role assignment, specific context, output format, and tone constraints. Show the improved prompt and explain each improvement.' This is the highest level of prompt engineering!",
           tip: "💡 Pro Tip: Meta-prompting is recursive intelligence — using AI to get better at using AI. It's one of the most powerful techniques in production systems."
         },
@@ -1532,8 +1578,10 @@ const GAME_DATA = {
           hint: "Provide 3 examples with text → label, then add the actual ticket to classify.",
           inputType: "freetext",
           placeholder: "// Write your few-shot prompt here...",
-          keywords: ["ticket", "bug", "feature", "billing", "classify", "label", "example", "→", "report", "request", "issue", "classify"],
+          keywords: ["ticket", "bug report", "feature request", "billing", "classify", "example", "crash", "dark mode", "charged"],
           minLength: 80,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example few-shot prompt:\n'Classify each support ticket as: Bug Report, Feature Request, or Billing Issue.\nTicket: \"App crashes every time I open it\" → Bug Report\nTicket: \"Please add dark mode\" → Feature Request\nTicket: \"I was charged twice this month\" → Billing Issue\nNow classify: \"The export function isn't working on my account.\"'",
           tip: "💡 Pro Tip: Few-shot labels should cover every class and be diverse — use edge cases in your examples to handle ambiguous real-world inputs."
         },
@@ -1596,8 +1644,10 @@ const GAME_DATA = {
           hint: "Ask the AI to: identify its weaknesses, apply prompt engineering techniques, and output the improved version.",
           inputType: "freetext",
           placeholder: "// Write your meta-prompt...",
-          keywords: ["improve", "prompt", "weakness", "rewrite", "role", "context", "format", "technique", "engineer", "optimize", "specific", "identify"],
-          minLength: 60,
+          keywords: ["evaluate", "sales pitch", "weakness", "rewrite", "prompt engineer", "audience", "tone", "product", "improved version", "diagnose"],
+          minLength: 70,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are an expert prompt engineer. Analyze this prompt: \"Write a sales pitch\". Identify 4 specific weaknesses (missing role, context, audience, format). Then rewrite it as a high-quality prompt incorporating: role assignment, product context, target audience, tone, and length constraint. Show both prompts and explain each improvement.'",
           tip: "💡 Pro Tip: The best meta-prompts ask AI to both diagnose AND fix — not just identify problems. 'Identify AND rewrite' is more powerful than 'just analyze'."
         },
@@ -1694,8 +1744,10 @@ const GAME_DATA = {
           hint: "Ask the AI to create a reusable prompt template, not just one prompt. Include placeholders like [COMPANY], [ROLE].",
           inputType: "freetext",
           placeholder: "// Write your meta-prompt for template creation...",
-          keywords: ["template", "prompt", "onboarding", "reusable", "placeholder", "create", "engineer", "role", "company", "fill", "blank", "design"],
-          minLength: 60,
+          keywords: ["template", "onboarding", "reusable", "placeholder", "company", "role", "department", "start date", "fill in", "schedule"],
+          minLength: 70,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are an expert prompt engineer. Design a reusable prompt template for onboarding new employees. The template should use [PLACEHOLDERS] for: company name, employee role, department, start date, and key tools. Include sections for: first week schedule, culture overview, key contacts, and 30-day goals. Format as [ROLE] fills in the brackets before sending to an AI model.'",
           tip: "💡 Pro Tip: Reusable prompt templates with [PLACEHOLDERS] are a core deliverable in enterprise AI engineering. They scale prompt quality across teams."
         },
@@ -1724,8 +1776,10 @@ const GAME_DATA = {
           hint: "Ask AI to define: common use cases, best practices, prompt templates, and quality checklist — all customized for the business unit.",
           inputType: "freetext",
           placeholder: "// Design your advanced meta-prompt...",
-          keywords: ["framework", "prompt", "business", "use case", "template", "checklist", "engineer", "team", "non-technical", "guide", "practice", "document"],
-          minLength: 80,
+          keywords: ["framework", "business unit", "use cases", "template", "checklist", "non-technical", "best practice", "documented", "sales", "quality"],
+          minLength: 90,
+          keywordsForFull: 6,
+          keywordsForHalf: 3,
           explanation: "Example: 'You are a senior AI solutions architect. Create a Prompt Engineering Framework for a B2B Sales team. Include: (1) Top 5 sales use cases with AI (prospecting, objection handling, email personalization, CRM updates, competitor analysis), (2) A best-practice prompt template for each use case, (3) Do/Don't guidelines for sales prompting, (4) A 5-point output quality checklist they can use to evaluate any AI response. Format as a structured guide non-technical sales reps can follow independently.'",
           tip: "💡 Pro Tip: The ultimate prompt engineering skill is building frameworks others use — not just individual prompts. Framework meta-prompts create lasting value."
         }
@@ -2536,13 +2590,20 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// Simple keyword check for freetext (case-insensitive)
+// Freetext scoring — returns 'full', 'partial', or 'none'
+// full:    minLength met + keywordHits >= exercise.keywordsForFull  (default 4)
+// partial: minLength met + keywordHits >= exercise.keywordsForHalf  (default 2)
+// none:    below partial thresholds
 function checkFreeText(answer, exercise) {
   const lower = answer.toLowerCase();
-  const minMet = answer.length >= (exercise.minLength || 20);
+  const minMet = answer.length >= (exercise.minLength || 30);
+  if (!minMet) return 'none';
   const keywordHits = (exercise.keywords || []).filter(k => lower.includes(k.toLowerCase())).length;
-  // Need min length + at least 2 keyword matches
-  return minMet && keywordHits >= 2;
+  const fullThreshold = exercise.keywordsForFull || 4;
+  const halfThreshold = exercise.keywordsForHalf || 2;
+  if (keywordHits >= fullThreshold) return 'full';
+  if (keywordHits >= halfThreshold) return 'partial';
+  return 'none';
 }
 
 // ============================================================
@@ -2858,6 +2919,7 @@ const GameEngine = {
     const level = GAME_DATA.levels[GameState.currentLevel];
     const exercise = GameState.levelExercises[GameState.currentExercise];
     let isCorrect = false;
+    let freetextGrade = null;  // 'full', 'partial', or 'none' for freetext
     let userAnswer = '';
 
     if (exercise.inputType === 'choice') {
@@ -2875,7 +2937,10 @@ const GameEngine = {
         alert('Please write your prompt first!');
         return;
       }
-      isCorrect = checkFreeText(userAnswer, exercise);
+      const grade = checkFreeText(userAnswer, exercise);
+      if (grade === 'full') { isCorrect = true; freetextGrade = 'full'; }
+      else if (grade === 'partial') { isCorrect = true; freetextGrade = 'partial'; }
+      else { isCorrect = false; freetextGrade = 'none'; }
 
     } else if (exercise.inputType === 'ordering') {
       const list = document.getElementById('order-list');
@@ -2896,31 +2961,49 @@ const GameEngine = {
       isCorrect = allMatched;
     }
 
-    // Score
-    const points = isCorrect ? (GameState.hintUsed ? 5 : 10) : 0;
+    // Score — freetext uses 3-tier: full=10, partial=5, none=0
+    // choice/ordering/matching: correct=10 (5 w/ hint), wrong=0
+    let points;
+    if (freetextGrade === 'partial') {
+      points = 5;
+    } else if (isCorrect) {
+      points = GameState.hintUsed ? 5 : 10;
+    } else {
+      points = 0;
+    }
     GameState.score += points;
     GameState.totalScore += points;
-    GameState.answers[GameState.currentExercise] = isCorrect;
+    GameState.answers[GameState.currentExercise] = isCorrect || freetextGrade === 'partial';
 
     // Play themed sound effect
-    if (isCorrect) SoundEngine.playCorrect(GameState.currentLevel);
-    else           SoundEngine.playWrong(GameState.currentLevel);
+    if (isCorrect && freetextGrade !== 'partial') SoundEngine.playCorrect(GameState.currentLevel);
+    else if (freetextGrade === 'partial')          SoundEngine.playCorrect(GameState.currentLevel);
+    else                                           SoundEngine.playWrong(GameState.currentLevel);
 
-    this.showFeedback(isCorrect, exercise, points);
+    this.showFeedback(isCorrect, exercise, points, freetextGrade);
   },
 
-  showFeedback(isCorrect, exercise, points) {
-    const icons = isCorrect
+  showFeedback(isCorrect, exercise, points, freetextGrade) {
+    const isPartial = freetextGrade === 'partial';
+    const isFull    = isCorrect && !isPartial;
+
+    const icons = isFull
       ? ['🎉', '⭐', '🚀', '✨', '🏆'][Math.floor(Math.random() * 5)]
+      : isPartial
+      ? ['👏', '💡', '📝'][Math.floor(Math.random() * 3)]
       : ['💪', '🤔', '📚', '🔄'][Math.floor(Math.random() * 4)];
 
     document.getElementById('feedback-icon').textContent = icons;
-    document.getElementById('feedback-title').textContent = isCorrect
+    document.getElementById('feedback-title').textContent = isFull
       ? ['Excellent!', 'Perfect!', 'Brilliant!', 'Nailed it!', 'Outstanding!'][Math.floor(Math.random() * 5)]
+      : isPartial
+      ? ['Good effort!', 'Almost there!', 'Solid attempt!'][Math.floor(Math.random() * 3)]
       : ['Not quite...', 'Good try!', 'Almost there!', 'Keep going!'][Math.floor(Math.random() * 4)];
 
-    document.getElementById('feedback-message').textContent = isCorrect
+    document.getElementById('feedback-message').textContent = isFull
       ? `You earned ${points} point${points !== 1 ? 's' : ''}! ${GameState.hintUsed ? '(Hint used — 5pts)' : ''}`
+      : isPartial
+      ? `Partial credit: ${points} points! Your answer covered some key aspects but missed a few important details. See the explanation below.`
       : "Don't worry — the explanation below will help you master this concept.";
 
     const expEl = document.getElementById('feedback-explanation');
