@@ -1496,12 +1496,12 @@ const GAME_DATA = {
           hint: "Think about logical order: research → structure → write.",
           inputType: "ordering",
           items: [
-            { id: "a", text: "PROMPT 3: 'Using the outline above, write the full 500-word blog post with an engaging intro, 3 body sections, and a conclusion.'" },
-            { id: "b", text: "PROMPT 1: 'List the top 5 AI trends in 2025 with a one-sentence description of each. Focus on practical business impact.'" },
-            { id: "c", text: "PROMPT 2: 'Using the 5 trends above, create a detailed outline for a blog post. Include: title, intro hook idea, 3 main sections with subpoints, and conclusion.'" }
+            { id: "a", text: "'Using the outline above, write the full 500-word blog post with an engaging intro, 3 body sections, and a conclusion.'" },
+            { id: "b", text: "'List the top 5 AI trends in 2025 with a one-sentence description of each. Focus on practical business impact.'" },
+            { id: "c", text: "'Using the 5 trends above, create a detailed outline for a blog post. Include: title, intro hook idea, 3 main sections with subpoints, and conclusion.'" }
           ],
           correctOrder: ["b", "c", "a"],
-          explanation: "Prompt Chaining breaks complex tasks into stages: (1) Research/collect data → (2) Structure/plan → (3) Execute/write. Each prompt uses the previous output as context. This produces far better results than one massive prompt!",
+          explanation: "Prompt Chaining breaks complex tasks into stages: First research/collect data, then structure/plan, then execute/write. Each prompt uses the previous output as context. This produces far better results than one massive prompt!",
           tip: "💡 Pro Tip: Prompt chaining is essential for tasks over ~1000 words or multi-step workflows. Think: Plan → Draft → Refine."
         },
         {
@@ -1610,13 +1610,13 @@ const GAME_DATA = {
           hint: "Think: research → structure → draft → refine.",
           inputType: "ordering",
           items: [
-            { id: "a", text: "STEP 4: 'Review the draft proposal and identify 3 areas to strengthen. Rewrite those sections with more persuasive language and specific data points.'" },
-            { id: "b", text: "STEP 1: 'Research the top 3 challenges faced by mid-market logistics companies in 2024, focusing on cost, technology adoption, and talent.'" },
-            { id: "c", text: "STEP 3: 'Write the full business proposal using the outline. Each section should be 2–3 paragraphs. Professional, persuasive tone.'" },
-            { id: "d", text: "STEP 2: 'Using the challenges above, create a detailed outline for a business proposal for a route optimization software solution. Include: Executive Summary, Problem Statement, Solution Overview, ROI Projection, and Call to Action.'" }
+            { id: "a", text: "'Review the draft proposal and identify 3 areas to strengthen. Rewrite those sections with more persuasive language and specific data points.'" },
+            { id: "b", text: "'Research the top 3 challenges faced by mid-market logistics companies in 2024, focusing on cost, technology adoption, and talent.'" },
+            { id: "c", text: "'Write the full business proposal using the outline. Each section should be 2–3 paragraphs. Professional, persuasive tone.'" },
+            { id: "d", text: "'Using the challenges above, create a detailed outline for a business proposal for a route optimization software solution. Include: Executive Summary, Problem Statement, Solution Overview, ROI Projection, and Call to Action.'" }
           ],
           correctOrder: ["b", "d", "c", "a"],
-          explanation: "The optimal chain is: (1) Research the problem space → (2) Create a structured outline → (3) Write the full draft → (4) Review and refine. Each step builds directly on the previous output — this is professional prompt chaining!",
+          explanation: "The optimal chain is: Research the problem space → Create a structured outline → Write the full draft → Review and refine. Each step builds directly on the previous output — this is professional prompt chaining!",
           tip: "💡 Pro Tip: For long-form documents, use at least 4 prompt chain steps: Research → Outline → Draft → Refine. Never skip the outline step!"
         },
         {
@@ -1710,13 +1710,13 @@ const GAME_DATA = {
           hint: "Good code review: understand → analyze → prioritize → suggest → validate.",
           inputType: "ordering",
           items: [
-            { id: "a", text: "STEP 3: 'From the issues above, identify the top 3 critical ones and provide a specific fix for each with corrected code snippet.'" },
-            { id: "b", text: "STEP 1: 'Analyze this code snippet. List all potential issues: bugs, security vulnerabilities, performance problems, and style violations.'" },
-            { id: "c", text: "STEP 4: 'Review the proposed fixes. Confirm they don't introduce new bugs or break existing logic. Rate your confidence 1-10 for each fix.'" },
-            { id: "d", text: "STEP 2: 'From the full issue list, categorize each as: Critical (breaks functionality/security) | Major (significant issue) | Minor (style/optimization).'" }
+            { id: "a", text: "'From the issues above, identify the top 3 critical ones and provide a specific fix for each with corrected code snippet.'" },
+            { id: "b", text: "'Analyze this code snippet. List all potential issues: bugs, security vulnerabilities, performance problems, and style violations.'" },
+            { id: "c", text: "'Review the proposed fixes. Confirm they don't introduce new bugs or break existing logic. Rate your confidence 1-10 for each fix.'" },
+            { id: "d", text: "'From the full issue list, categorize each as: Critical (breaks functionality/security) | Major (significant issue) | Minor (style/optimization).'" }
           ],
           correctOrder: ["b", "d", "a", "c"],
-          explanation: "Optimal code review chain: (1) Find ALL issues → (2) Categorize by severity → (3) Fix the criticals with code → (4) Validate the fixes. This systematic approach produces professional-grade code reviews.",
+          explanation: "Optimal code review chain: Find ALL issues → Categorize by severity → Fix the criticals with code → Validate the fixes. This systematic approach produces professional-grade code reviews.",
           tip: "💡 Pro Tip: Multi-step workflows should always separate discovery (what's wrong?) from prioritization (what matters most?) from solution (how to fix?)."
         },
         {
