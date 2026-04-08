@@ -3114,7 +3114,7 @@ const GameEngine = {
       ? ['🎉', '⭐', '🚀', '✨', '🏆'][Math.floor(Math.random() * 5)]
       : isPartial
       ? ['👏', '💡', '📝'][Math.floor(Math.random() * 3)]
-      : ['💪', '🤔', '📚', '🔄'][Math.floor(Math.random() * 4)];
+      : ['�', '🤔', '📚', '🔄'][Math.floor(Math.random() * 4)];
 
     document.getElementById('feedback-icon').textContent = icons;
     document.getElementById('feedback-title').textContent = isFull
