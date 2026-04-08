@@ -645,11 +645,12 @@ body.level-5 .feedback-tip { background: rgba(0,255,136,0.05); color: #8aff8a; }
 /* ============================================
    GAME COMPLETE SCREEN
    ============================================ */
-#screen-game-complete { align-items: center; min-height: 100vh; }
+#screen-game-complete { align-items: flex-start; }
 .game-complete-content {
   text-align: center;
   max-width: 680px;
   padding: 40px 24px;
+  margin: auto;
 }
 .final-icon {
   font-size: 90px;
