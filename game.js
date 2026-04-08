@@ -2413,6 +2413,76 @@ const MusicEngine = {
       this._note(ctx, 55, now, 0.14, 'square', 0.18);
     };
     this.schedulers.push(setInterval(subTick, beatMs * 4));
+  },
+
+  // ── Victory / Game Complete: majestic triumphant theme (D major, brass-like, celebratory)
+  playVictory() {
+    this._stopAll();
+    this.currentLevel = null;
+    if (!this.enabled) return;
+    const ctx = this._ctx();
+
+    // D major scale: D E F# G A B C# D
+    const scale = [293.66, 329.63, 369.99, 392, 440, 493.88, 554.37, 587.33];
+
+    // Opening fanfare — plays once
+    const fanfare = [
+      [0, 0.0], [2, 0.3], [4, 0.6], [4, 0.9], [5, 1.2], [6, 1.5], [7, 1.9]
+    ];
+    fanfare.forEach(([note, time]) => {
+      this._note(ctx, scale[note], ctx.currentTime + time, 0.35, 'triangle', 0.22);
+      this._note(ctx, scale[note] * 0.5, ctx.currentTime + time, 0.4, 'triangle', 0.10);
+    });
+
+    // Sustained victory chord after fanfare (D major triad)
+    [293.66, 369.99, 440].forEach(f => {
+      this._note(ctx, f, ctx.currentTime + 2.3, 1.5, 'sine', 0.12);
+    });
+
+    // Looping celebratory melody starts after fanfare
+    const melody = [7, 5, 4, 2, 4, 5, 7, null, 5, 4, 2, 0, 2, 4, 5, null];
+    const beatMs = 340;
+    let step = 0;
+
+    const startLoop = () => {
+      const tick = () => {
+        const now = ctx.currentTime;
+        const m = melody[step % melody.length];
+        if (m !== null) {
+          this._note(ctx, scale[m], now, 0.28, 'triangle', 0.16);
+          // Sparkle on phrase starts
+          if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.2, 'sine', 0.05);
+        }
+        step++;
+      };
+      tick();
+      this.schedulers.push(setInterval(tick, beatMs));
+
+      // Warm bass (D pedal)
+      const bassNotes = [146.83, 146.83, 174.61, 146.83];
+      let bi = 0;
+      const bassTick = () => {
+        const now = ctx.currentTime;
+        this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.5, 'triangle', 0.10);
+        bi++;
+      };
+      bassTick();
+      this.schedulers.push(setInterval(bassTick, beatMs * 4));
+
+      // Gentle shimmer chords
+      const chords = [[293.66, 369.99, 440], [329.63, 392, 493.88]];
+      let ci = 0;
+      const chordTick = () => {
+        const now = ctx.currentTime;
+        chords[ci % chords.length].forEach(f => this._note(ctx, f, now, 1.2, 'sine', 0.04));
+        ci++;
+      };
+      chordTick();
+      this.schedulers.push(setInterval(chordTick, beatMs * 8));
+    };
+
+    // Start loop after fanfare finishes
+    this.schedulers.push(setTimeout(startLoop, 3800));
   }
 };
 
@@ -3119,6 +3189,33 @@ const GameEngine = {
     GameState.pollInterval = null;
   },
 
+  _launchConfetti() {
+    // Remove existing confetti
+    document.querySelectorAll('.confetti-container').forEach(el => el.remove());
+    const container = document.createElement('div');
+    container.className = 'confetti-container';
+    document.body.appendChild(container);
+    const colors = ['#ffd700', '#ff6f00', '#ff4081', '#00e676', '#2979ff', '#e040fb', '#ffab00'];
+    const shapes = ['square', 'circle'];
+    for (let i = 0; i < 80; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      const size = 6 + Math.random() * 8;
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.width = size + 'px';
+      piece.style.height = size + 'px';
+      piece.style.background = color;
+      piece.style.borderRadius = shape === 'circle' ? '50%' : '2px';
+      piece.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+      piece.style.animationDelay = Math.random() * 2 + 's';
+      container.appendChild(piece);
+    }
+    // Clean up after animation
+    setTimeout(() => container.remove(), 8000);
+  },
+
   nextLevel() {
     this._stopPolling();
     GameState.currentLevel++;
@@ -3132,8 +3229,13 @@ const GameEngine = {
   },
 
   async showGameComplete() {
-    setTheme('level-5');
-    MusicEngine.play(4);
+    // Use dedicated celebration theme instead of level-5
+    document.body.className = 'game-complete';
+    setTheme('');
+    MusicEngine.playVictory();
+
+    // Launch confetti
+    this._launchConfetti();
 
     document.getElementById('final-title').textContent = '🏆 Prompt Engineer Certified!';
     document.getElementById('final-message').textContent =

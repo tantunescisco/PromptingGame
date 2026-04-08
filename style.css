@@ -100,6 +100,52 @@ body.level-5 { /* AI Architect — cyberpunk/dark high-tech */
   --border-radius: 4px;
 }
 
+body.game-complete { /* Completion — warm gold celebration */
+  --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  --card-bg: rgba(255,255,255,0.07);
+  --card-border: #ffd700;
+  --card-shadow: 0 4px 24px rgba(255,215,0,0.15);
+  --primary: #ffd700;
+  --primary-dark: #ffb300;
+  --accent: #ff6f00;
+  --btn-bg: linear-gradient(135deg, #ffd700, #ff8f00);
+  --btn-text: #1a1a2e;
+  --text: #f5f5f5;
+  --text-light: #ccc;
+  --font-heading: 'Fredoka One', cursive;
+  --font-body: 'Nunito', sans-serif;
+  --border-radius: 16px;
+}
+body.game-complete .btn-start {
+  background: linear-gradient(135deg, #ffd700, #ff8f00);
+  color: #1a1a2e;
+  box-shadow: 0 6px 24px rgba(255,215,0,0.4);
+}
+body.game-complete .btn-start:hover {
+  box-shadow: 0 10px 32px rgba(255,215,0,0.6);
+}
+
+/* Confetti particles */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  opacity: 0.9;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
 /* ---- Reset & Base ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -655,9 +701,13 @@ body.level-5 .feedback-tip { background: rgba(0,255,136,0.05); color: #8aff8a; }
 }
 .final-icon {
   font-size: 90px;
-  animation: bounce 1.5s infinite alternate;
+  animation: trophy-glow 2s ease-in-out infinite alternate;
 }
-body.level-5 .final-icon { animation: glitch 1s infinite; }
+@keyframes trophy-glow {
+  0%   { transform: scale(1);    filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
+  100% { transform: scale(1.08); filter: drop-shadow(0 0 24px rgba(255,215,0,0.9)); }
+}
+body.game-complete .final-icon { animation: trophy-glow 2s ease-in-out infinite alternate; }
 @keyframes glitch {
   0%,100% { transform: none; text-shadow: 0 0 10px #00e676; }
   25% { transform: translate(2px,-2px); text-shadow: 3px 0 #ff0000, -3px 0 #00e5ff; }
