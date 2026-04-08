@@ -2587,23 +2587,42 @@ function initDragDrop(list) {
 // ============================================================
 const GameEngine = {
 
-  startGame() {
+  async startGame() {
     // Read and validate player name (3–20 chars required)
     const nameInput = document.getElementById('player-name-input');
     const nameError = document.getElementById('name-error');
+    const startBtn  = document.querySelector('.btn-start');
     const raw = nameInput ? nameInput.value.trim() : '';
 
-    if (raw.length < 3 || raw.length > 20) {
+    const showNameError = (msg) => {
+      if (nameError) { nameError.textContent = msg; nameError.classList.remove('hidden'); }
       if (nameInput) {
         nameInput.classList.remove('input-error');
-        // Trigger reflow so animation replays on repeated attempts
         void nameInput.offsetWidth;
         nameInput.classList.add('input-error');
         nameInput.addEventListener('animationend', () => nameInput.classList.remove('input-error'), { once: true });
         nameInput.focus();
       }
-      if (nameError) nameError.classList.remove('hidden');
+    };
+
+    if (raw.length < 3 || raw.length > 20) {
+      showNameError('Please enter a name between 3 and 20 characters.');
       return;
+    }
+
+    // Check for duplicate name against existing leaderboard entries
+    if (startBtn) { startBtn.disabled = true; startBtn.textContent = 'Checking…'; }
+    try {
+      const existing = await Scoreboard.getOverall();
+      const takenNames = (existing || []).map(e => e.name.toLowerCase());
+      if (takenNames.includes(raw.toLowerCase())) {
+        showNameError(`"${raw}" is already taken — please choose a different name.`);
+        return;
+      }
+    } catch {
+      // If the check fails (offline / error), allow the game to proceed
+    } finally {
+      if (startBtn) { startBtn.disabled = false; startBtn.textContent = 'Start Adventure'; }
     }
 
     if (nameError) nameError.classList.add('hidden');
