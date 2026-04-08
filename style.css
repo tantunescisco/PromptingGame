@@ -479,6 +479,7 @@ body.level-5 .match-item.matched { background: rgba(0,255,136,.12); border-color
   color: #795548;
   margin-bottom: 16px;
 }
+body.level-3 .hint-box { background: rgba(186,104,255,0.12); border-color: #b388ff; color: #e1bee7; }
 body.level-5 .hint-box { background: rgba(0,229,255,0.07); border-color: #00e5ff; color: #00e5ff; }
 .hint-box.hidden { display: none; }
 
