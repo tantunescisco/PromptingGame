@@ -2398,6 +2398,57 @@ const SoundEngine = {
     }
   },
 
+  playLevelComplete(levelIndex) {
+    if (!this.enabled) return;
+    const ctx = this._ctx(); if (!ctx) return;
+    const now = ctx.currentTime;
+    switch (levelIndex) {
+      case 0: // 🌈 Playground — jubilant ascending scale + sparkle burst
+        [261.63, 329.63, 392, 523.25, 659.26, 783.99, 1046.5].forEach((f, i) =>
+          this._note(f, now + i * 0.1, 0.45, 'triangle', 0.5));
+        [1046.5, 1318.5, 1567.98, 2093].forEach((f, i) =>
+          this._note(f, now + 0.72 + i * 0.07, 0.55, 'sine', 0.35));
+        this._noise(now + 1.1, 0.18, 0.12, 4000);
+        break;
+
+      case 1: // ⚔️ Kingdom — heroic trumpet fanfare
+        [[392, 0], [392, 0.12], [523.25, 0.24], [392, 0.42], [523.25, 0.54], [659.26, 0.7]].forEach(([f, t]) =>
+          this._note(f, now + t, 0.2, 'square', 0.3));
+        this._note(783.99, now + 0.95, 0.65, 'square', 0.32);
+        this._note(659.26, now + 0.95, 0.65, 'triangle', 0.18);
+        break;
+
+      case 2: // 🔮 Cave — magical chime cascade + reverb swell
+        [523.25, 659.26, 783.99, 1046.5, 1318.5, 1567.98].forEach((f, i) => {
+          this._note(f,       now + i * 0.09, 0.9, 'sine', 0.35);
+          this._note(f * 2,   now + i * 0.09 + 0.04, 0.5, 'sine', 0.12);
+        });
+        this._note(2093, now + 0.58, 1.2, 'sine', 0.28);
+        break;
+
+      case 3: // ⚙️ Factory — sharp corporate success sting
+        [[1046.5, 0], [1318.5, 0.14], [1046.5, 0.28], [1567.98, 0.42]].forEach(([f, t]) =>
+          this._note(f, now + t, 0.16, 'sine', 0.38));
+        this._note(2093, now + 0.62, 0.55, 'sine', 0.4);
+        this._note(1567.98, now + 0.62, 0.55, 'sine', 0.2);
+        break;
+
+      case 4: // 🤖 Architect — cyberpunk power chord + rising synth
+        { const osc = ctx.createOscillator(), g = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(110, now);
+          osc.frequency.exponentialRampToValueAtTime(1760, now + 0.7);
+          g.gain.setValueAtTime(0.38, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.75);
+          osc.connect(g); g.connect(this._g()); osc.start(now); osc.stop(now + 0.8);
+        }
+        [440, 554.37, 659.26, 880, 1108.73, 1318.51].forEach((f, i) =>
+          this._note(f, now + 0.55 + i * 0.07, 0.4, 'square', 0.18));
+        this._noise(now + 0.6, 0.25, 0.1, 5000);
+        break;
+    }
+  },
+
   playWrong(levelIndex) {
     if (!this.enabled) return;
     const ctx = this._ctx(); if (!ctx) return;
@@ -2878,6 +2929,8 @@ const GameEngine = {
     const correct = GameState.levelExercises.filter((_, i) => GameState.answers && GameState.answers[i]).length;
     const timeMs = Timer.stop();
     GameState.levelTimes.push(timeMs);
+
+    SoundEngine.playLevelComplete(GameState.currentLevel);
 
     document.getElementById('complete-badge').textContent = level.badge;
     document.getElementById('complete-title').textContent = `Level ${level.id} Complete!`;
