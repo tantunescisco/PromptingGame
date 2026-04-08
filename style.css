@@ -880,6 +880,25 @@ body.level-5 #music-toggle, body.level-5 #sfx-toggle { border-color: #00ff88; co
   border-color: var(--accent, #26c6da);
   box-shadow: 0 0 0 3px rgba(38,198,218,0.2);
 }
+.name-entry input.input-error {
+  border-color: #e53935;
+  box-shadow: 0 0 0 3px rgba(229,57,53,0.2);
+  animation: shake 0.35s ease;
+}
+.name-error {
+  color: #e53935;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-top: -4px;
+}
+.name-error.hidden { display: none; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
 
 /* ============================================
    TIMER DISPLAY

@@ -2537,10 +2537,27 @@ function initDragDrop(list) {
 const GameEngine = {
 
   startGame() {
-    // Read player name
+    // Read and validate player name (3–20 chars required)
     const nameInput = document.getElementById('player-name-input');
+    const nameError = document.getElementById('name-error');
     const raw = nameInput ? nameInput.value.trim() : '';
-    GameState.playerName = raw.length > 0 ? raw.slice(0, 24) : 'Player';
+
+    if (raw.length < 3 || raw.length > 20) {
+      if (nameInput) {
+        nameInput.classList.remove('input-error');
+        // Trigger reflow so animation replays on repeated attempts
+        void nameInput.offsetWidth;
+        nameInput.classList.add('input-error');
+        nameInput.addEventListener('animationend', () => nameInput.classList.remove('input-error'), { once: true });
+        nameInput.focus();
+      }
+      if (nameError) nameError.classList.remove('hidden');
+      return;
+    }
+
+    if (nameError) nameError.classList.add('hidden');
+    if (nameInput) nameInput.classList.remove('input-error');
+    GameState.playerName = raw;
 
     GameState.currentLevel = 0;
     GameState.score = 0;
@@ -3017,6 +3034,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (nameInput) {
     nameInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') GameEngine.startGame();
+    });
+    nameInput.addEventListener('input', () => {
+      nameInput.classList.remove('input-error');
+      const nameError = document.getElementById('name-error');
+      if (nameError) nameError.classList.add('hidden');
     });
   }
 
