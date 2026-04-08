@@ -951,26 +951,7 @@ body.level-5 .scoreboard-title {
    ADMIN MODE
    ============================================ */
 
-/* Admin entry button on welcome screen */
-.admin-entry {
-  margin-top: 12px;
-  text-align: center;
-}
-.btn-admin-entry {
-  background: none;
-  border: none;
-  color: rgba(0,0,0,0.25);
-  font-size: 0.75rem;
-  cursor: pointer;
-  padding: 4px 10px;
-  border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
-  font-family: var(--font-body);
-}
-.btn-admin-entry:hover {
-  color: rgba(0,0,0,0.6);
-  background: rgba(0,0,0,0.06);
-}
+/* Admin entry — triggered by Ctrl+Shift+A or 5 taps on leaderboard title */
 
 /* Modal overlay */
 .admin-overlay {

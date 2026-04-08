@@ -3028,6 +3028,31 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Hidden trigger: Ctrl+Shift+A keyboard shortcut
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      e.preventDefault();
+      AdminMode.showLogin();
+    }
+  });
+
+  // Hidden trigger: tap/click leaderboard title 5 times within 3 seconds
+  const lbTitle = document.querySelector('.scoreboard-title');
+  if (lbTitle) {
+    let tapCount = 0;
+    let tapTimer = null;
+    lbTitle.addEventListener('click', () => {
+      tapCount++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { tapCount = 0; }, 3000);
+      if (tapCount >= 5) {
+        tapCount = 0;
+        clearTimeout(tapTimer);
+        AdminMode.showLogin();
+      }
+    });
+  }
+
   // Close admin modals on overlay click
   document.getElementById('admin-login-modal')?.addEventListener('click', e => {
     if (e.target === e.currentTarget) AdminMode.closeLogin();
