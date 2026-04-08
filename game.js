@@ -1928,6 +1928,88 @@ const Scoreboard = {
       });
     });
     return Object.values(best).sort((a, b) => b.totalScore - a.totalScore || a.totalTimeMs - b.totalTimeMs);
+  },
+
+  // ── Admin: reset all scores across all tiers ──────────────
+  async resetAll() {
+    // Tier 1 — Firebase: set scores node to null (deletes all children)
+    if (this._fbEnabled) {
+      try {
+        await fetch(`${FIREBASE_URL}/scores.json`, {
+          method:  'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body:    'null'
+        });
+      } catch {}
+    }
+    // Tier 2 — REST API
+    if (await this._isApiOnline()) {
+      try { await fetch('/api/scores', { method: 'DELETE' }); } catch {}
+    }
+    // Tier 3 — localStorage
+    try { localStorage.removeItem(this._lsKey); } catch {}
+    // Reset API-online cache so next check is fresh
+    this._apiOnline = null;
+  }
+};
+
+// ============================================================
+// ADMIN MODE
+// ============================================================
+const AdminMode = {
+  _CREDS: { user: 'tantunes@cisco.com', pass: 'Cisco!123' },
+
+  showLogin() {
+    const modal = document.getElementById('admin-login-modal');
+    if (!modal) return;
+    document.getElementById('admin-username').value = '';
+    document.getElementById('admin-password').value = '';
+    document.getElementById('admin-login-error').classList.add('hidden');
+    modal.classList.remove('hidden');
+    setTimeout(() => document.getElementById('admin-username').focus(), 60);
+  },
+
+  closeLogin() {
+    document.getElementById('admin-login-modal').classList.add('hidden');
+  },
+
+  handleLogin() {
+    const user = document.getElementById('admin-username').value.trim();
+    const pass = document.getElementById('admin-password').value;
+    if (user === this._CREDS.user && pass === this._CREDS.pass) {
+      this.closeLogin();
+      this.showPanel();
+    } else {
+      document.getElementById('admin-login-error').classList.remove('hidden');
+      document.getElementById('admin-password').value = '';
+      document.getElementById('admin-password').focus();
+    }
+  },
+
+  showPanel() {
+    document.getElementById('admin-panel-modal').classList.remove('hidden');
+  },
+
+  closePanel() {
+    document.getElementById('admin-panel-modal').classList.add('hidden');
+  },
+
+  async confirmReset() {
+    const confirmed = confirm(
+      '⚠️ Reset the entire leaderboard?\n\n' +
+      'This will permanently delete ALL player scores and cannot be undone.\n\n' +
+      'Press OK to confirm, or Cancel to abort.'
+    );
+    if (!confirmed) return;
+
+    try {
+      await Scoreboard.resetAll();
+      this.closePanel();
+      GameEngine._renderWelcomeLeaderboard();
+      alert('✅ Leaderboard has been reset successfully.');
+    } catch {
+      alert('❌ Failed to reset the leaderboard. Please try again.');
+    }
   }
 };
 
@@ -2937,4 +3019,20 @@ window.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Enter') GameEngine.startGame();
     });
   }
+
+  // Allow Enter key to submit admin login
+  const adminPassInput = document.getElementById('admin-password');
+  if (adminPassInput) {
+    adminPassInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') AdminMode.handleLogin();
+    });
+  }
+
+  // Close admin modals on overlay click
+  document.getElementById('admin-login-modal')?.addEventListener('click', e => {
+    if (e.target === e.currentTarget) AdminMode.closeLogin();
+  });
+  document.getElementById('admin-panel-modal')?.addEventListener('click', e => {
+    if (e.target === e.currentTarget) AdminMode.closePanel();
+  });
 });
