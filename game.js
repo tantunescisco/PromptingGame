@@ -2224,7 +2224,7 @@ const MusicEngine = {
   },
 
   // ── Welcome screen: retro chiptune synthwave — 8-bit pulse waves, 120 BPM
-  //    D minor, hypnotic arpeggios, steady analog bass, tight digital hi-hat
+  //    D minor, phrase-sequenced lead (16 s cycle), randomised octave jumps
   playWelcome() {
     this._stopAll();
     this.currentLevel = null;
@@ -2236,51 +2236,74 @@ const MusicEngine = {
 
     // D minor scale: D3 E3 F3 G3 A3 Bb3 C4 D4
     const scale = [293.66, 329.63, 349.23, 392, 440, 466.16, 523.25, 587.33];
-    // Hypnotic chiptune arpeggio — D minor triad run with variation
-    const melody = [0, 2, 4, 6, 4, 2, 0, 2, 3, 5, 6, 5, 3, 5, 4, 2];
-    let step = 0;
+
+    // Four distinct 8-step phrases
+    const phrA = [0, 2, 4, 6, 4, 2, 0, 2];         // D minor arpeggio up & back
+    const phrB = [3, 5, 6, 5, 3, 5, 4, 2];          // G minor fragment, resolves down
+    const phrC = [4, 6, 7, 6, 4, null, 6, null];    // High register, sparse / tension
+    const phrD = [0, 1, 2, 3, 4, 5, 6, 7];          // Full chromatic-ish run (fill)
+
+    // 8-phrase sequence = 64 steps × 250 ms = 16-second cycle before it repeats
+    const sequence = [phrA, phrA, phrB, phrA, phrC, phrB, phrA, phrD];
+    let gs = 0; // global step counter
+
     const tick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, scale[melody[step % melody.length]], now, 0.2, 'square', 0.11);
-      step++;
+      const now       = ctx.currentTime;
+      const phrase    = sequence[Math.floor(gs / 8) % sequence.length];
+      const m         = phrase[gs % 8];
+      if (m !== null) {
+        // 25 % chance of an octave jump on the first note of every new phrase
+        const jump = (gs % 8 === 0) && Math.random() < 0.25;
+        this._note(ctx, scale[m] * (jump ? 2 : 1), now, 0.19, 'square', jump ? 0.07 : 0.11);
+      }
+      gs++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
 
-    // Second pulse channel — sparse harmony hits (perfect 4th below, quieter)
-    const harmony = [null, null, 0, null, null, null, 0, null, null, null, 3, null, null, null, 2, null];
+    // Second pulse — harmony counter-line, 32-step independent cycle
+    const harmPat = [
+      null, null, 0, null,  null, null, 2, null,
+      null, 3,    null, null, null, 2,  null, null,
+      null, null, 4, null,  null, null, 3, null,
+      null, 2,    null, null, 0,   null, null, null,
+    ];
     let hs = 0;
     const harmTick = () => {
       const now = ctx.currentTime;
-      const h = harmony[hs % harmony.length];
-      if (h !== null) this._note(ctx, scale[h] * 0.75, now, 0.28, 'square', 0.055);
+      const h = harmPat[hs % harmPat.length];
+      if (h !== null) this._note(ctx, scale[h] * 0.75, now, 0.3, 'square', 0.05);
       hs++;
     };
     harmTick();
     this.schedulers.push(setInterval(harmTick, beatMs));
 
-    // Steady analog bassline — square wave, quarter notes
-    const bass = [146.83, 110, 116.54, 98]; // D2 A2 Bb2 G2
+    // Steady analog bassline — 8-note pattern (2 s cycle), square wave
+    const bass    = [146.83, 146.83, 110, 110, 116.54, 98, 110, 146.83];
+    const bassOct = [1, 1, 1, 1, 1, 1, 1, 2]; // 2 = an octave higher for the last hit
     let bi = 0;
     const bassTick = () => {
       const now = ctx.currentTime;
-      this._note(ctx, bass[bi % bass.length], now, 0.44, 'square', 0.1);
+      this._note(ctx, bass[bi % bass.length] * bassOct[bi % bassOct.length], now, 0.44, 'square', 0.1);
       bi++;
     };
     bassTick();
     this.schedulers.push(setInterval(bassTick, beatMs * 2));
 
-    // Tight digital hi-hat — every 8th note, on-beat louder
+    // Tight digital hi-hat — every 8th note, on-beat louder; open hat every 8 steps
     let hi = 0;
     const hatTick = () => {
-      const now = ctx.currentTime;
-      const vol = (hi % 2 === 0) ? 0.044 : 0.02;
-      const len = Math.floor(ctx.sampleRate * 0.016);
-      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      const data = buf.getChannelData(0);
+      const now    = ctx.currentTime;
+      const isOpen = (hi % 8 === 7);          // open hi-hat on the 8th 8th-note
+      const vol    = isOpen ? 0.05 : (hi % 2 === 0) ? 0.044 : 0.02;
+      const durMs  = isOpen ? 0.06 : 0.016;
+      const len    = Math.floor(ctx.sampleRate * durMs);
+      const buf    = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data   = buf.getChannelData(0);
       for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
-      const src = ctx.createBufferSource(); src.buffer = buf;
-      const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 8500;
+      const src  = ctx.createBufferSource(); src.buffer = buf;
+      const filt = ctx.createBiquadFilter();
+      filt.type = 'highpass'; filt.frequency.value = isOpen ? 6500 : 8500;
       const g = ctx.createGain(); g.gain.value = vol;
       src.connect(filt); filt.connect(g); g.connect(this.masterGain);
       src.start(now);
