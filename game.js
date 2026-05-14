@@ -2033,7 +2033,6 @@ const AdminMode = {
     if (user === this._CREDS.user && pass === this._CREDS.pass) {
       this._activateAdminLevelButtons();
       this.closeLogin();
-      this.showPanel();
     } else {
       document.getElementById('admin-login-error').classList.remove('hidden');
       document.getElementById('admin-password').value = '';
@@ -2055,6 +2054,23 @@ const AdminMode = {
     });
     const banner = document.getElementById('admin-mode-banner');
     if (banner) banner.classList.remove('hidden');
+    const resetArea = document.getElementById('admin-reset-area');
+    if (resetArea) resetArea.classList.remove('hidden');
+  },
+
+  exitAdminMode() {
+    [0, 1, 2, 3, 4].forEach(i => {
+      const el = document.getElementById('lp-btn-' + i);
+      if (!el) return;
+      const clone = el.cloneNode(true);
+      clone.classList.remove('admin-clickable');
+      clone.title = '';
+      el.replaceWith(clone);
+    });
+    const banner = document.getElementById('admin-mode-banner');
+    if (banner) banner.classList.add('hidden');
+    const resetArea = document.getElementById('admin-reset-area');
+    if (resetArea) resetArea.classList.add('hidden');
   },
 
   jumpToLevel(levelIndex) {
@@ -2086,7 +2102,6 @@ const AdminMode = {
 
     try {
       await Scoreboard.resetAll();
-      this.closePanel();
       GameEngine._renderWelcomeLeaderboard();
       alert('✅ Leaderboard has been reset successfully.');
     } catch {
