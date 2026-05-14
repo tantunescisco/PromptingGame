@@ -2224,7 +2224,7 @@ const MusicEngine = {
   },
 
   // ── Welcome screen: retro chiptune synthwave — 8-bit pulse waves, 120 BPM
-  //    D minor, phrase-sequenced lead (16 s cycle), randomised octave jumps
+  //    D minor · 32 s phrase cycle · drifting harmony · snare · walking bass
   playWelcome() {
     this._stopAll();
     this.currentLevel = null;
@@ -2237,14 +2237,23 @@ const MusicEngine = {
     // D minor scale: D3 E3 F3 G3 A3 Bb3 C4 D4
     const scale = [293.66, 329.63, 349.23, 392, 440, 466.16, 523.25, 587.33];
 
-    // Four distinct 8-step phrases
-    const phrA = [0, 2, 4, 6, 4, 2, 0, 2];         // D minor arpeggio up & back
-    const phrB = [3, 5, 6, 5, 3, 5, 4, 2];          // G minor fragment, resolves down
-    const phrC = [4, 6, 7, 6, 4, null, 6, null];    // High register, sparse / tension
-    const phrD = [0, 1, 2, 3, 4, 5, 6, 7];          // Full chromatic-ish run (fill)
+    // ── 8 distinct 8-step lead phrases ──────────────────────────────────
+    const phrA = [0, 2, 4, 6, 4, 2, 0, 2];          // main: D minor arpeggio up & back
+    const phrB = [3, 5, 6, 5, 3, 5, 4, 2];           // G minor fragment, resolves down
+    const phrC = [4, 6, 7, 6, 4, null, 6, null];     // high register, sparse tension
+    const phrD = [0, 1, 2, 3, 4, 5, 6, 7];           // full ascending scale fill
+    const phrE = [7, 6, 4, 2, 4, 6, 7, 6];           // dramatic top-down sweep
+    const phrF = [0, null, 2, 4, null, 2, 0, null];  // sparse lower, breathing rests
+    const phrG = [2, 4, 6, 4, 2, 0, null, null];     // truncated phrase, trails off
+    const phrH = [6, 5, 4, 3, 2, 1, 0, null];        // descending chromatic walk home
 
-    // 8-phrase sequence = 64 steps × 250 ms = 16-second cycle before it repeats
-    const sequence = [phrA, phrA, phrB, phrA, phrC, phrB, phrA, phrD];
+    // 16-phrase sequence = 128 steps × 250 ms = 32 s cycle
+    const sequence = [
+      phrA, phrA, phrB, phrA,   //  0– 7 s: establish + first variation
+      phrC, phrB, phrA, phrD,   //  8–15 s: tension → familiar → big fill
+      phrE, phrE, phrB, phrF,   // 16–23 s: dramatic sweep (×2) → sparse low
+      phrA, phrG, phrH, phrA,   // 24–31 s: anchor → trail → descend → home
+    ];
     let gs = 0; // global step counter
 
     const tick = () => {
