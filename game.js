@@ -2339,81 +2339,142 @@ const MusicEngine = {
     this.schedulers.push(setInterval(kickTick, beatMs * 4));
   },
 
-  // ── Level 1: Gentle lullaby-style melody (C major, slow & soft, with rests)
+  // ── Level 1: Gentle lullaby — C major, sine, 460 ms/step, 8 phrases × 8-step sequencer
   _playLevel1(ctx) {
+    // C major scale: C D E F G A B C
     const scale = [261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
-    // Melody with nulls = rests — slower, breathable pattern
-    const melody = [0, 2, 4, null, 4, 5, 4, null, 2, 0, 2, null, 4, 2, 0, null];
     const beatMs = 460;
-    let step = 0;
+
+    const phrA = [0, 2, 4, null, 4, 2, 0, null];        // main: gentle C arpeggio
+    const phrB = [2, 4, 5, null, 5, 4, 2, null];        // step higher, soft rise
+    const phrC = [4, 5, 6, null, 5, 4, null, null];     // climb, early trail
+    const phrD = [0, null, 2, null, 4, null, 2, null];  // sparse, breathing rests
+    const phrE = [6, 5, 4, null, 5, 4, 2, null];        // descend tenderly
+    const phrF = [4, 2, 0, null, 2, 0, null, null];     // fall home, long rest
+    const phrG = [0, 2, 4, 5, 4, 2, null, null];        // sweep up, trail off
+    const phrH = [5, 4, 2, null, 4, 2, 0, null];        // resolve to tonic
+
+    // 8 entries × 8 steps × 460 ms ≈ 29 s cycle
+    const sequence = [phrA, phrA, phrB, phrC, phrA, phrD, phrG, phrH];
+    let gs = 0;
 
     const tick = () => {
       const now = ctx.currentTime;
-      const m = melody[step % melody.length];
+      const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+      const m = phrase[gs % 8];
       if (m !== null) {
-        this._note(ctx, scale[m], now, 0.38, 'sine', 0.16);
-        // Soft octave shimmer on phrase starts
-        if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.5, 'sine', 0.05);
+        const jump = (gs % 8 === 0) && Math.random() < 0.2;
+        this._note(ctx, scale[m] * (jump ? 2 : 1), now, 0.38, 'sine', jump ? 0.07 : 0.14);
+        if (gs % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.5, 'sine', 0.04);
       }
-      step++;
+      gs++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
 
-    // Very gentle bass pulse every 4 beats
+    // Soft harmony counter-line (16-step independent cycle)
+    const harmPat = [
+      null, 0, null, null, null, 2, null, null,
+      null, 2, null, null, null, 4, null, null,
+    ];
+    let hs = 0;
+    const harmTick = () => {
+      const h = harmPat[hs % harmPat.length];
+      if (h !== null) this._note(ctx, scale[h] * 0.5, ctx.currentTime, 0.6, 'sine', 0.05);
+      hs++;
+    };
+    harmTick();
+    this.schedulers.push(setInterval(harmTick, beatMs));
+
+    // Gentle bass every 4 beats
     const bassNotes = [130.81, 130.81, 174.61, 130.81];
     let bi = 0;
     const bassTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.7, 'sine', 0.07);
-      bi++;
+      this._note(ctx, bassNotes[bi++ % bassNotes.length], ctx.currentTime, 0.7, 'sine', 0.07);
     };
     bassTick();
     this.schedulers.push(setInterval(bassTick, beatMs * 4));
   },
 
-  // ── Level 2: Heroic adventure melody (G major, triangle waves, musical phrasing)
+  // ── Level 2: Heroic adventure — G major, triangle, 380 ms/step, 10-phrase sequencer
   _playLevel2(ctx) {
-    const heroic = [196, 220, 246.94, 261.63, 293.66, 329.63, 392, 440];
-    // Adventure melody with rests — triangle is softer than square
-    const melody = [4, 5, 6, null, 6, 7, 6, null, 5, 4, 2, null, 4, 4, null, null];
-    let step = 0;
+    // G major scale: G A B C D E G A
+    const scale = [196, 220, 246.94, 261.63, 293.66, 329.63, 392, 440];
     const beatMs = 380;
+
+    const phrA = [4, 5, 6, null, 6, 7, 6, null];        // main: heroic rise
+    const phrB = [3, 4, 5, null, 5, 4, 3, null];        // lower variation, D region
+    const phrC = [6, 7, 6, null, 5, 4, null, null];     // high register, trailing
+    const phrD = [0, 1, 2, null, 3, 4, null, null];     // ascending call to arms
+    const phrE = [7, 6, 5, null, 6, 5, 4, null];        // descending resolve
+    const phrF = [2, null, 4, null, 3, null, 5, null];  // sparse heroic dots
+    const phrG = [4, 5, 6, 7, 6, 5, null, null];        // big sweep up, trail
+    const phrH = [5, 4, 3, null, 4, 2, 0, null];        // walk home to G root
+
+    // 10 entries × 8 steps × 380 ms ≈ 30 s cycle
+    const sequence = [phrA, phrA, phrB, phrA, phrC, phrD, phrA, phrB, phrG, phrH];
+    let gs = 0;
 
     const tick = () => {
       const now = ctx.currentTime;
-      const m = melody[step % melody.length];
+      const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+      const m = phrase[gs % 8];
       if (m !== null) {
-        this._note(ctx, heroic[m], now, 0.3, 'triangle', 0.18);
+        const jump = (gs % 8 === 0) && Math.random() < 0.2;
+        this._note(ctx, scale[m] * (jump ? 2 : 1), now, 0.3, 'triangle', jump ? 0.09 : 0.18);
       }
-      step++;
+      gs++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
+
+    // Harmony counter-line (16-step independent cycle)
+    const harmPat = [
+      null, null, 0, null, null, null, 2, null,
+      null, 3,    null, null, null, 2, null, null,
+    ];
+    let hs = 0;
+    const harmTick = () => {
+      const h = harmPat[hs % harmPat.length];
+      if (h !== null) this._note(ctx, scale[h] * 0.5, ctx.currentTime, 0.45, 'triangle', 0.06);
+      hs++;
+    };
+    harmTick();
+    this.schedulers.push(setInterval(harmTick, beatMs));
 
     // Slow sustained chord pad (G major)
     const pads = [[196, 246.94, 293.66], [220, 261.63, 329.63]];
     let pi = 0;
     const padTick = () => {
-      const now = ctx.currentTime;
-      pads[pi % pads.length].forEach(f => this._note(ctx, f, now, 1.4, 'sine', 0.055));
-      pi++;
+      pads[pi++ % pads.length].forEach(f => this._note(ctx, f, ctx.currentTime, 1.4, 'sine', 0.055));
     };
     padTick();
     this.schedulers.push(setInterval(padTick, beatMs * 4));
   },
 
-  // ── Level 3: Dark fantasy — minor scale, haunting pads
+  // ── Level 3: Dark fantasy — C natural minor, sine+drone, 480 ms/step, 8-phrase sequencer
   _playLevel3(ctx) {
-    const minor = [130.81, 155.56, 174.61, 196, 220, 233.08, 261.63]; // C natural minor
-    const melody3 = [0, 2, 3, 5, 4, 2, 0, 1, 3, 4, 2, 0];
-    let step = 0;
+    // C natural minor: C D Eb F G A Bb C
+    const scale = [130.81, 146.83, 155.56, 174.61, 196, 220, 233.08, 261.63];
     const beatMs = 480;
 
-    // Pad drone
-    [130.81, 196, 261.63].forEach(freq => {
+    const phrA = [0, 2, 3, null, 5, 4, 2, null];        // main: ominous minor walk
+    const phrB = [3, 5, 6, null, 5, 3, 2, null];        // tension upper register
+    const phrC = [4, 5, 6, null, 4, null, 6, null];     // sparse high, haunting
+    const phrD = [0, null, 3, null, 5, null, 3, null];  // breathing low pulse
+    const phrE = [7, 6, 5, null, 6, 5, 3, null];        // descend into darkness
+    const phrF = [2, 3, 5, null, 3, 2, 0, null];        // falling resolve
+    const phrG = [0, 2, 3, 5, 4, 2, null, null];        // ascending then trails
+    const phrH = [6, 5, 3, null, 5, 3, 0, null];        // descent to root
+
+    // 8 entries × 8 steps × 480 ms ≈ 30.7 s cycle
+    const sequence = [phrA, phrA, phrB, phrA, phrC, phrD, phrG, phrH];
+    let gs = 0;
+
+    // Sustained pad drone (C minor triad)
+    [130.81, 155.56, 196].forEach(freq => {
       const osc = ctx.createOscillator();
-      const g = ctx.createGain();
+      const g   = ctx.createGain();
       osc.type = 'sawtooth';
       osc.frequency.value = freq;
       g.gain.value = 0.04;
@@ -2427,30 +2488,65 @@ const MusicEngine = {
 
     const tick = () => {
       const now = ctx.currentTime;
-      const idx = minor.length > 0 ? (melody3[step % melody3.length]) % minor.length : 0;
-      const freq = minor[Math.abs(idx)];
-      this._note(ctx, freq * 2, now, 0.38, 'sine', 0.18);
-      step++;
+      const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+      const m = phrase[gs % 8];
+      if (m !== null) {
+        const jump = (gs % 8 === 0) && Math.random() < 0.2;
+        this._note(ctx, scale[m] * (jump ? 4 : 2), now, 0.38, 'sine', jump ? 0.07 : 0.18);
+      }
+      gs++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
+
+    // Haunting counter-melody (16-step independent cycle)
+    const harmPat = [
+      null, null, 0, null, null, null, 3, null,
+      null, 2,    null, null, null, null, 5, null,
+    ];
+    let hs = 0;
+    const harmTick = () => {
+      const h = harmPat[hs % harmPat.length];
+      if (h !== null) this._note(ctx, scale[h] * 3, ctx.currentTime, 0.55, 'sine', 0.06);
+      hs++;
+    };
+    harmTick();
+    this.schedulers.push(setInterval(harmTick, beatMs));
   },
 
-  // ── Level 4: Corporate — clean, minimalist, syncopated clicks
+  // ── Level 4: Corporate — C pentatonic 2 octaves, sine+click, 220 ms/step, 16-phrase sequencer
   _playLevel4(ctx) {
-    const pentatonic = [261.63, 293.66, 329.63, 392, 440, 523.25];
-    let step = 0;
-    const pattern = [0, null, 2, null, 1, 3, null, 2, 0, null, 4, null, 3, 1, null, 0];
+    // C major pentatonic × 2 octaves: C D E G A C D E
+    const scale = [261.63, 293.66, 329.63, 392, 440, 523.25, 587.33, 659.26];
     const beatMs = 220;
+
+    const phrA = [0, null, 2, null, 1, 3, null, 2];     // main: syncopated minimal
+    const phrB = [4, null, 3, null, 2, null, 1, null];  // descending clean steps
+    const phrC = [0, 1, null, 2, null, 3, null, null];  // sparse ascending
+    const phrD = [2, null, 4, null, 3, null, 5, null];  // mid-range skip
+    const phrE = [5, 4, null, 3, null, 2, null, null];  // high descend, trails
+    const phrF = [0, null, null, 2, null, null, 4, null]; // very sparse, breathing
+    const phrG = [3, 4, 5, null, 5, 4, 3, null];        // upper sweep and back
+    const phrH = [4, 3, 2, null, 3, 1, 0, null];        // walk home to root
+
+    // 16 entries × 8 steps × 220 ms ≈ 28 s cycle
+    const sequence = [
+      phrA, phrA, phrB, phrA,
+      phrC, phrD, phrA, phrB,
+      phrE, phrF, phrA, phrG,
+      phrA, phrH, phrC, phrA,
+    ];
+    let gs = 0;
 
     const tick = () => {
       const now = ctx.currentTime;
-      const p = pattern[step % pattern.length];
+      const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+      const p = phrase[gs % 8];
       if (p !== null) {
-        const freq = pentatonic[p % pentatonic.length];
+        const freq = scale[p];
         this._note(ctx, freq, now, 0.12, 'sine', 0.2);
-        // Click
-        const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.02), ctx.sampleRate);
+        // Percussive click on each note
+        const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.02), ctx.sampleRate);
         const data = buf.getChannelData(0);
         for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
         const src = ctx.createBufferSource();
@@ -2459,71 +2555,118 @@ const MusicEngine = {
         src.connect(g); g.connect(this.masterGain);
         src.start(now);
       }
-      step++;
+      gs++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
 
-    // Bass pulse
-    const bassTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, 55, now, 0.18, 'sawtooth', 0.12);
+    // Harmony counter-line (16-step independent cycle)
+    const harmPat = [
+      null, null, 0, null, null, null, 2, null,
+      null, 1,    null, null, null, 3, null, null,
+    ];
+    let hs = 0;
+    const harmTick = () => {
+      const h = harmPat[hs % harmPat.length];
+      if (h !== null) this._note(ctx, scale[h] * 0.5, ctx.currentTime, 0.2, 'sine', 0.06);
+      hs++;
     };
-    this.schedulers.push(setInterval(bassTick, beatMs * 4));
+    harmTick();
+    this.schedulers.push(setInterval(harmTick, beatMs));
+
+    // Bass pulse every 4 beats
+    this.schedulers.push(setInterval(() => {
+      this._note(ctx, 55, ctx.currentTime, 0.18, 'sawtooth', 0.12);
+    }, beatMs * 4));
   },
 
-  // ── Level 5: Cyberpunk — arpeggio, glitchy noise, 8-bit bass
+  // ── Level 5: Cyberpunk — A minor, sawtooth/square, 160 ms/step, 20-phrase sequencer
   _playLevel5(ctx) {
-    const arpNotes = [110, 146.83, 164.81, 220, 293.66, 329.63, 220, 164.81];
-    let step = 0;
+    // A minor: A C D E G A C E
+    const scale = [110, 130.81, 146.83, 164.81, 196, 220, 261.63, 329.63];
     const beatMs = 160;
+
+    const phrA = [0, 2, 4, 6, 4, 2, 0, 2];             // main: cyberpunk arpeggio
+    const phrB = [5, 7, 6, 5, 7, 5, 4, 2];             // high-zone riff
+    const phrC = [6, 5, 4, 2, 4, 5, 6, 5];             // reverse sweep
+    const phrD = [0, null, 4, null, 6, null, 4, null];  // sparse 4ths
+    const phrE = [7, 7, 6, 4, 6, 7, 7, null];          // top-heavy glitch stutter
+    const phrF = [0, 2, null, 4, null, 2, 0, null];    // breathing lower
+    const phrG = [4, 5, 6, 7, 6, 5, 4, null];          // fast ascending sweep
+    const phrH = [6, 5, 4, 2, 0, 2, 4, 5];             // descend-to-root walk
+
+    // 20 entries × 8 steps × 160 ms ≈ 25.6 s cycle
+    const sequence = [
+      phrA, phrA, phrB, phrA,
+      phrC, phrD, phrA, phrB,
+      phrE, phrE, phrF, phrA,
+      phrG, phrB, phrA, phrH,
+      phrA, phrC, phrF, phrA,
+    ];
+    let gs = 0;
 
     const tick = () => {
       const now = ctx.currentTime;
-      const freq = arpNotes[step % arpNotes.length];
-      this._note(ctx, freq, now, 0.13, 'sawtooth', 0.16);
-      this._note(ctx, freq * 2, now, 0.08, 'square', 0.06);
-      // Glitch noise burst on every 8 beats
-      if (step % 8 === 0) {
-        const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.04), ctx.sampleRate);
+      const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+      const m = phrase[gs % 8];
+      if (m !== null) {
+        const jump = (gs % 8 === 0) && Math.random() < 0.3;
+        this._note(ctx, scale[m] * (jump ? 2 : 1), now, 0.13, 'sawtooth', 0.16);
+        this._note(ctx, scale[m] * (jump ? 4 : 2), now, 0.08, 'square', 0.06);
+      }
+      // Glitch noise burst on every phrase start (every 8 steps)
+      if (gs % 8 === 0) {
+        const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.04), ctx.sampleRate);
         const data = buf.getChannelData(0);
         for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-        const src = ctx.createBufferSource();
+        const src  = ctx.createBufferSource();
         src.buffer = buf;
         const filt = ctx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 2000;
-        const g = ctx.createGain(); g.gain.value = 0.04;
+        const g    = ctx.createGain(); g.gain.value = 0.04;
         src.connect(filt); filt.connect(g); g.connect(this.masterGain);
         src.start(now);
       }
-      step++;
+      gs++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
 
-    // Hi-hat (white noise burst)
+    // Harmony counter-line (16-step independent cycle)
+    const harmPat = [
+      null, null, 0, null, null, null, 4, null,
+      null, 2,    null, null, null, 5, null, null,
+    ];
+    let hs = 0;
+    const harmTick = () => {
+      const h = harmPat[hs % harmPat.length];
+      if (h !== null) this._note(ctx, scale[h] * 2, ctx.currentTime, 0.1, 'square', 0.05);
+      hs++;
+    };
+    harmTick();
+    this.schedulers.push(setInterval(harmTick, beatMs));
+
+    // Hi-hat (white noise) every 2 beats
     const hatTick = () => {
-      const now = ctx.currentTime;
-      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.05), ctx.sampleRate);
+      const now  = ctx.currentTime;
+      const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.05), ctx.sampleRate);
       const data = buf.getChannelData(0);
       for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-      const src = ctx.createBufferSource();
+      const src  = ctx.createBufferSource();
       src.buffer = buf;
       const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 8000;
-      const g = ctx.createGain(); g.gain.value = 0.06;
+      const g    = ctx.createGain(); g.gain.value = 0.06;
       src.connect(filt); filt.connect(g); g.connect(this.masterGain);
       src.start(now);
     };
     this.schedulers.push(setInterval(hatTick, beatMs * 2));
 
-    // Sub bass pulse
-    const subTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, 55, now, 0.14, 'square', 0.18);
-    };
-    this.schedulers.push(setInterval(subTick, beatMs * 4));
+    // Sub bass pulse every 4 beats
+    this.schedulers.push(setInterval(() => {
+      this._note(ctx, 55, ctx.currentTime, 0.14, 'square', 0.18);
+    }, beatMs * 4));
   },
 
-  // ── Victory / Game Complete: majestic triumphant theme (D major, brass-like, celebratory)
+  // ── Victory / Game Complete: D major, triangle, 340 ms/step, 8-phrase sequencer + fanfare
   playVictory() {
     this._stopAll();
     this.currentLevel = null;
@@ -2532,6 +2675,7 @@ const MusicEngine = {
 
     // D major scale: D E F# G A B C# D
     const scale = [293.66, 329.63, 369.99, 392, 440, 493.88, 554.37, 587.33];
+    const beatMs = 340;
 
     // Opening fanfare — plays once
     const fanfare = [
@@ -2547,49 +2691,69 @@ const MusicEngine = {
       this._note(ctx, f, ctx.currentTime + 2.3, 1.5, 'sine', 0.12);
     });
 
-    // Looping celebratory melody starts after fanfare
-    const melody = [7, 5, 4, 2, 4, 5, 7, null, 5, 4, 2, 0, 2, 4, 5, null];
-    const beatMs = 340;
-    let step = 0;
+    // ── 8 distinct 8-step phrases ────────────────────────────────────────
+    const phrA = [7, 5, 4, 2, 4, 5, 7, null];          // main: joyful descend
+    const phrB = [4, 5, 6, null, 6, 7, 6, null];        // rise to peak
+    const phrC = [2, 4, 5, null, 5, 4, 2, null];        // mid-range celebration
+    const phrD = [7, null, 5, null, 4, null, 2, null];  // sparse fanfare echo
+    const phrE = [0, 2, 4, 5, 6, 7, null, null];        // full ascending triumph
+    const phrF = [5, 4, 2, null, 4, 5, 7, null];        // climb to peak
+    const phrG = [7, 6, 5, 4, 2, null, null, null];     // descend with trail
+    const phrH = [4, 2, 0, null, 2, 4, 2, 0];           // settle home
+
+    // 8 entries × 8 steps × 340 ms ≈ 21.8 s cycle (after 3.8 s fanfare)
+    const sequence = [phrA, phrA, phrB, phrC, phrD, phrE, phrF, phrA];
 
     const startLoop = () => {
+      let gs = 0;
       const tick = () => {
         const now = ctx.currentTime;
-        const m = melody[step % melody.length];
+        const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+        const m = phrase[gs % 8];
         if (m !== null) {
-          this._note(ctx, scale[m], now, 0.28, 'triangle', 0.16);
-          // Sparkle on phrase starts
-          if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.2, 'sine', 0.05);
+          const jump = (gs % 8 === 0) && Math.random() < 0.25;
+          this._note(ctx, scale[m] * (jump ? 2 : 1), now, 0.28, 'triangle', jump ? 0.08 : 0.16);
+          if (gs % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.2, 'sine', 0.04);
         }
-        step++;
+        gs++;
       };
       tick();
       this.schedulers.push(setInterval(tick, beatMs));
+
+      // Harmony counter-line (16-step independent cycle)
+      const harmPat = [
+        null, null, 0, null, null, null, 2, null,
+        null, 4,    null, null, null, 2, null, null,
+      ];
+      let hs = 0;
+      const harmTick = () => {
+        const h = harmPat[hs % harmPat.length];
+        if (h !== null) this._note(ctx, scale[h] * 0.5, ctx.currentTime, 0.4, 'triangle', 0.06);
+        hs++;
+      };
+      harmTick();
+      this.schedulers.push(setInterval(harmTick, beatMs));
 
       // Warm bass (D pedal)
       const bassNotes = [146.83, 146.83, 174.61, 146.83];
       let bi = 0;
       const bassTick = () => {
-        const now = ctx.currentTime;
-        this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.5, 'triangle', 0.10);
-        bi++;
+        this._note(ctx, bassNotes[bi++ % bassNotes.length], ctx.currentTime, 0.5, 'triangle', 0.10);
       };
       bassTick();
       this.schedulers.push(setInterval(bassTick, beatMs * 4));
 
-      // Gentle shimmer chords
+      // Shimmer chords
       const chords = [[293.66, 369.99, 440], [329.63, 392, 493.88]];
       let ci = 0;
       const chordTick = () => {
-        const now = ctx.currentTime;
-        chords[ci % chords.length].forEach(f => this._note(ctx, f, now, 1.2, 'sine', 0.04));
-        ci++;
+        chords[ci++ % chords.length].forEach(f => this._note(ctx, f, ctx.currentTime, 1.2, 'sine', 0.04));
       };
       chordTick();
       this.schedulers.push(setInterval(chordTick, beatMs * 8));
     };
 
-    // Start loop after fanfare finishes
+    // Start phrase loop after fanfare finishes
     this.schedulers.push(setTimeout(startLoop, 3800));
   }
 };
