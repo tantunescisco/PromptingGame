@@ -222,14 +222,15 @@ body {
   background: var(--primary);
   color: #fff;
   border: none;
-  padding: 16px 48px;
-  font-size: 1.2rem;
+  padding: 13px 30px;
+  font-size: 1.05rem;
   font-family: 'Fredoka One', cursive;
   border-radius: 50px;
   cursor: pointer;
   box-shadow: 0 6px 24px rgba(255,111,0,.4);
   transition: transform 0.15s, box-shadow 0.15s;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 .btn-start:hover { transform: scale(1.06); box-shadow: 0 10px 32px rgba(255,111,0,.5); }
 
@@ -965,6 +966,14 @@ body.level-5 #music-toggle, body.level-5 #sfx-toggle { border-color: #00ff88; co
   gap: 8px;
   margin-bottom: 24px;
 }
+.name-entry-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 .name-entry label {
   font-size: 0.9rem;
   font-weight: 700;
@@ -974,13 +983,13 @@ body.level-5 #music-toggle, body.level-5 #sfx-toggle { border-color: #00ff88; co
 }
 .name-entry input {
   padding: 12px 20px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-family: 'Nunito', sans-serif;
   border: 3px solid var(--primary, #ff6f00);
   border-radius: 50px;
   outline: none;
   text-align: center;
-  width: 260px;
+  width: 220px;
   background: rgba(255,255,255,0.9);
   color: #222;
   transition: border-color 0.2s, box-shadow 0.2s;

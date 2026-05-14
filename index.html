@@ -22,10 +22,12 @@
       <p class="welcome-desc">Journey through 5 levels — from playful basics to advanced AI architecture. Learn how to talk to AI like a pro!</p>
       <div class="name-entry">
         <label for="player-name-input">Your Name:</label>
-        <input type="text" id="player-name-input" placeholder="Enter your name..." maxlength="20" autocomplete="off" />
+        <div class="name-entry-row">
+          <input type="text" id="player-name-input" placeholder="Enter your name..." maxlength="20" autocomplete="off" />
+          <button class="btn-start" onclick="GameEngine.startGame()">Start Adventure</button>
+        </div>
         <span id="name-error" class="name-error hidden">Please enter a name between 3 and 20 characters.</span>
       </div>
-      <button class="btn-start" onclick="GameEngine.startGame()">Start Adventure</button>
       <div class="level-previews">
         <div id="admin-mode-banner" class="admin-mode-banner hidden">
           <span>⚙️ Admin Mode — click any level to jump to it</span>

@@ -2223,55 +2223,88 @@ const MusicEngine = {
     this.oscillators.push(osc);
   },
 
-  // ── Welcome screen: upbeat challenge theme (A minor pentatonic, energetic & inviting)
+  // ── Welcome screen: retro chiptune synthwave — 8-bit pulse waves, 120 BPM
+  //    D minor, hypnotic arpeggios, steady analog bass, tight digital hi-hat
   playWelcome() {
     this._stopAll();
     this.currentLevel = null;
     if (!this.enabled) return;
     const ctx = this._ctx();
-    // A minor pentatonic: A C D E G
-    const scale = [220, 261.63, 293.66, 329.63, 392];
-    const melody = [0, 2, 4, 3, 2, 4, 3, 1, 0, null, 2, 3, 4, null, 3, 2];
-    const beatMs = 280;
-    let step = 0;
 
+    // 120 BPM: 8th note = 250 ms, quarter note = 500 ms
+    const beatMs = 250;
+
+    // D minor scale: D3 E3 F3 G3 A3 Bb3 C4 D4
+    const scale = [293.66, 329.63, 349.23, 392, 440, 466.16, 523.25, 587.33];
+    // Hypnotic chiptune arpeggio — D minor triad run with variation
+    const melody = [0, 2, 4, 6, 4, 2, 0, 2, 3, 5, 6, 5, 3, 5, 4, 2];
+    let step = 0;
     const tick = () => {
       const now = ctx.currentTime;
-      const m = melody[step % melody.length];
-      if (m !== null) {
-        this._note(ctx, scale[m], now, 0.22, 'triangle', 0.18);
-        if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.15, 'sine', 0.06);
-      }
+      this._note(ctx, scale[melody[step % melody.length]], now, 0.2, 'square', 0.11);
       step++;
     };
     tick();
     this.schedulers.push(setInterval(tick, beatMs));
 
-    // Punchy bass on beat 1 and 5
-    const bassNotes = [110, 130.81, 110, 146.83];
+    // Second pulse channel — sparse harmony hits (perfect 4th below, quieter)
+    const harmony = [null, null, 0, null, null, null, 0, null, null, null, 3, null, null, null, 2, null];
+    let hs = 0;
+    const harmTick = () => {
+      const now = ctx.currentTime;
+      const h = harmony[hs % harmony.length];
+      if (h !== null) this._note(ctx, scale[h] * 0.75, now, 0.28, 'square', 0.055);
+      hs++;
+    };
+    harmTick();
+    this.schedulers.push(setInterval(harmTick, beatMs));
+
+    // Steady analog bassline — square wave, quarter notes
+    const bass = [146.83, 110, 116.54, 98]; // D2 A2 Bb2 G2
     let bi = 0;
     const bassTick = () => {
       const now = ctx.currentTime;
-      this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.3, 'square', 0.09);
+      this._note(ctx, bass[bi % bass.length], now, 0.44, 'square', 0.1);
       bi++;
     };
     bassTick();
-    this.schedulers.push(setInterval(bassTick, beatMs * 4));
+    this.schedulers.push(setInterval(bassTick, beatMs * 2));
 
-    // Light hi-hat shuffle
+    // Tight digital hi-hat — every 8th note, on-beat louder
+    let hi = 0;
     const hatTick = () => {
       const now = ctx.currentTime;
-      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.03), ctx.sampleRate);
+      const vol = (hi % 2 === 0) ? 0.044 : 0.02;
+      const len = Math.floor(ctx.sampleRate * 0.016);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
       const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 7000;
-      const g = ctx.createGain(); g.gain.value = 0.04;
+      for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 8500;
+      const g = ctx.createGain(); g.gain.value = vol;
       src.connect(filt); filt.connect(g); g.connect(this.masterGain);
       src.start(now);
+      hi++;
     };
-    this.schedulers.push(setInterval(hatTick, beatMs * 2));
+    hatTick();
+    this.schedulers.push(setInterval(hatTick, beatMs));
+
+    // Sub kick on beats 1 and 3 (every 4 8th-notes = 1 s)
+    const kickTick = () => {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const g   = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(115, now);
+      osc.frequency.exponentialRampToValueAtTime(40, now + 0.09);
+      g.gain.setValueAtTime(0.16, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+      osc.connect(g); g.connect(this.masterGain);
+      osc.start(now); osc.stop(now + 0.13);
+      this.oscillators.push(osc);
+    };
+    kickTick();
+    this.schedulers.push(setInterval(kickTick, beatMs * 4));
   },
 
   // ── Level 1: Gentle lullaby-style melody (C major, slow & soft, with rests)
