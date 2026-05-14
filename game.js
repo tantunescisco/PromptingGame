@@ -2107,6 +2107,15 @@ const AdminMode = {
     } catch {
       alert('❌ Failed to reset the leaderboard. Please try again.');
     }
+  },
+
+  previewVictory() {
+    this.closePanel();
+    GameState.playerName = GameState.playerName || 'Admin';
+    GameState.totalScore = 200;
+    GameState.levelTimes = [30000, 45000, 60000, 40000, 50000];
+    GameState.badges = ['🌟', '💡', '🏆', '⚙️', '🤖'];
+    GameEngine.showGameComplete();
   }
 };
 

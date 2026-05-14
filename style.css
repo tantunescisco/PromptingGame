@@ -295,7 +295,9 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 10px;
   margin: 14px 0 2px;
+  flex-wrap: wrap;
 }
 .admin-reset-area.hidden { display: none; }
 .btn-admin-reset {
@@ -310,6 +312,18 @@ body {
   transition: background 0.15s;
 }
 .btn-admin-reset:hover { background: #d32f2f; }
+.btn-admin-preview {
+  background: #1565c0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 24px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-admin-preview:hover { background: #1976d2; }
 
 /* ============================================
    LEVEL INTRO SCREEN

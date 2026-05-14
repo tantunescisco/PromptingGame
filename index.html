@@ -43,6 +43,7 @@
       <!-- ADMIN RESET AREA (visible in admin mode only) -->
       <div id="admin-reset-area" class="admin-reset-area hidden">
         <button class="btn-admin-reset" onclick="AdminMode.confirmReset()">🗑️ Reset Leaderboard</button>
+        <button class="btn-admin-preview" onclick="AdminMode.previewVictory()">🎦 Preview Completion</button>
       </div>
 
       <!-- WELCOME LEADERBOARD -->
@@ -203,6 +204,7 @@
         <h3>Leaderboard Management</h3>
         <p>Permanently delete all player scores from the leaderboard. This action <strong>cannot be undone</strong>.</p>
         <button class="btn-admin-danger" onclick="AdminMode.confirmReset()">🗑️ Reset Leaderboard</button>
+        <button class="btn-admin-preview" onclick="AdminMode.previewVictory()">🎦 Preview Completion</button>
       </div>
       <div class="admin-modal-actions">
         <button class="btn-admin-cancel" onclick="AdminMode.closePanel()">Close</button>
