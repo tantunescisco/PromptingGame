@@ -252,6 +252,28 @@ body {
 .lp3 { background: linear-gradient(90deg, #7c4dff, #311b92); }
 .lp4 { background: linear-gradient(90deg, #0288d1, #01579b); }
 .lp5 { background: linear-gradient(90deg, #00e676, #00bcd4); color: #000; }
+.lp.admin-clickable {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.lp.admin-clickable:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px #fff, 0 4px 12px rgba(0,0,0,0.4);
+}
+.admin-mode-banner {
+  width: 100%;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(220, 50, 50, 0.85);
+  border-radius: 8px;
+  padding: 5px 12px;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+.admin-mode-banner.hidden { display: none; }
 
 /* ============================================
    LEVEL INTRO SCREEN

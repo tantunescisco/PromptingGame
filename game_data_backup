@@ -1,12 +1,3 @@
-/* ============================================
-   GAME.JS — Prompt Quest: All Levels & Engine
-   ============================================ */
-
-"use strict";
-
-// ============================================================
-// GAME DATA — 5 Levels, 4 exercises each
-// ============================================================
 const GAME_DATA = {
   levels: [
 
@@ -87,10 +78,8 @@ const GAME_DATA = {
           hint: "What connecting word helps? Try 'to me' or 'clearly' to fill the blank!",
           inputType: "freetext",
           placeholder: "Type your completed prompt here...",
-          keywords: ["simple", "6 year", "easy", "child", "explain", "rain", "understand", "plain language"],
-          minLength: 30,
-          keywordsForFull: 4,
-          keywordsForHalf: 2,
+          keywords: ["simple", "kid", "6 year", "easy", "child", "plain", "explain"],
+          minLength: 20,
           explanation: "Great prompts for simple explanations include audience context ('for a 6 year old'), tone ('simple words'), and a clear task ('explain what rain is'). You nailed the basics!",
           tip: "💡 Pro Tip: Always think about WHO will read the answer. Telling the AI the audience makes answers much more useful!"
         },
@@ -255,10 +244,8 @@ const GAME_DATA = {
           hint: "Think: How many questions? What tone? What age group?",
           inputType: "freetext",
           placeholder: "Complete the prompt...",
-          keywords: ["quiz", "dinosaur", "question", "fun", "age", "multiple", "answer", "correct"],
-          minLength: 30,
-          keywordsForFull: 4,
-          keywordsForHalf: 2,
+          keywords: ["quiz", "dinosaur", "kid", "question", "fun", "child", "young", "answer"],
+          minLength: 20,
           explanation: "A great completion: 'Create a 5-question fun multiple-choice quiz about dinosaurs for kids aged 7-10. Include the correct answer after each question.' — specific, includes all key details!",
           tip: "💡 Pro Tip: When creating quizzes, always specify the number of questions, format, topic, and audience age."
         },
@@ -355,10 +342,8 @@ const GAME_DATA = {
           hint: "Think about audience (grandparent, no computer experience) and tone (simple, friendly, no jargon).",
           inputType: "freetext",
           placeholder: "Write your prompt here...",
-          keywords: ["explain", "grandparent", "internet", "simple", "friendly", "jargon", "analogy", "comparison", "understand"],
-          minLength: 40,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["explain", "simple", "grandparent", "internet", "easy", "friendly", "no", "jargon", "clear"],
+          minLength: 30,
           explanation: "Example: 'Explain what the internet is to a grandparent who has never used a computer. Use very simple language, no technical jargon, and include a real-life comparison to help them understand.' — audience + tone + comparison request = excellent prompt!",
           tip: "💡 Pro Tip: Asking for real-life comparisons or analogies makes complex topics much easier to understand!"
         }
@@ -411,10 +396,8 @@ const GAME_DATA = {
           hint: "Pick a specific topic, time period, or person. Add a length or format.",
           inputType: "freetext",
           placeholder: "Write your improved prompt here...",
-          keywords: ["history", "century", "war", "revolution", "summarize", "bullet", "paragraph", "student", "cause", "event"],
-          minLength: 40,
-          keywordsForFull: 4,
-          keywordsForHalf: 2,
+          keywords: ["in", "about", "history", "century", "war", "revolution", "years", "summarize", "explain"],
+          minLength: 30,
           explanation: "A strong rewrite might be: 'Summarize the main causes of World War I in 3 bullet points for a high school student.' It specifies TOPIC, FORMAT, AUDIENCE, and LENGTH.",
           tip: "💡 Pro Tip: Use the 5W formula — Who, What, When, Where, Why — to build strong prompts!"
         },
@@ -443,10 +426,8 @@ const GAME_DATA = {
           hint: "What subject? What level? What format? How long?",
           inputType: "freetext",
           placeholder: "Type your improved prompt...",
-          keywords: ["study guide", "bullet", "exam", "chapter", "subject", "key concept", "summary", "grade", "topic"],
-          minLength: 50,
-          keywordsForFull: 4,
-          keywordsForHalf: 2,
+          keywords: ["study", "guide", "bullet", "topic", "exam", "chapter", "subject", "key", "point", "summary", "format"],
+          minLength: 40,
           explanation: "Example strong prompt: 'Create a study guide for Chapter 3 on the French Revolution for a 10th-grade history exam. Include 5 key events, dates, and why they matter, in bullet point format.' Specific = powerful!",
           tip: "💡 Pro Tip: When writing prompts for study materials, include the subject, grade level, topics, and format."
         },
@@ -543,10 +524,8 @@ const GAME_DATA = {
           hint: "Which platform? What product? What tone? What length? What call-to-action?",
           inputType: "freetext",
           placeholder: "Write your improved prompt here...",
-          keywords: ["instagram", "twitter", "linkedin", "facebook", "tone", "brand", "product", "hashtag", "call-to-action", "engaging", "audience"],
-          minLength: 45,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["post", "instagram", "twitter", "linkedin", "facebook", "tone", "brand", "product", "hashtag", "call", "action", "words"],
+          minLength: 35,
           explanation: "Example strong prompt: 'Write an engaging Instagram post for a coffee brand launching a new seasonal pumpkin spice latte. Keep it under 80 words, use a warm and playful tone, include 3 relevant hashtags, and end with a call-to-action to visit the website.' — Complete brief!",
           tip: "💡 Pro Tip: Every social media prompt needs: platform, brand/product, tone, length, and CTA."
         },
@@ -609,10 +588,8 @@ const GAME_DATA = {
           hint: "What product? What features? What tone? What length? Who is the buyer?",
           inputType: "freetext",
           placeholder: "Write your improved prompt...",
-          keywords: ["product", "description", "feature", "benefit", "tone", "customer", "persuasive", "SEO", "audience", "headphone", "wireless"],
-          minLength: 50,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["product", "description", "feature", "benefit", "tone", "buyer", "customer", "word", "SEO", "persuasive", "audience"],
+          minLength: 40,
           explanation: "Example: 'Write a 100-word persuasive product description for a wireless noise-cancelling headphone targeting remote workers. Highlight: 30-hour battery, studio-quality sound, and foldable design. Use an active, professional tone. Include SEO keywords.'",
           tip: "💡 Pro Tip: Product description prompts need: product name, key features, target audience, tone, word count, and optionally SEO keywords."
         },
@@ -658,10 +635,8 @@ const GAME_DATA = {
           hint: "Choose a specific tech topic, add audience, format, and purpose.",
           inputType: "freetext",
           placeholder: "Type your better prompt...",
-          keywords: ["explain", "technology", "audience", "beginner", "paragraph", "example", "cloud", "business owner", "background"],
-          minLength: 45,
-          keywordsForFull: 4,
-          keywordsForHalf: 2,
+          keywords: ["explain", "technology", "audience", "specific", "format", "purpose", "beginner", "expert", "topic", "example"],
+          minLength: 35,
           explanation: "Example: 'Explain how cloud computing works to a small business owner with no IT background. Use 3 brief paragraphs with a real-world business example in each.' Specific topic + audience + format + examples = excellent output!",
           tip: "💡 Pro Tip: When rewriting a vague prompt, identify the missing W's (What specifically? For Whom? In what Format?) and add them."
         },
@@ -707,10 +682,8 @@ const GAME_DATA = {
           hint: "What topic? How many questions? What audience? What format?",
           inputType: "freetext",
           placeholder: "Write your improved prompt...",
-          keywords: ["faq", "question", "answer", "audience", "numbered", "simple language", "banking", "first-time", "jargon"],
-          minLength: 50,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["faq", "question", "answer", "topic", "customer", "format", "audience", "numbered", "include", "about"],
+          minLength: 40,
           explanation: "Example: 'Create a FAQ document with 8 questions and answers about using a mobile banking app for first-time users over 60. Use simple language, avoid jargon, and format as numbered Q&A pairs.'",
           tip: "💡 Pro Tip: For FAQ prompts, always specify: topic, number of Q&As, audience, tone, and format (Q: A: pairs, numbered, etc.)."
         }
@@ -769,10 +742,8 @@ const GAME_DATA = {
           hint: "Think: Who should the AI be? What is the situation? What kind of advice is needed?",
           inputType: "freetext",
           placeholder: "Write your context-rich prompt here...",
-          keywords: ["you are", "act as", "coach", "graduate", "career", "interview", "tips", "situation", "experience"],
-          minLength: 50,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["you are", "act as", "context", "background", "as a", "your goal", "I am", "situation"],
+          minLength: 40,
           explanation: "Example: 'You are a career coach with 10 years of experience. I am a recent graduate looking for my first job in marketing. Give me 5 practical tips to stand out during interviews.' — Role + context = great advice!",
           tip: "💡 Pro Tip: 'You are a [role]. [Situation]. [Request].' is a winning prompt formula!"
         },
@@ -801,10 +772,8 @@ const GAME_DATA = {
           hint: "Who should the AI be? What should it focus on? What format? How critical should it be?",
           inputType: "freetext",
           placeholder: "Type your enhanced prompt...",
-          keywords: ["you are", "investor", "mentor", "strengths", "weakness", "improvement", "honest", "direct", "business plan", "suggestion"],
-          minLength: 60,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["you are", "act as", "investor", "expert", "mentor", "feedback", "focus", "strengths", "weakness", "improvement", "format"],
+          minLength: 50,
           explanation: "Example: 'You are an experienced startup investor. Review my business plan below and provide: 3 key strengths, 3 major weaknesses, and 3 specific improvement suggestions. Be honest and direct.' — Role + task + format + tone!",
           tip: "💡 Pro Tip: Adding output format to prompts (bullet points, numbered lists, sections) organizes AI responses perfectly."
         },
@@ -890,10 +859,8 @@ const GAME_DATA = {
           hint: "Who should the AI be? What kind of writing? What is its purpose and audience?",
           inputType: "freetext",
           placeholder: "Write your context-rich prompt...",
-          keywords: ["you are", "technical writer", "documentation", "beginner", "getting started", "step-by-step", "audience", "tone", "purpose"],
-          minLength: 50,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["you are", "act as", "writer", "editor", "author", "context", "purpose", "audience", "tone", "help", "writing"],
+          minLength: 40,
           explanation: "Example: 'You are an experienced technical writer. I am creating documentation for a Python library aimed at beginner developers. Help me write a clear, friendly Getting Started guide with step-by-step setup instructions.'",
           tip: "💡 Pro Tip: Every 'help me with X' prompt becomes 10x more effective when you add role + context + output purpose."
         },
@@ -956,10 +923,8 @@ const GAME_DATA = {
           hint: "What is your current skill level? How much time? What goals? What role should the AI take?",
           inputType: "freetext",
           placeholder: "Write your context-enhanced prompt...",
-          keywords: ["you are", "tutor", "beginner", "week", "goal", "project", "python", "learning plan", "daily", "schedule"],
-          minLength: 60,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["you are", "act as", "tutor", "teacher", "beginner", "intermediate", "week", "month", "goal", "project", "plan", "python", "schedule"],
+          minLength: 50,
           explanation: "Example: 'You are an experienced Python coding tutor. I am a complete beginner with 1 hour per day for 4 weeks. My goal is to build a simple data analysis script using pandas. Create a week-by-week learning plan with daily tasks and mini-projects.'",
           tip: "💡 Pro Tip: Learning plan prompts need: current skill level, available time, specific goal, and preferred format (day-by-day, week-by-week)."
         },
@@ -1039,10 +1004,8 @@ const GAME_DATA = {
           hint: "Who is the advisor? Who is the client? What is their situation and goal?",
           inputType: "freetext",
           placeholder: "Write your context-rich prompt here...",
-          keywords: ["you are", "financial planner", "client", "income", "savings", "budget", "debt", "monthly", "50/30/20", "personalized"],
-          minLength: 55,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["you are", "act as", "financial", "advisor", "planner", "client", "income", "goal", "budget", "save", "plan", "age"],
+          minLength: 45,
           explanation: "Example: 'You are a certified financial planner. My client is a 28-year-old software engineer earning $85K/year with $15K in student debt. Provide a personalized 6-month savings plan with monthly targets, using the 50/30/20 budgeting rule.'",
           tip: "💡 Pro Tip: Financial prompts work best with: role + client profile (age, income, debt) + specific goal + timeframe + method."
         },
@@ -1071,10 +1034,8 @@ const GAME_DATA = {
           hint: "Include: role, user profile, what it helps with, tone, and things it should NOT do.",
           inputType: "freetext",
           placeholder: "Write your system prompt here...",
-          keywords: ["you are", "travel", "solo", "safety", "budget", "itinerary", "destination", "do not", "friendly", "personalized"],
-          minLength: 70,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["you are", "travel", "assistant", "solo", "traveler", "safety", "budget", "destination", "tone", "avoid", "help", "friendly"],
+          minLength: 60,
           explanation: "Example: 'You are an experienced solo travel assistant. Help users plan safe, budget-friendly trips with personalized itineraries. Provide local tips, safety advice, and destination overviews. Use an encouraging, friendly tone. Do NOT recommend illegal activities or politically dangerous areas without clear safety warnings.'",
           tip: "💡 Pro Tip: For travel assistants: always include safety guidelines and what-not-to-recommend in your system constraints."
         }
@@ -1128,10 +1089,8 @@ const GAME_DATA = {
           hint: "Think about: How long? What format? What tone? What to avoid?",
           inputType: "freetext",
           placeholder: "Write your format-controlled prompt...",
-          keywords: ["bullet point", "neutral", "factual", "climate", "cause", "solution", "do not", "one sentence", "summarize"],
-          minLength: 55,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["bullet", "point", "word", "sentence", "format", "tone", "avoid", "do not", "without", "include", "summary", "table", "paragraph"],
+          minLength: 45,
           explanation: "Example: 'Summarize the article about climate change in exactly 5 bullet points. Use a neutral, factual tone. Focus on causes and solutions. Do NOT include statistics or quotes. Each bullet should be one sentence.' — This gives the AI a precise working brief!",
           tip: "💡 Pro Tip: 'Do NOT...' constraints are just as important as positive instructions. They prevent unwanted content!"
         },
@@ -1160,10 +1119,8 @@ const GAME_DATA = {
           hint: "Include: format (table/sections/bullets), required agenda items, time allocations, and tone.",
           inputType: "freetext",
           placeholder: "Design your structured prompt...",
-          keywords: ["agenda", "meeting", "table", "time slot", "duration", "sprint review", "developer", "markdown", "professional", "column"],
-          minLength: 70,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["agenda", "meeting", "format", "bullet", "table", "time", "duration", "section", "item", "developer", "team", "include"],
+          minLength: 60,
           explanation: "Example: 'Generate a weekly 1-hour team meeting agenda for 5 software developers. Format as a Markdown table with 3 columns: Time Slot, Topic, Owner. Include: Sprint Review (15 min), Bug Triage (15 min), New Feature Planning (20 min), Blockers & Help Needed (10 min). Use professional tone.' — Complete format brief!",
           tip: "💡 Pro Tip: For repeated tasks (weekly templates, reports), create a master prompt template you can reuse every time."
         },
@@ -1209,10 +1166,8 @@ const GAME_DATA = {
           hint: "What format? How long? What should it NOT include? What tone?",
           inputType: "freetext",
           placeholder: "Write your format-controlled prompt...",
-          keywords: ["bullet", "blockchain", "business value", "do not", "jargon", "executive", "150 words", "use case", "confident"],
-          minLength: 55,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["format", "bullet", "word", "sentence", "table", "avoid", "do not", "without", "tone", "business", "blockchain", "jargon", "technical"],
+          minLength: 45,
           explanation: "Example: 'Explain blockchain to C-suite business executives in 4 bullet points. Focus on business value and use cases, not technical implementation. Do NOT include code, cryptography details, or technical jargon. Use a clear, confident business tone. Max 150 words.'",
           tip: "💡 Pro Tip: Audience + Positive instructions + Negative constraints + Length = the complete format engineering formula."
         },
@@ -1275,10 +1230,8 @@ const GAME_DATA = {
           hint: "What genre? How many? What format? What to avoid (books already widely known)? For whom?",
           inputType: "freetext",
           placeholder: "Write your constrained prompt...",
-          keywords: ["recommend", "science fiction", "lesser-known", "table", "title", "author", "avoid", "reader", "similarity"],
-          minLength: 50,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["book", "recommend", "genre", "format", "number", "avoid", "do not", "list", "fiction", "non-fiction", "reader", "table", "title", "author"],
+          minLength: 40,
           explanation: "Example: 'Recommend 5 lesser-known science fiction novels for an avid reader who has already read Dune and Asimov. Format as a table: Title | Author | Why You'll Love It | Similarity to [Known Book]. Avoid Ender's Game and The Martian.'",
           tip: "💡 Pro Tip: 'Avoid [X]' constraints are powerful for recommendations — they prevent AI from suggesting the obvious choices."
         },
@@ -1307,10 +1260,8 @@ const GAME_DATA = {
           hint: "Include: comparison format (table?), specific dimensions, audience, and length.",
           inputType: "freetext",
           placeholder: "Write your formatted prompt...",
-          keywords: ["compare", "table", "column", "marketing", "competitor", "pricing", "feature", "audience", "neutral", "professional"],
-          minLength: 65,
-          keywordsForFull: 5,
-          keywordsForHalf: 3,
+          keywords: ["compare", "product", "table", "format", "column", "marketing", "competitor", "row", "analysis", "dimension", "include", "audience"],
+          minLength: 55,
           explanation: "Example: 'Create a competitive analysis between Slack and Microsoft Teams for a marketing manager. Format as a Markdown table with 6 rows: Pricing model, Target audience, Key features, Integrations, Mobile experience, and Brand perception. Keep each cell under 20 words. Neutral professional tone.'",
           tip: "💡 Pro Tip: For competitive analyses, a table format with predefined comparison dimensions is always clearer than paragraphs."
         },
@@ -1373,10 +1324,8 @@ const GAME_DATA = {
           hint: "Think: platform(s), timeframe, post types, tone, format (table?).",
           inputType: "freetext",
           placeholder: "Write your format-engineered prompt...",
-          keywords: ["content calendar", "social media", "platform", "week", "table", "post type", "tone", "brand", "hashtag", "caption"],
-          minLength: 65,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["content", "calendar", "social", "media", "platform", "week", "month", "post", "format", "table", "tone", "brand", "type", "include"],
+          minLength: 55,
           explanation: "Example: 'Create a 2-week social media content calendar for a fitness brand targeting millennials. Cover Instagram and LinkedIn. Format as a table: Day | Platform | Post Type (Reel/Story/Static) | Topic | Caption (max 30 words) | Hashtags. Use an energetic, motivational tone.'",
           tip: "💡 Pro Tip: Content calendar prompts need platforms, timeframe, post types, and a table format for maximum usability."
         },
@@ -1405,10 +1354,8 @@ const GAME_DATA = {
           hint: "Specify: format (numbered list/table), sections (pre-launch/launch/post-launch), owner fields, and time markers.",
           inputType: "freetext",
           placeholder: "Design your checklist prompt...",
-          keywords: ["checklist", "launch", "saas", "pre-launch", "post-launch", "owner", "deadline", "marketing", "engineering", "numbered"],
-          minLength: 70,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["checklist", "launch", "product", "saas", "format", "numbered", "table", "section", "pre", "post", "owner", "deadline", "include", "team"],
+          minLength: 60,
           explanation: "Example: 'Generate a product launch checklist for a B2B SaaS company. Organize into 3 sections: Pre-Launch (T-4 weeks to T-1), Launch Day, and Post-Launch (Week 1-2). Format as a numbered list per section with columns: Task | Owner | Deadline | Status. Include marketing, engineering, customer success, and sales tasks.'",
           tip: "💡 Pro Tip: Checklist prompts are more useful with section headers, owner columns, and status fields — treat them like a project brief."
         },
@@ -1496,12 +1443,12 @@ const GAME_DATA = {
           hint: "Think about logical order: research → structure → write.",
           inputType: "ordering",
           items: [
-            { id: "a", text: "'Using the outline above, write the full 500-word blog post with an engaging intro, 3 body sections, and a conclusion.'" },
-            { id: "b", text: "'List the top 5 AI trends in 2025 with a one-sentence description of each. Focus on practical business impact.'" },
-            { id: "c", text: "'Using the 5 trends above, create a detailed outline for a blog post. Include: title, intro hook idea, 3 main sections with subpoints, and conclusion.'" }
+            { id: "a", text: "PROMPT 3: 'Using the outline above, write the full 500-word blog post with an engaging intro, 3 body sections, and a conclusion.'" },
+            { id: "b", text: "PROMPT 1: 'List the top 5 AI trends in 2025 with a one-sentence description of each. Focus on practical business impact.'" },
+            { id: "c", text: "PROMPT 2: 'Using the 5 trends above, create a detailed outline for a blog post. Include: title, intro hook idea, 3 main sections with subpoints, and conclusion.'" }
           ],
           correctOrder: ["b", "c", "a"],
-          explanation: "Prompt Chaining breaks complex tasks into stages: First research/collect data, then structure/plan, then execute/write. Each prompt uses the previous output as context. This produces far better results than one massive prompt!",
+          explanation: "Prompt Chaining breaks complex tasks into stages: (1) Research/collect data → (2) Structure/plan → (3) Execute/write. Each prompt uses the previous output as context. This produces far better results than one massive prompt!",
           tip: "💡 Pro Tip: Prompt chaining is essential for tasks over ~1000 words or multi-step workflows. Think: Plan → Draft → Refine."
         },
         {
@@ -1512,10 +1459,8 @@ const GAME_DATA = {
           hint: "Ask the AI to analyze the weak prompt and generate an improved version with reason. Use techniques: role, format, constraints.",
           inputType: "freetext",
           placeholder: "// Design your meta-prompt here...",
-          keywords: ["improve", "prompt engineer", "weakness", "rewrite", "role", "context", "format", "constraint", "marketing email", "identify"],
-          minLength: 70,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["improve", "prompt", "rewrite", "better", "specific", "role", "context", "format", "technique", "engineer", "optimize", "enhance"],
+          minLength: 60,
           explanation: "Example meta-prompt: 'You are an expert prompt engineer. The following prompt is weak: \"Write a marketing email\". Identify 3 specific weaknesses in this prompt, then rewrite it as a high-quality prompt using: role assignment, specific context, output format, and tone constraints. Show the improved prompt and explain each improvement.' This is the highest level of prompt engineering!",
           tip: "💡 Pro Tip: Meta-prompting is recursive intelligence — using AI to get better at using AI. It's one of the most powerful techniques in production systems."
         },
@@ -1578,10 +1523,8 @@ const GAME_DATA = {
           hint: "Provide 3 examples with text → label, then add the actual ticket to classify.",
           inputType: "freetext",
           placeholder: "// Write your few-shot prompt here...",
-          keywords: ["ticket", "bug report", "feature request", "billing", "classify", "example", "crash", "dark mode", "charged"],
+          keywords: ["ticket", "bug", "feature", "billing", "classify", "label", "example", "→", "report", "request", "issue", "classify"],
           minLength: 80,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
           explanation: "Example few-shot prompt:\n'Classify each support ticket as: Bug Report, Feature Request, or Billing Issue.\nTicket: \"App crashes every time I open it\" → Bug Report\nTicket: \"Please add dark mode\" → Feature Request\nTicket: \"I was charged twice this month\" → Billing Issue\nNow classify: \"The export function isn't working on my account.\"'",
           tip: "💡 Pro Tip: Few-shot labels should cover every class and be diverse — use edge cases in your examples to handle ambiguous real-world inputs."
         },
@@ -1610,13 +1553,13 @@ const GAME_DATA = {
           hint: "Think: research → structure → draft → refine.",
           inputType: "ordering",
           items: [
-            { id: "a", text: "'Review the draft proposal and identify 3 areas to strengthen. Rewrite those sections with more persuasive language and specific data points.'" },
-            { id: "b", text: "'Research the top 3 challenges faced by mid-market logistics companies in 2024, focusing on cost, technology adoption, and talent.'" },
-            { id: "c", text: "'Write the full business proposal using the outline. Each section should be 2–3 paragraphs. Professional, persuasive tone.'" },
-            { id: "d", text: "'Using the challenges above, create a detailed outline for a business proposal for a route optimization software solution. Include: Executive Summary, Problem Statement, Solution Overview, ROI Projection, and Call to Action.'" }
+            { id: "a", text: "STEP 4: 'Review the draft proposal and identify 3 areas to strengthen. Rewrite those sections with more persuasive language and specific data points.'" },
+            { id: "b", text: "STEP 1: 'Research the top 3 challenges faced by mid-market logistics companies in 2024, focusing on cost, technology adoption, and talent.'" },
+            { id: "c", text: "STEP 3: 'Write the full business proposal using the outline. Each section should be 2–3 paragraphs. Professional, persuasive tone.'" },
+            { id: "d", text: "STEP 2: 'Using the challenges above, create a detailed outline for a business proposal for a route optimization software solution. Include: Executive Summary, Problem Statement, Solution Overview, ROI Projection, and Call to Action.'" }
           ],
           correctOrder: ["b", "d", "c", "a"],
-          explanation: "The optimal chain is: Research the problem space → Create a structured outline → Write the full draft → Review and refine. Each step builds directly on the previous output — this is professional prompt chaining!",
+          explanation: "The optimal chain is: (1) Research the problem space → (2) Create a structured outline → (3) Write the full draft → (4) Review and refine. Each step builds directly on the previous output — this is professional prompt chaining!",
           tip: "💡 Pro Tip: For long-form documents, use at least 4 prompt chain steps: Research → Outline → Draft → Refine. Never skip the outline step!"
         },
         {
@@ -1644,10 +1587,8 @@ const GAME_DATA = {
           hint: "Ask the AI to: identify its weaknesses, apply prompt engineering techniques, and output the improved version.",
           inputType: "freetext",
           placeholder: "// Write your meta-prompt...",
-          keywords: ["evaluate", "sales pitch", "weakness", "rewrite", "prompt engineer", "audience", "tone", "product", "improved version", "diagnose"],
-          minLength: 70,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["improve", "prompt", "weakness", "rewrite", "role", "context", "format", "technique", "engineer", "optimize", "specific", "identify"],
+          minLength: 60,
           explanation: "Example: 'You are an expert prompt engineer. Analyze this prompt: \"Write a sales pitch\". Identify 4 specific weaknesses (missing role, context, audience, format). Then rewrite it as a high-quality prompt incorporating: role assignment, product context, target audience, tone, and length constraint. Show both prompts and explain each improvement.'",
           tip: "💡 Pro Tip: The best meta-prompts ask AI to both diagnose AND fix — not just identify problems. 'Identify AND rewrite' is more powerful than 'just analyze'."
         },
@@ -1710,13 +1651,13 @@ const GAME_DATA = {
           hint: "Good code review: understand → analyze → prioritize → suggest → validate.",
           inputType: "ordering",
           items: [
-            { id: "a", text: "'From the issues above, identify the top 3 critical ones and provide a specific fix for each with corrected code snippet.'" },
-            { id: "b", text: "'Analyze this code snippet. List all potential issues: bugs, security vulnerabilities, performance problems, and style violations.'" },
-            { id: "c", text: "'Review the proposed fixes. Confirm they don't introduce new bugs or break existing logic. Rate your confidence 1-10 for each fix.'" },
-            { id: "d", text: "'From the full issue list, categorize each as: Critical (breaks functionality/security) | Major (significant issue) | Minor (style/optimization).'" }
+            { id: "a", text: "STEP 3: 'From the issues above, identify the top 3 critical ones and provide a specific fix for each with corrected code snippet.'" },
+            { id: "b", text: "STEP 1: 'Analyze this code snippet. List all potential issues: bugs, security vulnerabilities, performance problems, and style violations.'" },
+            { id: "c", text: "STEP 4: 'Review the proposed fixes. Confirm they don't introduce new bugs or break existing logic. Rate your confidence 1-10 for each fix.'" },
+            { id: "d", text: "STEP 2: 'From the full issue list, categorize each as: Critical (breaks functionality/security) | Major (significant issue) | Minor (style/optimization).'" }
           ],
           correctOrder: ["b", "d", "a", "c"],
-          explanation: "Optimal code review chain: Find ALL issues → Categorize by severity → Fix the criticals with code → Validate the fixes. This systematic approach produces professional-grade code reviews.",
+          explanation: "Optimal code review chain: (1) Find ALL issues → (2) Categorize by severity → (3) Fix the criticals with code → (4) Validate the fixes. This systematic approach produces professional-grade code reviews.",
           tip: "💡 Pro Tip: Multi-step workflows should always separate discovery (what's wrong?) from prioritization (what matters most?) from solution (how to fix?)."
         },
         {
@@ -1744,10 +1685,8 @@ const GAME_DATA = {
           hint: "Ask the AI to create a reusable prompt template, not just one prompt. Include placeholders like [COMPANY], [ROLE].",
           inputType: "freetext",
           placeholder: "// Write your meta-prompt for template creation...",
-          keywords: ["template", "onboarding", "reusable", "placeholder", "company", "role", "department", "start date", "fill in", "schedule"],
-          minLength: 70,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["template", "prompt", "onboarding", "reusable", "placeholder", "create", "engineer", "role", "company", "fill", "blank", "design"],
+          minLength: 60,
           explanation: "Example: 'You are an expert prompt engineer. Design a reusable prompt template for onboarding new employees. The template should use [PLACEHOLDERS] for: company name, employee role, department, start date, and key tools. Include sections for: first week schedule, culture overview, key contacts, and 30-day goals. Format as [ROLE] fills in the brackets before sending to an AI model.'",
           tip: "💡 Pro Tip: Reusable prompt templates with [PLACEHOLDERS] are a core deliverable in enterprise AI engineering. They scale prompt quality across teams."
         },
@@ -1776,10 +1715,8 @@ const GAME_DATA = {
           hint: "Ask AI to define: common use cases, best practices, prompt templates, and quality checklist — all customized for the business unit.",
           inputType: "freetext",
           placeholder: "// Design your advanced meta-prompt...",
-          keywords: ["framework", "business unit", "use cases", "template", "checklist", "non-technical", "best practice", "documented", "sales", "quality"],
-          minLength: 90,
-          keywordsForFull: 6,
-          keywordsForHalf: 3,
+          keywords: ["framework", "prompt", "business", "use case", "template", "checklist", "engineer", "team", "non-technical", "guide", "practice", "document"],
+          minLength: 80,
           explanation: "Example: 'You are a senior AI solutions architect. Create a Prompt Engineering Framework for a B2B Sales team. Include: (1) Top 5 sales use cases with AI (prospecting, objection handling, email personalization, CRM updates, competitor analysis), (2) A best-practice prompt template for each use case, (3) Do/Don't guidelines for sales prompting, (4) A 5-point output quality checklist they can use to evaluate any AI response. Format as a structured guide non-technical sales reps can follow independently.'",
           tip: "💡 Pro Tip: The ultimate prompt engineering skill is building frameworks others use — not just individual prompts. Framework meta-prompts create lasting value."
         }
@@ -1787,1646 +1724,3 @@ const GAME_DATA = {
     }
   ]
 };
-
-// ============================================================
-// GAME STATE
-// ============================================================
-const GameState = {
-  currentLevel: 0,
-  currentExercise: 0,
-  score: 0,
-  totalScore: 0,
-  badges: [],
-  selectedChoice: null,
-  matchingState: { selected: null, pairs: {} },
-  hintUsed: false,
-  answers: {},
-  playerName: 'Player',
-  levelStartTime: 0,
-  levelElapsed: 0,
-  timerInterval: null,
-  levelTimes: [],
-  pollInterval: null,
-  levelExercises: []   // randomly selected exercises for the current level
-};
-
-// ============================================================
-// FIREBASE CONFIG  (Tier-1 shared storage — works on GitHub Pages)
-// ─────────────────────────────────────────────────────────────
-// Set up a FREE Firebase Realtime Database in ~3 minutes:
-//   1. Go to https://console.firebase.google.com
-//   2. Create a project → Realtime Database → Create database
-//   3. Choose "Start in test mode" (public read/write)
-//   4. Copy the database URL (e.g. https://my-app-default-rtdb.firebaseio.com)
-//   5. Paste it below (no trailing slash)
-//
-// When set, ALL participants — even on GitHub Pages — share the same
-// live scoreboard in real time. Leave empty to use server.py or localStorage.
-// ─────────────────────────────────────────────────────────────
-const FIREBASE_URL = 'https://promptinggamedb-default-rtdb.europe-west1.firebasedatabase.app'; // Firebase Realtime Database
-
-// ============================================================
-// SCOREBOARD STORAGE
-// — Tier 1: Firebase Realtime Database (if FIREBASE_URL is set)
-//           Works on GitHub Pages. All devices share scores.
-// — Tier 2: REST API via server.py (if running on local network)
-// — Tier 3: localStorage (per-device fallback / file:// mode)
-// ============================================================
-const Scoreboard = {
-  _lsKey:      'pq_scores',
-  _apiOnline:  null,              // null = not yet checked
-  _fbEnabled:  !!FIREBASE_URL,   // true when Firebase URL is configured
-
-  // ── Firebase helpers ─────────────────────────────────────
-  async _fbSave(levelId, name, score, timeMs) {
-    // POST appends a new entry with an auto-generated key (no race condition)
-    await fetch(`${FIREBASE_URL}/scores/${levelId}.json`, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ name, score, timeMs, date: Date.now() })
-    });
-    return this._fbGet(levelId);
-  },
-
-  async _fbGet(levelId) {
-    const r    = await fetch(`${FIREBASE_URL}/scores/${levelId}.json`);
-    const data = await r.json();
-    if (!data || typeof data !== 'object') return [];
-    return Object.values(data)
-      .filter(e => e && e.name)
-      .sort((a, b) => b.score - a.score || a.timeMs - b.timeMs);
-  },
-
-  async _fbOverall() {
-    const r    = await fetch(`${FIREBASE_URL}/scores.json`);
-    const data = await r.json();
-    if (!data || typeof data !== 'object') return [];
-    // data = { "1": { "-key": {entry}, ... }, "2": { ... }, ... }
-    const best = {};
-    Object.entries(data).forEach(([lid, levelObj]) => {
-      if (!levelObj || typeof levelObj !== 'object') return;
-      const seen = {};
-      Object.values(levelObj).forEach(e => {
-        if (!e || !e.name) return;
-        const k = `${e.name}\x00${lid}`;
-        if (!seen[k] || e.score > seen[k].score ||
-            (e.score === seen[k].score && e.timeMs < seen[k].timeMs)) seen[k] = e;
-      });
-      Object.values(seen).forEach(e => {
-        if (!best[e.name]) best[e.name] = { name: e.name, totalScore: 0, totalTimeMs: 0 };
-        best[e.name].totalScore  += e.score;
-        best[e.name].totalTimeMs += e.timeMs;
-      });
-    });
-    return Object.values(best)
-      .sort((a, b) => b.totalScore - a.totalScore || a.totalTimeMs - b.totalTimeMs);
-  },
-
-  // ── REST API (server.py) availability check ───────────────
-  async _isApiOnline() {
-    if (this._apiOnline !== null) return this._apiOnline;
-    if (window.location.protocol === 'file:') { this._apiOnline = false; return false; }
-    try {
-      const ctrl = new AbortController();
-      const tid  = setTimeout(() => ctrl.abort(), 2500);
-      const r    = await fetch('/api/scores/1', { signal: ctrl.signal });
-      clearTimeout(tid);
-      this._apiOnline = r.ok || r.status === 200;
-    } catch { this._apiOnline = false; }
-    return this._apiOnline;
-  },
-
-  // Returns true when ANY shared backend is available (for LIVE badge)
-  async _isOnline() {
-    return this._fbEnabled || (await this._isApiOnline());
-  },
-
-  // ── Public API (3-tier, async) ────────────────────────────
-  async saveLevel(levelId, name, score, timeMs) {
-    // Tier 1 — Firebase
-    if (this._fbEnabled) {
-      try { return await this._fbSave(levelId, name, score, timeMs); } catch {}
-    }
-    // Tier 2 — REST API
-    if (await this._isApiOnline()) {
-      try {
-        const r = await fetch(`/api/scores/${levelId}`, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ name, score, timeMs })
-        });
-        if (r.ok) return await r.json();
-      } catch {}
-    }
-    // Tier 3 — localStorage
-    return this._lsSave(levelId, name, score, timeMs);
-  },
-
-  async getLevel(levelId) {
-    if (this._fbEnabled) {
-      try { return await this._fbGet(levelId); } catch {}
-    }
-    if (await this._isApiOnline()) {
-      try {
-        const r = await fetch(`/api/scores/${levelId}`);
-        if (r.ok) return await r.json();
-      } catch {}
-    }
-    return this._lsGet(levelId);
-  },
-
-  async getOverall() {
-    if (this._fbEnabled) {
-      try { return await this._fbOverall(); } catch {}
-    }
-    if (await this._isApiOnline()) {
-      try {
-        const r = await fetch('/api/scores/overall');
-        if (r.ok) return await r.json();
-      } catch {}
-    }
-    return this._lsOverall();
-  },
-
-  // ── localStorage fallback ─────────────────────────────────
-  _lsLoad() {
-    try { return JSON.parse(localStorage.getItem(this._lsKey)) || {}; }
-    catch { return {}; }
-  },
-  _lsSave(levelId, name, score, timeMs) {
-    const all = this._lsLoad();
-    if (!all[levelId]) all[levelId] = [];
-    all[levelId].push({ name, score, timeMs, date: Date.now() });
-    all[levelId].sort((a, b) => b.score - a.score || a.timeMs - b.timeMs);
-    try { localStorage.setItem(this._lsKey, JSON.stringify(all)); } catch {}
-    return all[levelId];
-  },
-  _lsGet(levelId) {
-    const all = this._lsLoad();
-    return [...(all[levelId] || [])].sort((a, b) => b.score - a.score || a.timeMs - b.timeMs);
-  },
-  _lsOverall() {
-    const all  = this._lsLoad();
-    const best = {};
-    Object.keys(all).forEach(lid => {
-      const seen = {};
-      all[lid].forEach(e => {
-        const k = e.name + '\x00' + lid;
-        if (!seen[k] || e.score > seen[k].score ||
-            (e.score === seen[k].score && e.timeMs < seen[k].timeMs)) seen[k] = e;
-      });
-      Object.values(seen).forEach(e => {
-        if (!best[e.name]) best[e.name] = { name: e.name, totalScore: 0, totalTimeMs: 0 };
-        best[e.name].totalScore  += e.score;
-        best[e.name].totalTimeMs += e.timeMs;
-      });
-    });
-    return Object.values(best).sort((a, b) => b.totalScore - a.totalScore || a.totalTimeMs - b.totalTimeMs);
-  },
-
-  // ── Admin: reset all scores across all tiers ──────────────
-  async resetAll() {
-    // Tier 1 — Firebase: set scores node to null (deletes all children)
-    if (this._fbEnabled) {
-      try {
-        await fetch(`${FIREBASE_URL}/scores.json`, {
-          method:  'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body:    'null'
-        });
-      } catch {}
-    }
-    // Tier 2 — REST API
-    if (await this._isApiOnline()) {
-      try { await fetch('/api/scores', { method: 'DELETE' }); } catch {}
-    }
-    // Tier 3 — localStorage
-    try { localStorage.removeItem(this._lsKey); } catch {}
-    // Reset API-online cache so next check is fresh
-    this._apiOnline = null;
-  }
-};
-
-// ============================================================
-// ADMIN MODE
-// ============================================================
-const AdminMode = {
-  _CREDS: { user: 'tantunes@cisco.com', pass: 'Cisco!123' },
-
-  showLogin() {
-    const modal = document.getElementById('admin-login-modal');
-    if (!modal) return;
-    document.getElementById('admin-username').value = '';
-    document.getElementById('admin-password').value = '';
-    document.getElementById('admin-login-error').classList.add('hidden');
-    modal.classList.remove('hidden');
-    setTimeout(() => document.getElementById('admin-username').focus(), 60);
-  },
-
-  closeLogin() {
-    document.getElementById('admin-login-modal').classList.add('hidden');
-  },
-
-  handleLogin() {
-    const user = document.getElementById('admin-username').value.trim();
-    const pass = document.getElementById('admin-password').value;
-    if (user === this._CREDS.user && pass === this._CREDS.pass) {
-      this._activateAdminLevelButtons();
-      this.closeLogin();
-      this.showPanel();
-    } else {
-      document.getElementById('admin-login-error').classList.remove('hidden');
-      document.getElementById('admin-password').value = '';
-      document.getElementById('admin-password').focus();
-    }
-  },
-
-  showPanel() {
-    document.getElementById('admin-panel-modal').classList.remove('hidden');
-  },
-
-  _activateAdminLevelButtons() {
-    [0, 1, 2, 3, 4].forEach(i => {
-      const el = document.getElementById('lp-btn-' + i);
-      if (!el) return;
-      el.classList.add('admin-clickable');
-      el.title = 'Admin: click to jump to this level';
-      el.addEventListener('click', () => AdminMode.jumpToLevel(i));
-    });
-    const banner = document.getElementById('admin-mode-banner');
-    if (banner) banner.classList.remove('hidden');
-  },
-
-  jumpToLevel(levelIndex) {
-    const nameInput = document.getElementById('player-name-input');
-    const name = nameInput ? nameInput.value.trim() : '';
-    GameState.playerName = (name.length >= 3 && name.length <= 20) ? name : 'Admin';
-    GameState.currentLevel = levelIndex;
-    GameState.score = 0;
-    GameState.totalScore = 0;
-    GameState.badges = [];
-    GameState.answers = {};
-    GameState.levelTimes = [];
-    this.closePanel();
-    setTheme(`level-${levelIndex + 1}`);
-    GameEngine.showLevelIntro();
-  },
-
-  closePanel() {
-    document.getElementById('admin-panel-modal').classList.add('hidden');
-  },
-
-  async confirmReset() {
-    const confirmed = confirm(
-      '⚠️ Reset the entire leaderboard?\n\n' +
-      'This will permanently delete ALL player scores and cannot be undone.\n\n' +
-      'Press OK to confirm, or Cancel to abort.'
-    );
-    if (!confirmed) return;
-
-    try {
-      await Scoreboard.resetAll();
-      this.closePanel();
-      GameEngine._renderWelcomeLeaderboard();
-      alert('✅ Leaderboard has been reset successfully.');
-    } catch {
-      alert('❌ Failed to reset the leaderboard. Please try again.');
-    }
-  }
-};
-
-// ============================================================
-// TIMER
-// ============================================================
-const Timer = {
-  start() {
-    GameState.levelStartTime = Date.now();
-    GameState.levelElapsed = 0;
-    clearInterval(GameState.timerInterval);
-    GameState.timerInterval = setInterval(() => {
-      const elapsed = Date.now() - GameState.levelStartTime;
-      const totalMs = elapsed;
-      const secs = Math.floor(totalMs / 1000);
-      const mins = Math.floor(secs / 60);
-      const ss = String(secs % 60).padStart(2, '0');
-      const el = document.getElementById('timer-display');
-      if (el) el.textContent = `⏱ ${mins}:${ss}`;
-      GameState.levelElapsed = totalMs;
-    }, 500);
-  },
-
-  stop() {
-    clearInterval(GameState.timerInterval);
-    GameState.timerInterval = null;
-    GameState.levelElapsed = Date.now() - GameState.levelStartTime;
-    return GameState.levelElapsed;
-  },
-
-  format(ms) {
-    const secs = Math.floor(ms / 1000);
-    const mins = Math.floor(secs / 60);
-    const ss = String(secs % 60).padStart(2, '0');
-    return `${mins}:${ss}`;
-  }
-};
-
-// ============================================================
-// MUSIC ENGINE  (Web Audio API — procedural, no files needed)
-// Each level has a distinct generative music style
-// ============================================================
-const MusicEngine = {
-  ctx: null,
-  masterGain: null,
-  enabled: true,
-  currentLevel: null,
-  schedulers: [],     // handles returned by setInterval/setTimeout
-  oscillators: [],    // active oscillators to stop
-
-  sfxGain: null,
-
-  _ctx() {
-    if (!this.ctx) {
-      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-      this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.value = 0.18;
-      this.masterGain.connect(this.ctx.destination);
-      // Separate gain bus for SFX — louder than music
-      this.sfxGain = this.ctx.createGain();
-      this.sfxGain.gain.value = 0.55;
-      this.sfxGain.connect(this.ctx.destination);
-    }
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-    return this.ctx;
-  },
-
-  toggle() {
-    this.enabled = !this.enabled;
-    const btn = document.getElementById('music-toggle');
-    btn.classList.toggle('muted', !this.enabled);
-    if (this.masterGain) this.masterGain.gain.value = this.enabled ? 0.18 : 0;
-    if (this.enabled && this.currentLevel !== null) {
-      this.play(this.currentLevel);
-    } else if (!this.enabled) {
-      this._stopAll();
-    }
-  },
-
-  play(levelIndex) {
-    this._stopAll();
-    this.currentLevel = levelIndex;
-    if (!this.enabled) return;
-    const ctx = this._ctx();
-    // Level theme 0→4
-    [
-      this._playLevel1.bind(this),
-      this._playLevel2.bind(this),
-      this._playLevel3.bind(this),
-      this._playLevel4.bind(this),
-      this._playLevel5.bind(this)
-    ][levelIndex]?.(ctx);
-  },
-
-  _stopAll() {
-    this.schedulers.forEach(h => clearInterval(h));
-    this.schedulers = [];
-    this.oscillators.forEach(o => { try { o.stop(); } catch {} });
-    this.oscillators = [];
-  },
-
-  _note(ctx, freq, start, dur, type = 'sine', gainVal = 0.22) {
-    const osc = ctx.createOscillator();
-    const g = ctx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, start);
-    g.gain.setValueAtTime(0, start);
-    g.gain.linearRampToValueAtTime(gainVal, start + 0.02);
-    g.gain.linearRampToValueAtTime(0, start + dur);
-    osc.connect(g);
-    g.connect(this.masterGain);
-    osc.start(start);
-    osc.stop(start + dur + 0.05);
-    this.oscillators.push(osc);
-  },
-
-  // ── Welcome screen: upbeat challenge theme (A minor pentatonic, energetic & inviting)
-  playWelcome() {
-    this._stopAll();
-    this.currentLevel = null;
-    if (!this.enabled) return;
-    const ctx = this._ctx();
-    // A minor pentatonic: A C D E G
-    const scale = [220, 261.63, 293.66, 329.63, 392];
-    const melody = [0, 2, 4, 3, 2, 4, 3, 1, 0, null, 2, 3, 4, null, 3, 2];
-    const beatMs = 280;
-    let step = 0;
-
-    const tick = () => {
-      const now = ctx.currentTime;
-      const m = melody[step % melody.length];
-      if (m !== null) {
-        this._note(ctx, scale[m], now, 0.22, 'triangle', 0.18);
-        if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.15, 'sine', 0.06);
-      }
-      step++;
-    };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
-
-    // Punchy bass on beat 1 and 5
-    const bassNotes = [110, 130.81, 110, 146.83];
-    let bi = 0;
-    const bassTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.3, 'square', 0.09);
-      bi++;
-    };
-    bassTick();
-    this.schedulers.push(setInterval(bassTick, beatMs * 4));
-
-    // Light hi-hat shuffle
-    const hatTick = () => {
-      const now = ctx.currentTime;
-      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.03), ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 7000;
-      const g = ctx.createGain(); g.gain.value = 0.04;
-      src.connect(filt); filt.connect(g); g.connect(this.masterGain);
-      src.start(now);
-    };
-    this.schedulers.push(setInterval(hatTick, beatMs * 2));
-  },
-
-  // ── Level 1: Gentle lullaby-style melody (C major, slow & soft, with rests)
-  _playLevel1(ctx) {
-    const scale = [261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
-    // Melody with nulls = rests — slower, breathable pattern
-    const melody = [0, 2, 4, null, 4, 5, 4, null, 2, 0, 2, null, 4, 2, 0, null];
-    const beatMs = 460;
-    let step = 0;
-
-    const tick = () => {
-      const now = ctx.currentTime;
-      const m = melody[step % melody.length];
-      if (m !== null) {
-        this._note(ctx, scale[m], now, 0.38, 'sine', 0.16);
-        // Soft octave shimmer on phrase starts
-        if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.5, 'sine', 0.05);
-      }
-      step++;
-    };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
-
-    // Very gentle bass pulse every 4 beats
-    const bassNotes = [130.81, 130.81, 174.61, 130.81];
-    let bi = 0;
-    const bassTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.7, 'sine', 0.07);
-      bi++;
-    };
-    bassTick();
-    this.schedulers.push(setInterval(bassTick, beatMs * 4));
-  },
-
-  // ── Level 2: Heroic adventure melody (G major, triangle waves, musical phrasing)
-  _playLevel2(ctx) {
-    const heroic = [196, 220, 246.94, 261.63, 293.66, 329.63, 392, 440];
-    // Adventure melody with rests — triangle is softer than square
-    const melody = [4, 5, 6, null, 6, 7, 6, null, 5, 4, 2, null, 4, 4, null, null];
-    let step = 0;
-    const beatMs = 380;
-
-    const tick = () => {
-      const now = ctx.currentTime;
-      const m = melody[step % melody.length];
-      if (m !== null) {
-        this._note(ctx, heroic[m], now, 0.3, 'triangle', 0.18);
-      }
-      step++;
-    };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
-
-    // Slow sustained chord pad (G major)
-    const pads = [[196, 246.94, 293.66], [220, 261.63, 329.63]];
-    let pi = 0;
-    const padTick = () => {
-      const now = ctx.currentTime;
-      pads[pi % pads.length].forEach(f => this._note(ctx, f, now, 1.4, 'sine', 0.055));
-      pi++;
-    };
-    padTick();
-    this.schedulers.push(setInterval(padTick, beatMs * 4));
-  },
-
-  // ── Level 3: Dark fantasy — minor scale, haunting pads
-  _playLevel3(ctx) {
-    const minor = [130.81, 155.56, 174.61, 196, 220, 233.08, 261.63]; // C natural minor
-    const melody3 = [0, 2, 3, 5, 4, 2, 0, 1, 3, 4, 2, 0];
-    let step = 0;
-    const beatMs = 480;
-
-    // Pad drone
-    [130.81, 196, 261.63].forEach(freq => {
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.value = freq;
-      g.gain.value = 0.04;
-      const filt = ctx.createBiquadFilter();
-      filt.type = 'lowpass';
-      filt.frequency.value = 600;
-      osc.connect(filt); filt.connect(g); g.connect(this.masterGain);
-      osc.start();
-      this.oscillators.push(osc);
-    });
-
-    const tick = () => {
-      const now = ctx.currentTime;
-      const idx = minor.length > 0 ? (melody3[step % melody3.length]) % minor.length : 0;
-      const freq = minor[Math.abs(idx)];
-      this._note(ctx, freq * 2, now, 0.38, 'sine', 0.18);
-      step++;
-    };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
-  },
-
-  // ── Level 4: Corporate — clean, minimalist, syncopated clicks
-  _playLevel4(ctx) {
-    const pentatonic = [261.63, 293.66, 329.63, 392, 440, 523.25];
-    let step = 0;
-    const pattern = [0, null, 2, null, 1, 3, null, 2, 0, null, 4, null, 3, 1, null, 0];
-    const beatMs = 220;
-
-    const tick = () => {
-      const now = ctx.currentTime;
-      const p = pattern[step % pattern.length];
-      if (p !== null) {
-        const freq = pentatonic[p % pentatonic.length];
-        this._note(ctx, freq, now, 0.12, 'sine', 0.2);
-        // Click
-        const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.02), ctx.sampleRate);
-        const data = buf.getChannelData(0);
-        for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-        const src = ctx.createBufferSource();
-        src.buffer = buf;
-        const g = ctx.createGain(); g.gain.value = 0.07;
-        src.connect(g); g.connect(this.masterGain);
-        src.start(now);
-      }
-      step++;
-    };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
-
-    // Bass pulse
-    const bassTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, 55, now, 0.18, 'sawtooth', 0.12);
-    };
-    this.schedulers.push(setInterval(bassTick, beatMs * 4));
-  },
-
-  // ── Level 5: Cyberpunk — arpeggio, glitchy noise, 8-bit bass
-  _playLevel5(ctx) {
-    const arpNotes = [110, 146.83, 164.81, 220, 293.66, 329.63, 220, 164.81];
-    let step = 0;
-    const beatMs = 160;
-
-    const tick = () => {
-      const now = ctx.currentTime;
-      const freq = arpNotes[step % arpNotes.length];
-      this._note(ctx, freq, now, 0.13, 'sawtooth', 0.16);
-      this._note(ctx, freq * 2, now, 0.08, 'square', 0.06);
-      // Glitch noise burst on every 8 beats
-      if (step % 8 === 0) {
-        const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.04), ctx.sampleRate);
-        const data = buf.getChannelData(0);
-        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-        const src = ctx.createBufferSource();
-        src.buffer = buf;
-        const filt = ctx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 2000;
-        const g = ctx.createGain(); g.gain.value = 0.04;
-        src.connect(filt); filt.connect(g); g.connect(this.masterGain);
-        src.start(now);
-      }
-      step++;
-    };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
-
-    // Hi-hat (white noise burst)
-    const hatTick = () => {
-      const now = ctx.currentTime;
-      const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.05), ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      const filt = ctx.createBiquadFilter(); filt.type = 'highpass'; filt.frequency.value = 8000;
-      const g = ctx.createGain(); g.gain.value = 0.06;
-      src.connect(filt); filt.connect(g); g.connect(this.masterGain);
-      src.start(now);
-    };
-    this.schedulers.push(setInterval(hatTick, beatMs * 2));
-
-    // Sub bass pulse
-    const subTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, 55, now, 0.14, 'square', 0.18);
-    };
-    this.schedulers.push(setInterval(subTick, beatMs * 4));
-  },
-
-  // ── Victory / Game Complete: majestic triumphant theme (D major, brass-like, celebratory)
-  playVictory() {
-    this._stopAll();
-    this.currentLevel = null;
-    if (!this.enabled) return;
-    const ctx = this._ctx();
-
-    // D major scale: D E F# G A B C# D
-    const scale = [293.66, 329.63, 369.99, 392, 440, 493.88, 554.37, 587.33];
-
-    // Opening fanfare — plays once
-    const fanfare = [
-      [0, 0.0], [2, 0.3], [4, 0.6], [4, 0.9], [5, 1.2], [6, 1.5], [7, 1.9]
-    ];
-    fanfare.forEach(([note, time]) => {
-      this._note(ctx, scale[note], ctx.currentTime + time, 0.35, 'triangle', 0.22);
-      this._note(ctx, scale[note] * 0.5, ctx.currentTime + time, 0.4, 'triangle', 0.10);
-    });
-
-    // Sustained victory chord after fanfare (D major triad)
-    [293.66, 369.99, 440].forEach(f => {
-      this._note(ctx, f, ctx.currentTime + 2.3, 1.5, 'sine', 0.12);
-    });
-
-    // Looping celebratory melody starts after fanfare
-    const melody = [7, 5, 4, 2, 4, 5, 7, null, 5, 4, 2, 0, 2, 4, 5, null];
-    const beatMs = 340;
-    let step = 0;
-
-    const startLoop = () => {
-      const tick = () => {
-        const now = ctx.currentTime;
-        const m = melody[step % melody.length];
-        if (m !== null) {
-          this._note(ctx, scale[m], now, 0.28, 'triangle', 0.16);
-          // Sparkle on phrase starts
-          if (step % 8 === 0) this._note(ctx, scale[m] * 2, now, 0.2, 'sine', 0.05);
-        }
-        step++;
-      };
-      tick();
-      this.schedulers.push(setInterval(tick, beatMs));
-
-      // Warm bass (D pedal)
-      const bassNotes = [146.83, 146.83, 174.61, 146.83];
-      let bi = 0;
-      const bassTick = () => {
-        const now = ctx.currentTime;
-        this._note(ctx, bassNotes[bi % bassNotes.length], now, 0.5, 'triangle', 0.10);
-        bi++;
-      };
-      bassTick();
-      this.schedulers.push(setInterval(bassTick, beatMs * 4));
-
-      // Gentle shimmer chords
-      const chords = [[293.66, 369.99, 440], [329.63, 392, 493.88]];
-      let ci = 0;
-      const chordTick = () => {
-        const now = ctx.currentTime;
-        chords[ci % chords.length].forEach(f => this._note(ctx, f, now, 1.2, 'sine', 0.04));
-        ci++;
-      };
-      chordTick();
-      this.schedulers.push(setInterval(chordTick, beatMs * 8));
-    };
-
-    // Start loop after fanfare finishes
-    this.schedulers.push(setTimeout(startLoop, 3800));
-  }
-};
-
-
-// ============================================================
-// SOUND ENGINE — Themed correct / wrong SFX via Web Audio API
-// ============================================================
-const SoundEngine = {
-  enabled: true,
-
-  toggle() {
-    this.enabled = !this.enabled;
-    const btn = document.getElementById('sfx-toggle');
-    btn.classList.toggle('muted', !this.enabled);
-    if (MusicEngine.sfxGain) MusicEngine.sfxGain.gain.value = this.enabled ? 0.55 : 0;
-  },
-
-  _g() { return MusicEngine.sfxGain || MusicEngine._ctx() && MusicEngine.sfxGain; },
-  _ctx() { return MusicEngine._ctx(); },
-
-  _note(freq, start, dur, type = 'sine', gain = 0.35) {
-    const ctx = this._ctx(); if (!ctx) return;
-    const osc = ctx.createOscillator();
-    const g   = ctx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, start);
-    g.gain.setValueAtTime(0, start);
-    g.gain.linearRampToValueAtTime(gain, start + 0.01);
-    g.gain.exponentialRampToValueAtTime(0.001, start + dur);
-    osc.connect(g); g.connect(this._g());
-    osc.start(start); osc.stop(start + dur + 0.05);
-  },
-
-  _noise(start, dur, gainVal, hipass = 0) {
-    const ctx = this._ctx(); if (!ctx) return;
-    const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
-    const data = buf.getChannelData(0);
-    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-    const src  = ctx.createBufferSource(); src.buffer = buf;
-    const gl   = ctx.createGain(); gl.gain.value = gainVal;
-    if (hipass > 0) {
-      const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = hipass;
-      src.connect(f); f.connect(gl);
-    } else { src.connect(gl); }
-    gl.connect(this._g()); src.start(start);
-  },
-
-  playCorrect(levelIndex) {
-    if (!this.enabled) return;
-    const ctx = this._ctx(); if (!ctx) return;
-    const now = ctx.currentTime;
-    switch (levelIndex) {
-      case 0: // 🌈 Childish — bouncy ascending xylophone arpeggio
-        [261.63, 329.63, 392, 523.25, 659.26].forEach((f, i) =>
-          this._note(f, now + i * 0.08, 0.28, 'triangle', 0.45));
-        break;
-
-      case 1: // ⚔️ Adventure — triumphant 4-note fanfare
-        [392, 523.25, 659.26, 783.99].forEach((f, i) =>
-          this._note(f, now + i * 0.1, 0.22, 'square', 0.28));
-        this._note(783.99, now + 0.4, 0.4, 'square', 0.25);
-        break;
-
-      case 2: // 🔮 Fantasy — magical shimmer bells
-        [1046.5, 1318.5, 1567.98, 2093].forEach((f, i) => {
-          this._note(f,       now + i * 0.06, 0.5, 'sine', 0.3);
-          this._note(f * 0.5, now + i * 0.06, 0.5, 'sine', 0.12);
-        });
-        break;
-
-      case 3: // ⚙️ Corporate — clean double notification ping
-        this._note(1046.5, now,        0.12, 'sine', 0.4);
-        this._note(1318.5, now + 0.14, 0.35, 'sine', 0.32);
-        break;
-
-      case 4: // 🤖 Cyberpunk — synth sweep + digital stutter
-        { const osc = ctx.createOscillator(), g = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(220, now);
-          osc.frequency.exponentialRampToValueAtTime(880, now + 0.28);
-          g.gain.setValueAtTime(0.32, now);
-          g.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
-          osc.connect(g); g.connect(this._g()); osc.start(now); osc.stop(now + 0.35);
-        }
-        [0, 0.14, 0.22, 0.28].forEach(t => this._note(880, now + t, 0.04, 'square', 0.12));
-        this._noise(now, 0.06, 0.08, 6000);
-        break;
-    }
-  },
-
-  playLevelComplete(levelIndex) {
-    if (!this.enabled) return;
-    const ctx = this._ctx(); if (!ctx) return;
-    const now = ctx.currentTime;
-    switch (levelIndex) {
-      case 0: // 🌈 Playground — jubilant ascending scale + sparkle burst
-        [261.63, 329.63, 392, 523.25, 659.26, 783.99, 1046.5].forEach((f, i) =>
-          this._note(f, now + i * 0.1, 0.45, 'triangle', 0.5));
-        [1046.5, 1318.5, 1567.98, 2093].forEach((f, i) =>
-          this._note(f, now + 0.72 + i * 0.07, 0.55, 'sine', 0.35));
-        this._noise(now + 1.1, 0.18, 0.12, 4000);
-        break;
-
-      case 1: // ⚔️ Kingdom — heroic trumpet fanfare
-        [[392, 0], [392, 0.12], [523.25, 0.24], [392, 0.42], [523.25, 0.54], [659.26, 0.7]].forEach(([f, t]) =>
-          this._note(f, now + t, 0.2, 'square', 0.3));
-        this._note(783.99, now + 0.95, 0.65, 'square', 0.32);
-        this._note(659.26, now + 0.95, 0.65, 'triangle', 0.18);
-        break;
-
-      case 2: // 🔮 Cave — magical chime cascade + reverb swell
-        [523.25, 659.26, 783.99, 1046.5, 1318.5, 1567.98].forEach((f, i) => {
-          this._note(f,       now + i * 0.09, 0.9, 'sine', 0.35);
-          this._note(f * 2,   now + i * 0.09 + 0.04, 0.5, 'sine', 0.12);
-        });
-        this._note(2093, now + 0.58, 1.2, 'sine', 0.28);
-        break;
-
-      case 3: // ⚙️ Factory — sharp corporate success sting
-        [[1046.5, 0], [1318.5, 0.14], [1046.5, 0.28], [1567.98, 0.42]].forEach(([f, t]) =>
-          this._note(f, now + t, 0.16, 'sine', 0.38));
-        this._note(2093, now + 0.62, 0.55, 'sine', 0.4);
-        this._note(1567.98, now + 0.62, 0.55, 'sine', 0.2);
-        break;
-
-      case 4: // 🤖 Architect — cyberpunk power chord + rising synth
-        { const osc = ctx.createOscillator(), g = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(110, now);
-          osc.frequency.exponentialRampToValueAtTime(1760, now + 0.7);
-          g.gain.setValueAtTime(0.38, now);
-          g.gain.exponentialRampToValueAtTime(0.001, now + 0.75);
-          osc.connect(g); g.connect(this._g()); osc.start(now); osc.stop(now + 0.8);
-        }
-        [440, 554.37, 659.26, 880, 1108.73, 1318.51].forEach((f, i) =>
-          this._note(f, now + 0.55 + i * 0.07, 0.4, 'square', 0.18));
-        this._noise(now + 0.6, 0.25, 0.1, 5000);
-        break;
-    }
-  },
-
-  playWrong(levelIndex) {
-    if (!this.enabled) return;
-    const ctx = this._ctx(); if (!ctx) return;
-    const now = ctx.currentTime;
-    switch (levelIndex) {
-      case 0: // 🌈 Childish — sad descending wah-wah
-        [392, 349.23, 311.13, 261.63].forEach((f, i) =>
-          this._note(f, now + i * 0.16, 0.22, 'sine', 0.38));
-        break;
-
-      case 1: // ⚔️ Adventure — trombone slide down
-        { const osc = ctx.createOscillator(), g = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(233, now);
-          osc.frequency.linearRampToValueAtTime(110, now + 0.65);
-          g.gain.setValueAtTime(0.32, now);
-          g.gain.linearRampToValueAtTime(0.001, now + 0.7);
-          osc.connect(g); g.connect(this._g()); osc.start(now); osc.stop(now + 0.72);
-        }
-        break;
-
-      case 2: // 🔮 Fantasy — dark impact + low rumble
-        this._note(55,    now,        0.55, 'sine',     0.45);
-        this._note(73.42, now + 0.05, 0.4,  'sawtooth', 0.15);
-        this._noise(now, 0.25, 0.25);
-        break;
-
-      case 3: // ⚙️ Corporate — two error buzzes
-        [now, now + 0.22].forEach(t => this._note(110, t, 0.14, 'square', 0.32));
-        break;
-
-      case 4: // 🤖 Cyberpunk — glitch noise + descending saw
-        this._noise(now, 0.35, 0.18, 800);
-        { const osc = ctx.createOscillator(), g = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(440, now);
-          osc.frequency.exponentialRampToValueAtTime(40, now + 0.45);
-          g.gain.setValueAtTime(0.28, now);
-          g.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
-          osc.connect(g); g.connect(this._g()); osc.start(now); osc.stop(now + 0.5);
-        }
-        break;
-    }
-  }
-};
-
-// ============================================================
-// UTILITY HELPERS
-// ============================================================
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active');
-    s.style.display = 'none';
-  });
-  const el = document.getElementById(id);
-  el.style.display = 'flex';
-  void el.offsetWidth;
-  el.classList.add('active');
-
-  const quitBtn = document.getElementById('quit-btn');
-  if (quitBtn) quitBtn.style.display = id === 'screen-welcome' ? 'none' : 'flex';
-
-  if (id === 'screen-welcome') GameEngine._renderWelcomeLeaderboard();
-}
-
-function setTheme(levelClass) {
-  document.body.className = document.body.className
-    .replace(/level-\d/g, '').trim();
-  if (levelClass) document.body.classList.add(levelClass);
-}
-
-function starRating(correct, total) {
-  const pct = correct / total;
-  if (pct >= 0.9) return '⭐⭐⭐';
-  if (pct >= 0.6) return '⭐⭐';
-  return '⭐';
-}
-
-// Escape HTML to prevent XSS when rendering user-supplied names in scoreboard
-function escHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-// Freetext scoring — returns 'full', 'partial', or 'none'
-// full:    minLength met + keywordHits >= exercise.keywordsForFull  (default 4)
-// partial: minLength met + keywordHits >= exercise.keywordsForHalf  (default 2)
-// none:    below partial thresholds
-function checkFreeText(answer, exercise) {
-  const lower = answer.toLowerCase();
-  const minMet = answer.length >= (exercise.minLength || 30);
-  if (!minMet) return 'none';
-  const keywordHits = (exercise.keywords || []).filter(k => lower.includes(k.toLowerCase())).length;
-  const fullThreshold = exercise.keywordsForFull || 4;
-  const halfThreshold = exercise.keywordsForHalf || 2;
-  if (keywordHits >= fullThreshold) return 'full';
-  if (keywordHits >= halfThreshold) return 'partial';
-  return 'none';
-}
-
-// ============================================================
-// DRAG & DROP for ordering exercises
-// ============================================================
-let dragSrc = null;
-
-function initDragDrop(list) {
-  const items = list.querySelectorAll('.order-item');
-  items.forEach(item => {
-    item.addEventListener('dragstart', e => {
-      dragSrc = item;
-      e.dataTransfer.effectAllowed = 'move';
-      item.classList.add('dragging');
-    });
-    item.addEventListener('dragend', () => {
-      item.classList.remove('dragging');
-      dragSrc = null;
-    });
-    item.addEventListener('dragover', e => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-    });
-    item.addEventListener('drop', e => {
-      e.stopPropagation();
-      if (dragSrc !== item) {
-        const allItems = [...list.querySelectorAll('.order-item')];
-        const srcIdx = allItems.indexOf(dragSrc);
-        const dstIdx = allItems.indexOf(item);
-        if (srcIdx < dstIdx) {
-          list.insertBefore(dragSrc, item.nextSibling);
-        } else {
-          list.insertBefore(dragSrc, item);
-        }
-      }
-    });
-  });
-}
-
-// ============================================================
-// MAIN GAME ENGINE
-// ============================================================
-const GameEngine = {
-
-  async startGame() {
-    // Read and validate player name (3–20 chars required)
-    const nameInput = document.getElementById('player-name-input');
-    const nameError = document.getElementById('name-error');
-    const startBtn  = document.querySelector('.btn-start');
-    const raw = nameInput ? nameInput.value.trim() : '';
-
-    const showNameError = (msg) => {
-      if (nameError) { nameError.textContent = msg; nameError.classList.remove('hidden'); }
-      if (nameInput) {
-        nameInput.classList.remove('input-error');
-        void nameInput.offsetWidth;
-        nameInput.classList.add('input-error');
-        nameInput.addEventListener('animationend', () => nameInput.classList.remove('input-error'), { once: true });
-        nameInput.focus();
-      }
-    };
-
-    if (raw.length < 3 || raw.length > 20) {
-      showNameError('Please enter a name between 3 and 20 characters.');
-      return;
-    }
-
-    // Check for duplicate name against existing leaderboard entries
-    if (startBtn) { startBtn.disabled = true; startBtn.textContent = 'Checking…'; }
-    try {
-      const existing = await Scoreboard.getOverall();
-      const takenNames = (existing || []).map(e => e.name.toLowerCase());
-      if (takenNames.includes(raw.toLowerCase())) {
-        showNameError(`"${raw}" is already taken — please choose a different name.`);
-        return;
-      }
-    } catch {
-      // If the check fails (offline / error), allow the game to proceed
-    } finally {
-      if (startBtn) { startBtn.disabled = false; startBtn.textContent = 'Start Adventure'; }
-    }
-
-    if (nameError) nameError.classList.add('hidden');
-    if (nameInput) nameInput.classList.remove('input-error');
-    GameState.playerName = raw;
-
-    GameState.currentLevel = 0;
-    GameState.score = 0;
-    GameState.totalScore = 0;
-    GameState.badges = [];
-    GameState.answers = {};
-    GameState.levelTimes = [];
-    setTheme('level-1');
-    this.showLevelIntro();
-  },
-
-  restartGame() {
-    this._stopPolling();
-    MusicEngine._stopAll();
-    setTheme('');
-    document.body.className = '';
-    showScreen('screen-welcome');
-    MusicEngine.playWelcome();
-  },
-
-  quitGame() {
-    this._stopPolling();
-    Timer.stop();
-    MusicEngine._stopAll();
-    setTheme('');
-    document.body.className = '';
-    showScreen('screen-welcome');
-    MusicEngine.playWelcome();
-  },
-
-  showLevelIntro() {
-    const level = GAME_DATA.levels[GameState.currentLevel];
-    document.getElementById('intro-badge').textContent = level.badge;
-    document.getElementById('intro-title').textContent = `Level ${level.id}: ${level.title}`;
-    document.getElementById('intro-subtitle').textContent = level.subtitle;
-    document.getElementById('intro-concept').innerHTML = level.concept;
-    setTheme(level.theme);
-    MusicEngine.play(GameState.currentLevel);
-    showScreen('screen-level-intro');
-  },
-
-  startLevel() {
-    GameState.currentExercise = 0;
-    GameState.score = 0;
-    GameState.answers = {};
-    GameState.hintUsed = false;
-
-    // Randomly select 4 exercises from the level's pool
-    const pool = [...GAME_DATA.levels[GameState.currentLevel].exercises];
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    GameState.levelExercises = pool.slice(0, 4);
-
-    Timer.start();
-    this.renderExercise();
-  },
-
-  renderExercise() {
-    const level = GAME_DATA.levels[GameState.currentLevel];
-    const exercise = GameState.levelExercises[GameState.currentExercise];
-    GameState.selectedChoice = null;
-    GameState.hintUsed = false;
-    GameState.matchingState = { selected: null, pairs: {} };
-
-    // Header
-    document.getElementById('level-label').textContent = `Level ${level.id}: ${level.title}`;
-    document.getElementById('exercise-counter').textContent =
-      `Exercise ${GameState.currentExercise + 1} / ${GameState.levelExercises.length}`;
-    document.getElementById('score-display').textContent = `⭐ ${GameState.totalScore}`;
-
-    const totalEx = GAME_DATA.levels.length * 4;
-    const doneEx  = GameState.currentLevel * 4 + GameState.currentExercise;
-    document.getElementById('progress-bar').style.width = `${(doneEx / totalEx) * 100}%`;
-
-    // Exercise card
-    document.getElementById('exercise-type-badge').textContent = exercise.type;
-    document.getElementById('exercise-question').textContent = exercise.question;
-
-    const ctxEl = document.getElementById('exercise-context');
-    if (exercise.context) {
-      ctxEl.textContent = exercise.context;
-      ctxEl.classList.remove('hidden');
-    } else {
-      ctxEl.classList.add('hidden');
-    }
-
-    // Hint
-    document.getElementById('exercise-hint').classList.add('hidden');
-    document.getElementById('exercise-hint').textContent = '';
-
-    // Input area
-    const inputArea = document.getElementById('exercise-input-area');
-    inputArea.innerHTML = '';
-
-    if (exercise.inputType === 'choice') {
-      const grid = document.createElement('div');
-      grid.className = 'choice-grid';
-      // Shuffle choices so correct answer isn't always in the same position
-      const shuffledChoices = [...exercise.choices].sort(() => Math.random() - 0.5);
-      shuffledChoices.forEach(choice => {
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = choice.text;
-        btn.dataset.id = choice.id;
-        btn.addEventListener('click', () => {
-          grid.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          GameState.selectedChoice = choice.id;
-        });
-        grid.appendChild(btn);
-      });
-      inputArea.appendChild(grid);
-
-    } else if (exercise.inputType === 'freetext') {
-      const label = document.createElement('div');
-      label.className = 'rewrite-label';
-      label.textContent = 'Your Prompt:';
-      const ta = document.createElement('textarea');
-      ta.className = 'prompt-input';
-      ta.placeholder = exercise.placeholder || 'Type your prompt here...';
-      ta.id = 'freetext-input';
-      inputArea.appendChild(label);
-      inputArea.appendChild(ta);
-
-    } else if (exercise.inputType === 'ordering') {
-      const ul = document.createElement('ul');
-      ul.className = 'order-list';
-      ul.id = 'order-list';
-      // Shuffle items for display
-      const shuffled = [...exercise.items].sort(() => Math.random() - 0.5);
-      shuffled.forEach(item => {
-        const li = document.createElement('li');
-        li.className = 'order-item';
-        li.draggable = true;
-        li.dataset.id = item.id;
-        li.innerHTML = `<span class="drag-handle">⠿</span><span>${item.text}</span>`;
-        ul.appendChild(li);
-      });
-      inputArea.appendChild(ul);
-      initDragDrop(ul);
-      const hint2 = document.createElement('p');
-      hint2.style.cssText = 'font-size:0.8rem;color:var(--text-light);margin-bottom:12px;';
-      hint2.textContent = '↕ Drag items to reorder them';
-      inputArea.insertBefore(hint2, ul);
-
-    } else if (exercise.inputType === 'matching') {
-      this.renderMatching(exercise, inputArea);
-    }
-
-    showScreen('screen-exercise');
-  },
-
-  renderMatching(exercise, container) {
-    const grid = document.createElement('div');
-    grid.className = 'match-grid';
-
-    // Left column
-    const leftCol = document.createElement('div');
-    const leftLabel = document.createElement('div');
-    leftLabel.className = 'match-col-label';
-    leftLabel.textContent = 'Goals';
-    leftCol.appendChild(leftLabel);
-    exercise.leftItems.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'match-item';
-      div.dataset.id = item.id;
-      div.dataset.side = 'left';
-      div.textContent = item.text;
-      div.addEventListener('click', () => this.handleMatchClick(div, 'left'));
-      leftCol.appendChild(div);
-    });
-
-    // Right column
-    const rightCol = document.createElement('div');
-    const rightLabel = document.createElement('div');
-    rightLabel.className = 'match-col-label';
-    rightLabel.textContent = 'AI Roles';
-    rightCol.appendChild(rightLabel);
-    exercise.rightItems.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'match-item';
-      div.dataset.id = item.id;
-      div.dataset.side = 'right';
-      div.textContent = item.text;
-      div.addEventListener('click', () => this.handleMatchClick(div, 'right'));
-      rightCol.appendChild(div);
-    });
-
-    grid.appendChild(leftCol);
-    grid.appendChild(rightCol);
-    container.appendChild(grid);
-  },
-
-  handleMatchClick(div, side) {
-    const ms = GameState.matchingState;
-    if (div.classList.contains('matched')) return;
-
-    if (side === 'left') {
-      // Deselect previous left
-      document.querySelectorAll('.match-item[data-side="left"]').forEach(el => el.classList.remove('selected'));
-      div.classList.add('selected');
-      ms.selected = div.dataset.id;
-    } else {
-      // Right side — try to pair
-      if (!ms.selected) return;
-      const leftId = ms.selected;
-      const rightId = div.dataset.id;
-      ms.pairs[leftId] = rightId;
-
-      // Mark visually
-      const leftEl = document.querySelector(`.match-item[data-id="${leftId}"]`);
-      leftEl.classList.remove('selected');
-      leftEl.classList.add('matched');
-      div.classList.add('matched');
-      ms.selected = null;
-    }
-  },
-
-  showHint() {
-    const exercise = GameState.levelExercises[GameState.currentExercise];
-    const hintEl = document.getElementById('exercise-hint');
-    hintEl.textContent = `💡 ${exercise.hint}`;
-    hintEl.classList.remove('hidden');
-    GameState.hintUsed = true;
-  },
-
-  submitAnswer() {
-    const level = GAME_DATA.levels[GameState.currentLevel];
-    const exercise = GameState.levelExercises[GameState.currentExercise];
-    let isCorrect = false;
-    let freetextGrade = null;  // 'full', 'partial', or 'none' for freetext
-    let userAnswer = '';
-
-    if (exercise.inputType === 'choice') {
-      if (!GameState.selectedChoice) {
-        alert('Please select an answer!');
-        return;
-      }
-      isCorrect = GameState.selectedChoice === exercise.correct;
-      userAnswer = GameState.selectedChoice;
-
-    } else if (exercise.inputType === 'freetext') {
-      const ta = document.getElementById('freetext-input');
-      userAnswer = ta ? ta.value.trim() : '';
-      if (userAnswer.length < 10) {
-        alert('Please write your prompt first!');
-        return;
-      }
-      const grade = checkFreeText(userAnswer, exercise);
-      if (grade === 'full') { isCorrect = true; freetextGrade = 'full'; }
-      else if (grade === 'partial') { isCorrect = true; freetextGrade = 'partial'; }
-      else { isCorrect = false; freetextGrade = 'none'; }
-
-    } else if (exercise.inputType === 'ordering') {
-      const list = document.getElementById('order-list');
-      if (!list) return;
-      const order = [...list.querySelectorAll('.order-item')].map(li => li.dataset.id);
-      isCorrect = JSON.stringify(order) === JSON.stringify(exercise.correctOrder);
-      userAnswer = order.join(',');
-
-    } else if (exercise.inputType === 'matching') {
-      const ms = GameState.matchingState;
-      const correct = exercise.correctPairs;
-      const allMatched = Object.keys(correct).every(k => ms.pairs[k] === correct[k]);
-      const allPaired = Object.keys(ms.pairs).length === Object.keys(correct).length;
-      if (!allPaired) {
-        alert('Please match all items!');
-        return;
-      }
-      isCorrect = allMatched;
-    }
-
-    // Score — freetext uses 3-tier: full=10, partial=5, none=0
-    // choice/ordering/matching: correct=10 (5 w/ hint), wrong=0
-    let points;
-    if (freetextGrade === 'partial') {
-      points = 5;
-    } else if (isCorrect) {
-      points = GameState.hintUsed ? 5 : 10;
-    } else {
-      points = 0;
-    }
-    GameState.score += points;
-    GameState.totalScore += points;
-    GameState.answers[GameState.currentExercise] = isCorrect || freetextGrade === 'partial';
-
-    // Play themed sound effect
-    if (isCorrect && freetextGrade !== 'partial') SoundEngine.playCorrect(GameState.currentLevel);
-    else if (freetextGrade === 'partial')          SoundEngine.playCorrect(GameState.currentLevel);
-    else                                           SoundEngine.playWrong(GameState.currentLevel);
-
-    this.showFeedback(isCorrect, exercise, points, freetextGrade);
-  },
-
-  showFeedback(isCorrect, exercise, points, freetextGrade) {
-    const isPartial = freetextGrade === 'partial';
-    const isFull    = isCorrect && !isPartial;
-
-    const icons = isFull
-      ? ['🎉', '⭐', '🚀', '✨', '🏆'][Math.floor(Math.random() * 5)]
-      : isPartial
-      ? ['👏', '💡', '📝'][Math.floor(Math.random() * 3)]
-      : ['�', '🤔', '📚', '🔄'][Math.floor(Math.random() * 4)];
-
-    document.getElementById('feedback-icon').textContent = icons;
-    document.getElementById('feedback-title').textContent = isFull
-      ? ['Excellent!', 'Perfect!', 'Brilliant!', 'Nailed it!', 'Outstanding!'][Math.floor(Math.random() * 5)]
-      : isPartial
-      ? ['Good effort!', 'Almost there!', 'Solid attempt!'][Math.floor(Math.random() * 3)]
-      : ['Not quite...', 'Good try!', 'Almost there!', 'Keep going!'][Math.floor(Math.random() * 4)];
-
-    document.getElementById('feedback-message').textContent = isFull
-      ? `You earned ${points} point${points !== 1 ? 's' : ''}! ${GameState.hintUsed ? '(Hint used — 5pts)' : ''}`
-      : isPartial
-      ? `Partial credit: ${points} points! Your answer covered some key aspects but missed a few important details. See the explanation below.`
-      : "Don't worry — the explanation below will help you master this concept.";
-
-    const expEl = document.getElementById('feedback-explanation');
-    expEl.innerHTML = `<strong>📖 Explanation:</strong><br>${exercise.explanation}`;
-    expEl.classList.remove('hidden');
-
-    document.getElementById('feedback-tip').textContent = exercise.tip || '';
-
-    showScreen('screen-feedback');
-  },
-
-  nextExercise() {
-    const level = GAME_DATA.levels[GameState.currentLevel];
-    GameState.currentExercise++;
-
-    if (GameState.currentExercise >= GameState.levelExercises.length) {
-      this.showLevelComplete();
-    } else {
-      this.renderExercise();
-    }
-  },
-
-  async showLevelComplete() {
-    const level = GAME_DATA.levels[GameState.currentLevel];
-    const correct = GameState.levelExercises.filter((_, i) => GameState.answers && GameState.answers[i]).length;
-    const timeMs = Timer.stop();
-    GameState.levelTimes.push(timeMs);
-
-    SoundEngine.playLevelComplete(GameState.currentLevel);
-
-    document.getElementById('complete-badge').textContent = level.badge;
-    document.getElementById('complete-title').textContent = `Level ${level.id} Complete!`;
-    document.getElementById('complete-summary').textContent =
-      `You've mastered "${level.title}"! Score: ${GameState.score} pts · Time: ${Timer.format(timeMs)}`;
-    document.getElementById('complete-stars').textContent = starRating(correct, GameState.levelExercises.length);
-    document.getElementById('complete-badge-earned').innerHTML =
-      `🏅 Badge Earned: <strong>${level.completeBadge}</strong>`;
-
-    GameState.badges.push(level.completeBadge);
-
-    // Save and render level scoreboard
-    const updated = await Scoreboard.saveLevel(level.id, GameState.playerName, GameState.score, timeMs);
-    const online  = await Scoreboard._isOnline();
-    document.getElementById('sb-level-title').innerHTML =
-      `🏆 Level ${level.id} Scoreboard${online ? ' <span class="sb-live-dot">● LIVE</span>' : ''}`;
-    this._renderScoreboardTable('level-scoreboard-body', updated, GameState.playerName, false);
-
-    showScreen('screen-level-complete');
-
-    // Live polling — refresh every 5s while on this screen
-    clearInterval(GameState.pollInterval);
-    GameState.pollInterval = setInterval(async () => {
-      const live = await Scoreboard.getLevel(level.id);
-      this._renderScoreboardTable('level-scoreboard-body', live, GameState.playerName, false);
-    }, 5000);
-  },
-
-  _stopPolling() {
-    clearInterval(GameState.pollInterval);
-    GameState.pollInterval = null;
-  },
-
-  _launchConfetti() {
-    // Remove existing confetti
-    document.querySelectorAll('.confetti-container').forEach(el => el.remove());
-    const container = document.createElement('div');
-    container.className = 'confetti-container';
-    document.body.appendChild(container);
-    const colors = ['#ffd700', '#ff6f00', '#ff4081', '#00e676', '#2979ff', '#e040fb', '#ffab00'];
-    const shapes = ['square', 'circle'];
-    for (let i = 0; i < 80; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'confetti-piece';
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      const shape = shapes[Math.floor(Math.random() * shapes.length)];
-      const size = 6 + Math.random() * 8;
-      piece.style.left = Math.random() * 100 + '%';
-      piece.style.width = size + 'px';
-      piece.style.height = size + 'px';
-      piece.style.background = color;
-      piece.style.borderRadius = shape === 'circle' ? '50%' : '2px';
-      piece.style.animationDuration = (2.5 + Math.random() * 3) + 's';
-      piece.style.animationDelay = Math.random() * 2 + 's';
-      container.appendChild(piece);
-    }
-    // Clean up after animation
-    setTimeout(() => container.remove(), 8000);
-  },
-
-  nextLevel() {
-    this._stopPolling();
-    GameState.currentLevel++;
-    if (GameState.currentLevel >= GAME_DATA.levels.length) {
-      this.showGameComplete();
-    } else {
-      setTheme(GAME_DATA.levels[GameState.currentLevel].theme);
-      MusicEngine.play(GameState.currentLevel);
-      this.showLevelIntro();
-    }
-  },
-
-  async showGameComplete() {
-    // Use dedicated celebration theme instead of level-5
-    document.body.className = 'game-complete';
-    setTheme('');
-    MusicEngine.playVictory();
-
-    // Launch confetti
-    this._launchConfetti();
-
-    document.getElementById('final-title').textContent = '🏆 Prompt Engineer Certified!';
-    document.getElementById('final-message').textContent =
-      `Amazing work, ${GameState.playerName}! You completed all 5 levels with a total score of ${GameState.totalScore} points.`;
-
-    document.getElementById('final-badges').innerHTML =
-      GameState.badges.map(b => `<span title="${b}">🏅</span>`).join('');
-
-    const totalTime = GameState.levelTimes.reduce((s, t) => s + t, 0);
-    document.getElementById('final-score').textContent =
-      `Total Score: ${GameState.totalScore} pts ⭐  ·  Total Time: ${Timer.format(totalTime)}`;
-
-    const takeaways = [
-      '📌 A prompt is your message to the AI — clarity is everything.',
-      '🎯 Be specific: include What, How, For Whom in every prompt.',
-      '🎭 Assign roles: "You are a [expert]..." dramatically improves outputs.',
-      '📋 Control format: specify structure, length, tone, and constraints.',
-      '🔗 Use few-shot examples to teach AI the exact pattern you want.',
-      '🧠 Add "Think step by step" for complex reasoning tasks.',
-      '⛓️ Break complex goals into prompt chains for best results.',
-      '🔄 Meta-prompting: use AI to improve your own prompts!'
-    ];
-
-    document.getElementById('takeaways-list').innerHTML =
-      takeaways.map(t => `<li>${t}</li>`).join('');
-
-    // Render overall scoreboard
-    const online  = await Scoreboard._isOnline();
-    const overall = await Scoreboard.getOverall();
-    document.getElementById('overall-sb-title').innerHTML =
-      `🌍 Overall Leaderboard${online ? ' <span class="sb-live-dot">● LIVE</span>' : ''}`;
-    this._renderScoreboardTable('overall-scoreboard-body', overall, GameState.playerName, true);
-
-    showScreen('screen-game-complete');
-
-    // Live polling — refresh every 5s
-    clearInterval(GameState.pollInterval);
-    GameState.pollInterval = setInterval(async () => {
-      const live = await Scoreboard.getOverall();
-      this._renderScoreboardTable('overall-scoreboard-body', live, GameState.playerName, true);
-    }, 5000);
-  },
-
-  /** Renders rows into a scoreboard tbody.
-   *  entries: array of { name, score, timeMs } (level) OR { name, totalScore, totalTimeMs } (overall)
-   *  isOverall: boolean — uses totalScore/totalTimeMs keys when true
-   */
-  async _renderWelcomeLeaderboard() {
-    const tbody = document.getElementById('welcome-leaderboard-body');
-    if (!tbody) return;
-    try {
-      const entries = await Scoreboard.getOverall();
-      const MEDALS = ['🥇', '🥈', '🥉'];
-      if (!entries || entries.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="lb-loading">No scores yet — be the first!</td></tr>';
-        return;
-      }
-      tbody.innerHTML = entries.slice(0, 5).map((e, i) => {
-        const rank = MEDALS[i] || `${i + 1}`;
-        return `<tr>
-          <td class="rank">${rank}</td>
-          <td class="player-name">${escHtml(e.name)}</td>
-          <td class="score-val">${e.totalScore} pts</td>
-          <td class="time-val">${Timer.format(e.totalTimeMs)}</td>
-        </tr>`;
-      }).join('');
-    } catch {
-      tbody.innerHTML = '<tr><td colspan="4" class="lb-loading">Could not load scores.</td></tr>';
-    }
-  },
-
-  _renderScoreboardTable(tbodyId, entries, currentPlayer, isOverall) {
-    const tbody = document.getElementById(tbodyId);
-    if (!tbody) return;
-
-    const MEDALS = ['🥇', '🥈', '🥉'];
-    const scoreKey = isOverall ? 'totalScore' : 'score';
-    const timeKey  = isOverall ? 'totalTimeMs' : 'timeMs';
-
-    tbody.innerHTML = entries.slice(0, 20).map((e, i) => {
-      const rank = MEDALS[i] || `${i + 1}`;
-      const isCurrent = e.name === currentPlayer;
-      const rowClass = isCurrent ? 'current-player new-entry' : '';
-      return `<tr class="${rowClass}">
-        <td class="rank">${rank}</td>
-        <td class="player-name">${escHtml(e.name)}</td>
-        <td class="score-val">${e[scoreKey]} pts</td>
-        <td class="time-val">${Timer.format(e[timeKey])}</td>
-      </tr>`;
-    }).join('');
-  }
-};
-
-// ============================================================
-// INIT — Start on welcome screen
-// ============================================================
-window.addEventListener('DOMContentLoaded', () => {
-  showScreen('screen-welcome');
-
-  // Start welcome music on first user interaction (browsers require gesture)
-  const startWelcomeMusic = () => {
-    MusicEngine.playWelcome();
-    document.removeEventListener('click', startWelcomeMusic);
-    document.removeEventListener('keydown', startWelcomeMusic);
-  };
-  document.addEventListener('click', startWelcomeMusic, { once: false });
-  document.addEventListener('keydown', startWelcomeMusic, { once: false });
-
-  // Quit button
-  const quitBtn = document.getElementById('quit-btn');
-  if (quitBtn) quitBtn.addEventListener('click', () => GameEngine.quitGame());
-
-  // Allow Enter key to start game from name field
-  const nameInput = document.getElementById('player-name-input');
-  if (nameInput) {
-    nameInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') GameEngine.startGame();
-    });
-    nameInput.addEventListener('input', () => {
-      nameInput.classList.remove('input-error');
-      const nameError = document.getElementById('name-error');
-      if (nameError) nameError.classList.add('hidden');
-    });
-  }
-
-  // Allow Enter key to submit admin login
-  const adminPassInput = document.getElementById('admin-password');
-  if (adminPassInput) {
-    adminPassInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') AdminMode.handleLogin();
-    });
-  }
-
-  // Hidden trigger: Ctrl+Shift+A keyboard shortcut
-  document.addEventListener('keydown', e => {
-    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-      e.preventDefault();
-      AdminMode.showLogin();
-    }
-  });
-
-  // Hidden trigger: tap/click leaderboard title 5 times within 3 seconds
-  const lbTitle = document.querySelector('.scoreboard-title');
-  if (lbTitle) {
-    let tapCount = 0;
-    let tapTimer = null;
-    lbTitle.addEventListener('click', () => {
-      tapCount++;
-      clearTimeout(tapTimer);
-      tapTimer = setTimeout(() => { tapCount = 0; }, 3000);
-      if (tapCount >= 5) {
-        tapCount = 0;
-        clearTimeout(tapTimer);
-        AdminMode.showLogin();
-      }
-    });
-  }
-
-  // Close admin modals on overlay click
-  document.getElementById('admin-login-modal')?.addEventListener('click', e => {
-    if (e.target === e.currentTarget) AdminMode.closeLogin();
-  });
-  document.getElementById('admin-panel-modal')?.addEventListener('click', e => {
-    if (e.target === e.currentTarget) AdminMode.closePanel();
-  });
-});
