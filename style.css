@@ -27,17 +27,17 @@
 }
 
 /* ---- Level Themes ---- */
-body.level-1 { /* Playground — childish, colorful */
-  --bg: linear-gradient(135deg, #fff176 0%, #b2ebf2 50%, #f8bbd0 100%);
-  --card-bg: #fff;
-  --card-border: #ff8f00;
-  --primary: #ff6f00;
-  --primary-dark: #e65100;
-  --accent: #26c6da;
-  --btn-bg: #ff6f00;
-  --font-heading: 'Fredoka One', cursive;
+body.level-1 { /* Prompt Playground — clean, modern */
+  --bg: linear-gradient(135deg, #f8faff 0%, #eff6ff 55%, #f5f3ff 100%);
+  --card-bg: #ffffff;
+  --card-border: #c4b5fd;
+  --primary: #7c3aed;
+  --primary-dark: #5b21b6;
+  --accent: #06b6d4;
+  --btn-bg: #7c3aed;
+  --font-heading: 'Nunito', sans-serif;
   --font-body: 'Nunito', sans-serif;
-  --border-radius: 28px;
+  --border-radius: 20px;
 }
 
 body.level-2 { /* Clarity Kingdom — adventure/school */
@@ -123,6 +123,23 @@ body.game-complete .btn-start {
 }
 body.game-complete .btn-start:hover {
   box-shadow: 0 10px 32px rgba(255,215,0,0.6);
+}
+
+body.welcome { /* Vibe Coding — dark IDE look */
+  --bg: #0d1117;
+  --card-bg: rgba(22, 27, 34, 0.92);
+  --card-border: rgba(139, 92, 246, 0.35);
+  --card-shadow: 0 8px 32px rgba(139, 92, 246, 0.12);
+  --primary: #a78bfa;
+  --primary-dark: #7c3aed;
+  --accent: #38bdf8;
+  --btn-bg: rgba(139, 92, 246, 0.12);
+  --btn-text: #a78bfa;
+  --text: #e2e8f0;
+  --text-light: #64748b;
+  --font-heading: 'Orbitron', sans-serif;
+  --font-body: 'Share Tech Mono', monospace;
+  --border-radius: 6px;
 }
 
 /* Confetti particles */
@@ -233,6 +250,229 @@ body {
   white-space: nowrap;
 }
 .btn-start:hover { transform: scale(1.06); box-shadow: 0 10px 32px rgba(255,111,0,.5); }
+
+/* ---- Vibe Coding Welcome Screen ---- */
+body.welcome #screen-welcome {
+  background:
+    radial-gradient(circle, rgba(139,92,246,0.13) 1px, transparent 1px),
+    #0d1117;
+  background-size: 28px 28px;
+}
+body.welcome::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(139,92,246,0.014) 3px,
+    rgba(139,92,246,0.014) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+body.welcome .welcome-content {
+  position: relative;
+  text-align: left;
+  background: rgba(13, 17, 23, 0.88);
+  border: 1px solid rgba(139,92,246,0.22);
+  border-radius: 12px;
+  border-top: 2px solid rgba(167,139,250,0.45);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 50px rgba(139,92,246,0.07);
+  padding-top: 52px;
+}
+body.welcome .welcome-content::before {
+  content: '[ prompt-quest ]  —  running dev environment';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 18px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: rgba(139,92,246,0.45);
+  background: rgba(10, 12, 16, 0.7);
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid rgba(139,92,246,0.12);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.welcome .welcome-logo {
+  animation: none;
+  display: none;
+}
+body.welcome .welcome-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  color: #a78bfa;
+  text-shadow: 0 0 24px rgba(167,139,250,0.55), 0 0 60px rgba(167,139,250,0.18);
+  letter-spacing: 4px;
+  text-align: left;
+  margin-bottom: 6px;
+}
+body.welcome .welcome-title::after {
+  content: '_';
+  animation: cursor-blink 1s step-end infinite;
+  color: #a78bfa;
+  font-size: 0.85em;
+  margin-left: 2px;
+}
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+body.welcome .welcome-subtitle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem;
+  color: #38bdf8;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+body.welcome .welcome-subtitle::before {
+  content: '// ';
+  color: #4b5563;
+}
+body.welcome .welcome-desc {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  color: #4b5563;
+  letter-spacing: 0.3px;
+  line-height: 1.9;
+  text-align: left;
+  margin-bottom: 28px;
+}
+body.welcome .name-entry {
+  align-items: flex-start;
+}
+body.welcome .name-entry-row {
+  justify-content: flex-start;
+}
+body.welcome .name-entry label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #4ade80;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+body.welcome .name-entry label::before {
+  content: '$ ';
+  color: #a78bfa;
+}
+body.welcome .name-entry input {
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(139,92,246,0.45);
+  border-radius: 4px;
+  color: #e2e8f0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.97rem;
+  caret-color: #a78bfa;
+  text-align: left;
+  padding: 11px 16px;
+  letter-spacing: 1px;
+  border-width: 1px;
+}
+body.welcome .name-entry input:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px rgba(167,139,250,0.18), 0 0 16px rgba(167,139,250,0.12);
+}
+body.welcome .name-entry input::placeholder {
+  color: rgba(139,92,246,0.35);
+  font-style: normal;
+}
+body.welcome .btn-start {
+  background: rgba(139,92,246,0.12);
+  border: 1px solid rgba(167,139,250,0.5);
+  color: #a78bfa;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem;
+  border-radius: 4px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(167,139,250,0.1);
+  padding: 11px 22px;
+}
+body.welcome .btn-start:hover {
+  background: rgba(139,92,246,0.22);
+  border-color: #a78bfa;
+  box-shadow: 0 0 22px rgba(167,139,250,0.32);
+  transform: none;
+}
+body.welcome .level-previews {
+  justify-content: flex-start;
+  margin-top: 22px;
+}
+body.welcome .lp {
+  background: transparent;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border: 1px solid;
+  transition: all 0.2s;
+}
+body.welcome .lp1 { border-color: rgba(249,115,22,0.55); color: #f97316; background: transparent; }
+body.welcome .lp2 { border-color: rgba(34,197,94,0.55);  color: #22c55e; background: transparent; }
+body.welcome .lp3 { border-color: rgba(167,139,250,0.55); color: #a78bfa; background: transparent; }
+body.welcome .lp4 { border-color: rgba(56,189,248,0.55);  color: #38bdf8; background: transparent; }
+body.welcome .lp5 { border-color: rgba(74,222,128,0.55);  color: #4ade80; background: transparent; }
+body.welcome .lp.admin-clickable:hover { box-shadow: 0 0 10px currentColor; }
+body.welcome .scoreboard-container {
+  background: rgba(10, 12, 16, 0.7);
+  border: 1px solid rgba(139,92,246,0.2);
+  box-shadow: 0 0 20px rgba(139,92,246,0.06);
+  border-radius: 6px;
+}
+body.welcome .scoreboard-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  color: #a78bfa;
+  text-shadow: 0 0 8px rgba(167,139,250,0.4);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+body.welcome .scoreboard-table th {
+  color: #374151;
+  border-bottom: 1px solid rgba(139,92,246,0.15);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+}
+body.welcome .scoreboard-table td {
+  color: #94a3b8;
+  border-bottom-color: rgba(255,255,255,0.04);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+}
+body.welcome .scoreboard-table td.score-val   { color: #a78bfa; }
+body.welcome .scoreboard-table td.player-name { color: #e2e8f0; font-weight: 600; }
+body.welcome .scoreboard-table tbody tr:hover td { background: rgba(167,139,250,0.05); }
+body.welcome .lb-loading { color: #374151; font-family: 'Share Tech Mono', monospace; }
+body.welcome #music-toggle,
+body.welcome #sfx-toggle {
+  border-color: rgba(139,92,246,0.35);
+  color: #64748b;
+  background: rgba(13,17,23,0.85);
+}
+body.welcome #music-toggle:hover,
+body.welcome #sfx-toggle:hover {
+  border-color: #a78bfa;
+  color: #a78bfa;
+  background: rgba(139,92,246,0.12);
+}
+body.welcome .admin-mode-banner {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(139,92,246,0.18);
+  border: 1px solid rgba(139,92,246,0.4);
+  border-radius: 4px;
+}
+body.welcome .name-error { font-family: 'Share Tech Mono', monospace; }
 
 .level-previews {
   display: flex;
@@ -836,17 +1076,7 @@ body.game-complete .final-icon { animation: trophy-glow 2s ease-in-out infinite 
    LEVEL-SPECIFIC DECORATIONS
    ============================================ */
 
-/* Level 1 — floating stars */
-body.level-1::before {
-  content: '⭐🌈🎉🐸🦄';
-  position: fixed;
-  bottom: 12px;
-  right: 16px;
-  font-size: 1.6rem;
-  letter-spacing: 6px;
-  opacity: 0.4;
-  pointer-events: none;
-}
+/* Level 1 — no floating decoration */
 
 /* Level 3 — dark overlay vignette */
 body.level-3::before {

@@ -2232,120 +2232,156 @@ const MusicEngine = {
     this.oscillators.push(osc);
   },
 
-  // ── Welcome screen: retro chiptune synthwave — 8-bit pulse waves, 120 BPM
-  //    D minor · 32 s phrase cycle · drifting harmony · snare · walking bass
+  // ── Welcome screen: lo-fi vibe coding — 85 BPM, D minor, warm pads + vinyl crackle
   playWelcome() {
     this._stopAll();
     this.currentLevel = null;
     if (!this.enabled) return;
     const ctx = this._ctx();
 
-    // 120 BPM: 8th note = 250 ms, quarter note = 500 ms
-    const beatMs = 250;
+    // 85 BPM: quarter = 706 ms, 8th = 353 ms
+    const q = 706;   // quarter note ms
+    const e = 353;   // 8th note ms
 
-    // D minor scale: D3 E3 F3 G3 A3 Bb3 C4 D4
-    const scale = [293.66, 329.63, 349.23, 392, 440, 466.16, 523.25, 587.33];
+    // D minor pentatonic: D3 F3 G3 A3 C4 D4
+    const pent = [146.83, 174.61, 196, 220, 261.63, 293.66];
 
     // ── 8 distinct 8-step lead phrases ──────────────────────────────────
-    const phrA = [0, 2, 4, 6, 4, 2, 0, 2];          // main: D minor arpeggio up & back
-    const phrB = [3, 5, 6, 5, 3, 5, 4, 2];           // G minor fragment, resolves down
-    const phrC = [4, 6, 7, 6, 4, null, 6, null];     // high register, sparse tension
-    const phrD = [0, 1, 2, 3, 4, 5, 6, 7];           // full ascending scale fill
-    const phrE = [7, 6, 4, 2, 4, 6, 7, 6];           // dramatic top-down sweep
-    const phrF = [0, null, 2, 4, null, 2, 0, null];  // sparse lower, breathing rests
-    const phrG = [2, 4, 6, 4, 2, 0, null, null];     // truncated phrase, trails off
-    const phrH = [6, 5, 4, 3, 2, 1, 0, null];        // descending chromatic walk home
+    // ── Sparse lo-fi melody (12 phrases × 8 steps × 353ms ≈ 34s cycle) ──
+    const ph0 = [0, null, 2, null, 3, null, null, null];    // D  .  G  .  A  .  .  .
+    const ph1 = [null, 2, null, 3, null, 4, null, null];    // .  G  .  A  .  C  .  .
+    const ph2 = [3, null, null, 2, null, 0, null, null];    // A  .  .  G  .  D  .  .
+    const ph3 = [null, null, 4, null, 3, null, 2, null];    // .  .  C  .  A  .  G  .
+    const ph4 = [5, null, null, null, 3, null, null, 0];    // D'.  .  .  A  .  .  D
+    const ph5 = [null, null, null, 2, null, null, 3, null]; // very sparse
+    const ph6 = [0, 2, null, null, 3, 2, null, null];       // double note start
+    const ph7 = [3, null, 2, null, 0, null, null, null];    // descend home
+    const sequence = [ph0, ph1, ph2, ph0, ph3, ph5, ph6, ph4, ph0, ph7, ph2, ph5];
+    let gs = 0;
 
-    // 16-phrase sequence = 128 steps × 250 ms = 32 s cycle
-    const sequence = [
-      phrA, phrA, phrB, phrA,   //  0– 7 s: establish + first variation
-      phrC, phrB, phrA, phrD,   //  8–15 s: tension → familiar → big fill
-      phrE, phrE, phrB, phrF,   // 16–23 s: dramatic sweep (×2) → sparse low
-      phrA, phrG, phrH, phrA,   // 24–31 s: anchor → trail → descend → home
-    ];
-    let gs = 0; // global step counter
-
-    const tick = () => {
-      const now       = ctx.currentTime;
-      const phrase    = sequence[Math.floor(gs / 8) % sequence.length];
-      const m         = phrase[gs % 8];
+    const melodTick = () => {
+      const now    = ctx.currentTime;
+      const phrase = sequence[Math.floor(gs / 8) % sequence.length];
+      const m      = phrase[gs % 8];
       if (m !== null) {
-        // 25 % chance of an octave jump on the first note of every new phrase
-        const jump = (gs % 8 === 0) && Math.random() < 0.25;
-        this._note(ctx, scale[m] * (jump ? 2 : 1), now, 0.19, 'square', jump ? 0.07 : 0.11);
+        this._note(ctx, pent[m], now, 0.6, 'sine', 0.09);
+        if (Math.random() < 0.25) this._note(ctx, pent[m] * 2, now, 0.3, 'sine', 0.024);
       }
       gs++;
     };
-    tick();
-    this.schedulers.push(setInterval(tick, beatMs));
+    melodTick();
+    this.schedulers.push(setInterval(melodTick, e));
 
-    // Second pulse — harmony counter-line, 32-step independent cycle
-    const harmPat = [
-      null, null, 0, null,  null, null, 2, null,
-      null, 3,    null, null, null, 2,  null, null,
-      null, null, 4, null,  null, null, 3, null,
-      null, 2,    null, null, 0,   null, null, null,
+    // ── Warm pad chords — Dm Bb F C (each lasts 4 quarter notes ≈ 2.82s) ──
+    const padChords = [
+      [73.42,  174.61, 220],    // Dm: D2 F3 A3
+      [58.27,  146.83, 174.61], // Bb: Bb1 D3 F3
+      [87.31,  220,    261.63], // F:  F2 A3 C4
+      [65.41,  164.81, 196],    // C:  C2 E3 G3
     ];
-    let hs = 0;
-    const harmTick = () => {
-      const now = ctx.currentTime;
-      const h = harmPat[hs % harmPat.length];
-      if (h !== null) this._note(ctx, scale[h] * 0.75, now, 0.3, 'square', 0.05);
-      hs++;
+    let ci = 0;
+    const padTick = () => {
+      const now   = ctx.currentTime;
+      const chord = padChords[ci % padChords.length];
+      chord.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const lpf = ctx.createBiquadFilter();
+        const g   = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.value = freq * (1 + (i === 1 ? 0.003 : i === 2 ? -0.002 : 0));
+        lpf.type = 'lowpass'; lpf.frequency.value = 480 + i * 80; lpf.Q.value = 0.5;
+        const dur = (q * 4) / 1000;
+        g.gain.setValueAtTime(0, now);
+        g.gain.linearRampToValueAtTime(0.037, now + 0.4);
+        g.gain.setValueAtTime(0.037, now + dur - 0.4);
+        g.gain.linearRampToValueAtTime(0, now + dur);
+        osc.connect(lpf); lpf.connect(g); g.connect(this.masterGain);
+        osc.start(now); osc.stop(now + dur + 0.1);
+        this.oscillators.push(osc);
+      });
+      ci++;
     };
-    harmTick();
-    this.schedulers.push(setInterval(harmTick, beatMs));
+    padTick();
+    this.schedulers.push(setInterval(padTick, q * 4));
 
-    // Steady analog bassline — 8-note pattern (2 s cycle), square wave
-    const bass    = [146.83, 146.83, 110, 110, 116.54, 98, 110, 146.83];
-    const bassOct = [1, 1, 1, 1, 1, 1, 1, 2]; // 2 = an octave higher for the last hit
+    // ── Walking bass — root notes, following chord, every quarter note ──
+    const bassRoots = [73.42, 58.27, 87.31, 65.41]; // Dm Bb F C
     let bi = 0;
     const bassTick = () => {
-      const now = ctx.currentTime;
-      this._note(ctx, bass[bi % bass.length] * bassOct[bi % bassOct.length], now, 0.44, 'square', 0.1);
+      const now  = ctx.currentTime;
+      const root = bassRoots[Math.floor(bi / 4) % bassRoots.length];
+      const movement = [1, 1, 1.5, 1]; // slight movement on beat 3
+      this._note(ctx, root * movement[bi % 4], now, 0.52, 'sine', 0.13);
       bi++;
     };
     bassTick();
-    this.schedulers.push(setInterval(bassTick, beatMs * 2));
+    this.schedulers.push(setInterval(bassTick, q));
 
-    // Tight digital hi-hat — every 8th note, on-beat louder; open hat every 8 steps
-    let hi = 0;
-    const hatTick = () => {
-      const now    = ctx.currentTime;
-      const isOpen = (hi % 8 === 7);          // open hi-hat on the 8th 8th-note
-      const vol    = isOpen ? 0.05 : (hi % 2 === 0) ? 0.044 : 0.02;
-      const durMs  = isOpen ? 0.06 : 0.016;
-      const len    = Math.floor(ctx.sampleRate * durMs);
-      const buf    = ctx.createBuffer(1, len, ctx.sampleRate);
-      const data   = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
-      const src  = ctx.createBufferSource(); src.buffer = buf;
-      const filt = ctx.createBiquadFilter();
-      filt.type = 'highpass'; filt.frequency.value = isOpen ? 6500 : 8500;
-      const g = ctx.createGain(); g.gain.value = vol;
-      src.connect(filt); filt.connect(g); g.connect(this.masterGain);
-      src.start(now);
-      hi++;
-    };
-    hatTick();
-    this.schedulers.push(setInterval(hatTick, beatMs));
-
-    // Sub kick on beats 1 and 3 (every 4 8th-notes = 1 s)
-    const kickTick = () => {
+    // ── Rhythm: kick + snare + hi-hat in a single 8th-note tick ──
+    // Kick beats 1&3: ri%8===0, ri%8===4
+    // Snare beats 2&4: ri%8===2, ri%8===6
+    let ri = 0;
+    const rhythmTick = () => {
       const now = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const g   = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(115, now);
-      osc.frequency.exponentialRampToValueAtTime(40, now + 0.09);
-      g.gain.setValueAtTime(0.16, now);
-      g.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
-      osc.connect(g); g.connect(this.masterGain);
-      osc.start(now); osc.stop(now + 0.13);
-      this.oscillators.push(osc);
+      if (ri % 8 === 0 || ri % 8 === 4) {              // kick
+        const osc = ctx.createOscillator();
+        const g   = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(75, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.12);
+        g.gain.setValueAtTime(0.11, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+        osc.connect(g); g.connect(this.masterGain);
+        osc.start(now); osc.stop(now + 0.2);
+        this.oscillators.push(osc);
+      }
+      if (ri % 8 === 2 || ri % 8 === 6) {              // snare (soft, lo-fi)
+        const len  = Math.floor(ctx.sampleRate * 0.1);
+        const buf  = ctx.createBuffer(1, len, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 1.5);
+        const src  = ctx.createBufferSource(); src.buffer = buf;
+        const bpf  = ctx.createBiquadFilter(); bpf.type = 'bandpass';
+        bpf.frequency.value = 2200; bpf.Q.value = 0.9;
+        const g = ctx.createGain(); g.gain.value = 0.034;
+        src.connect(bpf); bpf.connect(g); g.connect(this.masterGain);
+        src.start(now);
+      }
+      {                                                  // hi-hat (every 8th)
+        const vol     = ri % 2 === 0 ? 0.017 : 0.009;
+        const hatLen  = Math.floor(ctx.sampleRate * 0.014);
+        const hatBuf  = ctx.createBuffer(1, hatLen, ctx.sampleRate);
+        const hatData = hatBuf.getChannelData(0);
+        for (let i = 0; i < hatLen; i++) hatData[i] = (Math.random() * 2 - 1) * (1 - i / hatLen);
+        const hatSrc  = ctx.createBufferSource(); hatSrc.buffer = hatBuf;
+        const hatFilt = ctx.createBiquadFilter(); hatFilt.type = 'highpass';
+        hatFilt.frequency.value = 9000;
+        const hatG = ctx.createGain(); hatG.gain.value = vol;
+        hatSrc.connect(hatFilt); hatFilt.connect(hatG); hatG.connect(this.masterGain);
+        hatSrc.start(now);
+      }
+      ri++;
     };
-    kickTick();
-    this.schedulers.push(setInterval(kickTick, beatMs * 4));
+    rhythmTick();
+    this.schedulers.push(setInterval(rhythmTick, e));
+
+    // ── Vinyl crackle — sparse pops at very low volume ──
+    const crackTick = () => {
+      const now  = ctx.currentTime;
+      const len  = Math.floor(ctx.sampleRate * 2);
+      const buf  = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        data[i] = Math.random() < 0.0015 ? (Math.random() * 2 - 1) * 0.6 : 0;
+      }
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const lpf = ctx.createBiquadFilter(); lpf.type = 'lowpass'; lpf.frequency.value = 3500;
+      const g   = ctx.createGain(); g.gain.value = 0.02;
+      src.connect(lpf); lpf.connect(g); g.connect(this.masterGain);
+      src.start(now); src.stop(now + 2);
+    };
+    crackTick();
+    this.schedulers.push(setInterval(crackTick, 2000));
   },
 
   // ── Level 1: Gentle lullaby — C major, sine, 460 ms/step, 8 phrases × 8-step sequencer
@@ -2967,6 +3003,7 @@ function showScreen(id) {
   const quitBtn = document.getElementById('quit-btn');
   if (quitBtn) quitBtn.style.display = id === 'screen-welcome' ? 'none' : 'flex';
 
+  document.body.classList.toggle('welcome', id === 'screen-welcome');
   if (id === 'screen-welcome') GameEngine._renderWelcomeLeaderboard();
 }
 
